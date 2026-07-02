@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get a Quote — Prints Galore</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{ink:'#07080D',paper:'#EEF3FF','pg-red':'#0050FF','pg-blue':'#18D0FF',gold:'#F5B800',mute:'#C8D3EE'},fontFamily:{display:['Barlow Condensed','sans-serif'],body:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}}</script>
+  <style>
+    .form-input {
+      width:100%;padding:.75rem 1rem;border:2px solid var(--mute);border-radius:6px;
+      font-family:'Inter',sans-serif;font-size:.9375rem;color:var(--ink);
+      background:#fff;outline:none;transition:border-color .15s ease;
+    }
+    .form-input:focus { border-color:var(--red); }
+    label { display:block;font-weight:600;font-size:.875rem;margin-bottom:.375rem;color:var(--ink); }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Prints<span>Galore</span></a>
+    <div class="nav-links">
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="garments.html" class="nav-link">Garments</a>
+      <a href="preview.html" class="nav-link">Design Preview</a>
+      <a href="reviews.html" class="nav-link">Reviews</a>
+      <a href="our-work.html" class="nav-link">Our Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="btn-primary" aria-current="page" style="padding:.5rem 1.25rem;font-size:.875rem;">Get a quote</a>
+    </div>
+    <button id="hamburger" class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="services.html">Services</a>
+    <a href="garments.html">Garments</a>
+    <a href="preview.html">Design Preview</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="our-work.html">Our Work</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="btn-primary" style="margin-top:1rem;justify-content:center;">Get a quote</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 30% 60%,rgba(0,80,255,.3)0%,transparent 60%);"></div>
+  <div class="page-hero-inner">
+    <p class="section-pip label-mono fade-in" style="color:var(--red);margin-bottom:.75rem;">Fast response</p>
+    <h1 class="display-heading fade-in" style="font-size:clamp(3rem,7vw,6rem);color:var(--paper);margin:0 0 1rem;">Get a quote</h1>
+    <p class="fade-in" style="color:rgba(238,243,255,.7);font-size:1.125rem;max-width:500px;margin:0;line-height:1.7;">Tell us what you need. We'll come back with a price and a realistic timeline within 1 business day.</p>
+  </div>
+</section>
+
+<!-- FORM + INFO -->
+<section style="padding:5rem 1.5rem;background:var(--paper);">
+  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:4rem;align-items:start;" id="contact-grid">
+
+    <!-- Quote form -->
+    <div>
+      <form id="quote-form" onsubmit="handleSubmit(event)" style="background:#fff;border:1px solid var(--mute);border-radius:12px;padding:2.5rem;box-shadow:0 4px 20px rgba(20,17,15,.07);">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;">
+          <div>
+            <label for="name">Your name</label>
+            <input class="form-input" type="text" id="name" name="name" required placeholder="Jane Smith" />
+          </div>
+          <div>
+            <label for="email">Email address</label>
+            <input class="form-input" type="email" id="email" name="email" required placeholder="jane@example.com" />
+          </div>
+        </div>
+
+        <div style="margin-bottom:1.25rem;">
+          <label for="phone">Phone (optional)</label>
+          <input class="form-input" type="tel" id="phone" name="phone" placeholder="+44 7700 900000" />
+        </div>
+
+        <div style="margin-bottom:1.25rem;">
+          <label for="service">Service needed</label>
+          <select class="form-input" id="service" name="service" style="appearance:none;cursor:pointer;">
+            <option value="">Select a service…</option>
+            <option value="dtf">DTF — Direct-to-Film</option>
+            <option value="dtg">DTG — Direct-to-Garment</option>
+            <option value="embroidery">Embroidery</option>
+            <option value="sublimation">Sublimation</option>
+            <option value="print-collateral">Print collateral (flyers / posters / cards)</option>
+            <option value="bespoke">Bespoke manufacturing</option>
+            <option value="custom-design">Custom design help</option>
+            <option value="unsure">Not sure — need advice</option>
+          </select>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;">
+          <div>
+            <label for="quantity">Approximate quantity</label>
+            <input class="form-input" type="text" id="quantity" name="quantity" placeholder="e.g. 50 hoodies" />
+          </div>
+          <div>
+            <label for="deadline">Deadline (if any)</label>
+            <input class="form-input" type="text" id="deadline" name="deadline" placeholder="e.g. end of July" />
+          </div>
+        </div>
+
+        <div style="margin-bottom:1.75rem;">
+          <label for="brief">Tell us about your project</label>
+          <textarea class="form-input" id="brief" name="brief" rows="5" style="resize:vertical;"
+            placeholder="Describe what you need — garment type, colours, design details, decoration method if known, and any other requirements…"></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;font-size:1rem;">Send quote request →</button>
+
+        <div id="form-feedback" style="display:none;margin-top:1rem;padding:1rem;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.3);border-radius:6px;text-align:center;">
+          <p style="margin:0;color:#16a34a;font-weight:600;">Thanks — we'll be in touch within 1 business day.</p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Info panel -->
+    <div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+      <div style="background:var(--ink);border-radius:12px;padding:2rem;">
+        <p class="label-mono" style="color:var(--red);font-size:.7rem;margin:0 0 .75rem;">Response time</p>
+        <p class="display-heading" style="font-size:2.5rem;color:var(--paper);margin:0 0 .5rem;">1 business<br/>day</p>
+        <p style="color:rgba(238,243,255,.6);font-size:.9375rem;margin:0;line-height:1.6;">We read every enquiry and reply with a real answer — not a generic autoresponse.</p>
+      </div>
+
+      <div style="background:#fff;border:1px solid var(--mute);border-radius:12px;padding:1.75rem;box-shadow:0 2px 8px rgba(20,17,15,.05);">
+        <p class="label-mono" style="color:#888;font-size:.7rem;margin:0 0 1rem;">What to include</p>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.75rem;">
+          <li style="display:flex;align-items:flex-start;gap:.625rem;font-size:.9rem;color:#555;">
+            <span style="color:var(--red);margin-top:.1em;flex-shrink:0;">✓</span> What you want printed and on what garment
+          </li>
+          <li style="display:flex;align-items:flex-start;gap:.625rem;font-size:.9rem;color:#555;">
+            <span style="color:var(--red);margin-top:.1em;flex-shrink:0;">✓</span> How many you need
+          </li>
+          <li style="display:flex;align-items:flex-start;gap:.625rem;font-size:.9rem;color:#555;">
+            <span style="color:var(--red);margin-top:.1em;flex-shrink:0;">✓</span> Any deadline
+          </li>
+          <li style="display:flex;align-items:flex-start;gap:.625rem;font-size:.9rem;color:#555;">
+            <span style="color:var(--red);margin-top:.1em;flex-shrink:0;">✓</span> A design file, sketch, or description if you have one
+          </li>
+          <li style="display:flex;align-items:flex-start;gap:.625rem;font-size:.9rem;color:#555;">
+            <span style="color:var(--red);margin-top:.1em;flex-shrink:0;">✓</span> Whether you need design help
+          </li>
+        </ul>
+      </div>
+
+      <div style="background:#fff;border:1px solid var(--mute);border-radius:12px;padding:1.75rem;box-shadow:0 2px 8px rgba(20,17,15,.05);">
+        <p class="label-mono" style="color:#888;font-size:.7rem;margin:0 0 1rem;">Not sure what you need?</p>
+        <p style="margin:0 0 1rem;color:#555;font-size:.9rem;line-height:1.6;">That's fine — tell us what the garment is for and we'll recommend a method, a blank, and a price.</p>
+        <a href="services.html" style="color:var(--red);font-weight:600;font-size:.875rem;text-decoration:none;">Browse our services first →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="padding:4rem 1.5rem;background:var(--mute);">
+  <div style="max-width:720px;margin:0 auto;">
+    <h2 class="display-heading fade-in" style="font-size:clamp(2rem,4vw,3rem);margin:0 0 2.5rem;">Common questions</h2>
+    <div style="display:flex;flex-direction:column;gap:1.25rem;">
+
+      <div class="fade-in" style="background:#fff;border:1px solid var(--mute);border-radius:8px;padding:1.5rem;">
+        <h3 style="font-weight:600;font-size:1rem;margin:0 0 .5rem;">Do you have a minimum order quantity?</h3>
+        <p style="margin:0;color:#555;font-size:.9375rem;line-height:1.65;">No fixed minimum. One hoodie or one thousand — we quote on everything. Larger runs get better unit prices, and we'll always tell you the break points.</p>
+      </div>
+
+      <div class="fade-in" style="background:#fff;border:1px solid var(--mute);border-radius:8px;padding:1.5rem;">
+        <h3 style="font-weight:600;font-size:1rem;margin:0 0 .5rem;">What file format do you need for printing?</h3>
+        <p style="margin:0;color:#555;font-size:.9375rem;line-height:1.65;">Vector files (AI, EPS, PDF) give the sharpest results. High-resolution PNG (300dpi+) also works well. Not sure? Send what you have and we'll let you know if it's print-ready.</p>
+      </div>
+
+      <div class="fade-in" style="background:#fff;border:1px solid var(--mute);border-radius:8px;padding:1.5rem;">
+        <h3 style="font-weight:600;font-size:1rem;margin:0 0 .5rem;">How long does a typical order take?</h3>
+        <p style="margin:0;color:#555;font-size:.9375rem;line-height:1.65;">Turnaround depends on the method and quantity. We'll give you a realistic timeline with your quote — and we stick to it.</p>
+      </div>
+
+      <div class="fade-in" style="background:#fff;border:1px solid var(--mute);border-radius:8px;padding:1.5rem;">
+        <h3 style="font-weight:600;font-size:1rem;margin:0 0 .5rem;">Can I see a proof before you print?</h3>
+        <p style="margin:0;color:#555;font-size:.9375rem;line-height:1.65;">Yes — we send a digital proof for approval before production starts. Use our <a href="preview.html" style="color:var(--red);font-weight:600;text-decoration:none;">design preview tool</a> to get an early feel, then we refine it from there.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Prints<span>Galore</span></div>
+      <p style="margin:.5rem 0 0;color:rgba(238,243,255,.4);font-size:.8125rem;">Quality garments, true-to-life colour, fast turnaround.</p>
+    </div>
+    <div class="footer-links">
+      <a href="services.html">Services</a><a href="garments.html">Garments</a><a href="preview.html">Design preview</a><a href="reviews.html">Reviews</a><a href="our-work.html">Our Work</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+    <p style="margin:0;color:rgba(238,243,255,.25);font-size:.75rem;">© 2026 Prints Galore.</p>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('form-feedback').style.display = 'block';
+    e.target.reset();
+    e.target.querySelector('button[type=submit]').textContent = 'Sent ✓';
+    e.target.querySelector('button[type=submit]').style.background = '#16a34a';
+  }
+
+  // Make grid responsive
+  const s = document.createElement('style');
+  s.textContent = `@media(max-width:900px){#contact-grid{grid-template-columns:1fr !important;}}`;
+  document.head.appendChild(s);
+</script>
+</body>
+</html>

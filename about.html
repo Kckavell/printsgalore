@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Prints Galore</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{ink:'#07080D',paper:'#EEF3FF','pg-red':'#0050FF','pg-blue':'#18D0FF',gold:'#F5B800',mute:'#C8D3EE'},fontFamily:{display:['Barlow Condensed','sans-serif'],body:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}}</script>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Prints<span>Galore</span></a>
+    <div class="nav-links">
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="garments.html" class="nav-link">Garments</a>
+      <a href="preview.html" class="nav-link">Design Preview</a>
+      <a href="reviews.html" class="nav-link">Reviews</a>
+      <a href="our-work.html" class="nav-link">Our Work</a>
+      <a href="about.html" class="nav-link" aria-current="page">About</a>
+      <a href="contact.html" class="btn-primary" style="padding:.5rem 1.25rem;font-size:.875rem;">Get a quote</a>
+    </div>
+    <button id="hamburger" class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="services.html">Services</a>
+    <a href="garments.html">Garments</a>
+    <a href="preview.html">Design Preview</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="our-work.html">Our Work</a>
+    <a href="about.html" aria-current="page">About</a>
+    <a href="contact.html" class="btn-primary" style="margin-top:1rem;justify-content:center;">Get a quote</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section style="background:var(--ink);padding:5rem 1.5rem 4rem;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 80% 30%,rgba(0,80,255,.3)0%,transparent 60%);"></div>
+  <div style="max-width:1280px;margin:0 auto;position:relative;z-index:2;">
+    <div class="two-col">
+      <div>
+        <p class="section-pip label-mono fade-in" style="color:var(--red);margin-bottom:.75rem;">About us</p>
+        <h1 class="display-heading fade-in" style="font-size:clamp(3rem,7vw,6rem);color:var(--paper);margin:0 0 1.5rem;">Built around<br/>what you need</h1>
+        <p class="fade-in" style="color:rgba(238,243,255,.72);font-size:1.125rem;line-height:1.7;margin:0 0 1.25rem;">We don't push one method or one garment. We start with what you want — the look, the feel, the purpose — and work backwards to the right process and the right blank.</p>
+        <p class="fade-in" style="color:rgba(238,243,255,.72);font-size:1.125rem;line-height:1.7;margin:0;">That's how we get to true-to-life colour and lasting quality, every time.</p>
+      </div>
+      <div class="fade-in" style="background:rgba(238,243,255,.05);border:1px solid rgba(238,243,255,.1);border-radius:12px;padding:2.5rem;">
+        <p class="label-mono" style="color:var(--red);margin:0 0 1rem;font-size:.7rem;">Our position</p>
+        <blockquote class="display-heading" style="font-size:clamp(1.75rem,3.5vw,2.5rem);color:var(--paper);margin:0 0 2rem;line-height:1.1;">The UK's best for custom print &amp; decoration</blockquote>
+        <div class="ink-strip" style="max-width:180px;">
+          <span style="background:#E63329"></span><span style="background:#1B6CF0"></span><span style="background:#D9A521"></span><span style="background:#22C55E"></span><span style="background:#A855F7"></span><span style="background:#F97316"></span><span style="background:#06B6D4"></span><span style="background:#EC4899"></span><span style="background:#FBFAF7;opacity:.4"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="padding:3.5rem 1.5rem;background:var(--mute);">
+  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;">
+    <div class="fade-in" style="text-align:center;padding:2rem 1rem;">
+      <p class="display-heading" style="font-size:3.5rem;color:var(--red);margin:0;">9</p>
+      <p class="label-mono" style="margin:.25rem 0 .5rem;font-size:.7rem;color:#888;">COLOUR PRINTING</p>
+      <p style="margin:0;color:#666;font-size:.875rem;">DTF and DTG up to 9 vivid colours</p>
+    </div>
+    <div class="fade-in" style="text-align:center;padding:2rem 1rem;">
+      <p class="display-heading" style="font-size:3.5rem;color:var(--blue);margin:0;">5+</p>
+      <p class="label-mono" style="margin:.25rem 0 .5rem;font-size:.7rem;color:#888;">DECORATION METHODS</p>
+      <p style="margin:0;color:#666;font-size:.875rem;">DTF, DTG, embroidery, sublimation, custom</p>
+    </div>
+    <div class="fade-in" style="text-align:center;padding:2rem 1rem;">
+      <p class="display-heading" style="font-size:3.5rem;color:var(--gold);margin:0;">UK</p>
+      <p class="label-mono" style="margin:.25rem 0 .5rem;font-size:.7rem;color:#888;">BASED & OPERATED</p>
+      <p style="margin:0;color:#666;font-size:.875rem;">With overseas manufacturing links</p>
+    </div>
+    <div class="fade-in" style="text-align:center;padding:2rem 1rem;">
+      <p class="display-heading" style="font-size:3.5rem;color:var(--ink);margin:0;">1</p>
+      <p class="label-mono" style="margin:.25rem 0 .5rem;font-size:.7rem;color:#888;">BUSINESS DAY</p>
+      <p style="margin:0;color:#666;font-size:.875rem;">Quote response time</p>
+    </div>
+  </div>
+</section>
+
+<!-- OUR APPROACH -->
+<section class="section" style="background:var(--paper);">
+  <div class="section-inner">
+    <div class="two-col">
+      <div>
+        <p class="section-pip label-mono fade-in" style="color:var(--red);margin-bottom:.75rem;">Our approach</p>
+        <h2 class="display-heading fade-in" style="font-size:clamp(2rem,4vw,3.5rem);margin:0 0 1.5rem;">No minimum<br/>order attitude</h2>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 1rem;">Whether you're ordering one hoodie for a gift or five hundred tees for a brand launch, you get the same attention. We don't have a minimum-order attitude — we have a quality attitude.</p>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0;">We talk straight. We tell you which method is right for your job, which fabric suits your brief, and what a realistic turnaround looks like. No upsell, no jargon.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.25rem;">
+        <div class="fade-in" style="background:#fff;border:1px solid var(--mute);border-radius:8px;padding:1.5rem;box-shadow:0 1px 4px rgba(20,17,15,.05);">
+          <div style="display:flex;align-items:flex-start;gap:1rem;">
+            <div style="width:36px;height:36px;background:rgba(0,80,255,.1);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <h4 style="font-weight:600;margin:0 0 .25rem;font-size:.9375rem;">We lead with the right method</h4>
+              <p style="margin:0;color:#666;font-size:.875rem;line-height:1.6;">We recommend what suits your job — not what's most expensive.</p>
+            </div>
+          </div>
+        </div>
+        <div class="fade-in" style="background:#fff;border:1px solid var(--mute);border-radius:8px;padding:1.5rem;box-shadow:0 1px 4px rgba(20,17,15,.05);">
+          <div style="display:flex;align-items:flex-start;gap:1rem;">
+            <div style="width:36px;height:36px;background:rgba(27,108,240,.1);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <h4 style="font-weight:600;margin:0 0 .25rem;font-size:.9375rem;">Colour accuracy is non-negotiable</h4>
+              <p style="margin:0;color:#666;font-size:.875rem;line-height:1.6;">9-colour printing means what you see on screen is what comes off the press.</p>
+            </div>
+          </div>
+        </div>
+        <div class="fade-in" style="background:#fff;border:1px solid var(--mute);border-radius:8px;padding:1.5rem;box-shadow:0 1px 4px rgba(20,17,15,.05);">
+          <div style="display:flex;align-items:flex-start;gap:1rem;">
+            <div style="width:36px;height:36px;background:rgba(217,165,33,.15);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <h4 style="font-weight:600;margin:0 0 .25rem;font-size:.9375rem;">Speed without sacrifice</h4>
+              <p style="margin:0;color:#666;font-size:.875rem;line-height:1.6;">Fast turnaround is a promise, not a compromise. The finish doesn't suffer for the deadline.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding:4rem 1.5rem;background:var(--red);">
+  <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem;">
+    <div>
+      <h2 class="display-heading" style="font-size:clamp(2rem,4vw,3rem);color:#fff;margin:0 0 .5rem;">Ready to work together?</h2>
+      <p style="margin:0;color:rgba(255,255,255,.8);font-size:1.0625rem;">Get a quote — we'll come back within a business day.</p>
+    </div>
+    <a href="contact.html" class="btn-outline" style="border-color:#fff;color:#fff;" onmouseover="this.style.background='#fff';this.style.color='var(--red)'" onmouseout="this.style.background='transparent';this.style.color='#fff'">Get a quote →</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Prints<span>Galore</span></div>
+      <p style="margin:.5rem 0 0;color:rgba(238,243,255,.4);font-size:.8125rem;">Quality garments, true-to-life colour, fast turnaround.</p>
+    </div>
+    <div class="footer-links">
+      <a href="services.html">Services</a><a href="garments.html">Garments</a><a href="preview.html">Design preview</a><a href="reviews.html">Reviews</a><a href="our-work.html">Our Work</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+    <p style="margin:0;color:rgba(238,243,255,.25);font-size:.75rem;">© 2026 Prints Galore.</p>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>

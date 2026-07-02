@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Garments — Prints Galore</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{ink:'#07080D',paper:'#EEF3FF','pg-red':'#0050FF','pg-blue':'#18D0FF',gold:'#F5B800',mute:'#C8D3EE'},fontFamily:{display:['Barlow Condensed','sans-serif'],body:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}}</script>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Prints<span>Galore</span></a>
+    <div class="nav-links">
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="garments.html" class="nav-link" aria-current="page">Garments</a>
+      <a href="preview.html" class="nav-link">Design Preview</a>
+      <a href="reviews.html" class="nav-link">Reviews</a>
+      <a href="our-work.html" class="nav-link">Our Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="btn-primary" style="padding:.5rem 1.25rem;font-size:.875rem;">Get a quote</a>
+    </div>
+    <button id="hamburger" class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="services.html">Services</a>
+    <a href="garments.html" aria-current="page">Garments</a>
+    <a href="preview.html">Design Preview</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="our-work.html">Our Work</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="btn-primary" style="margin-top:1rem;justify-content:center;">Get a quote</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 20% 60%,rgba(217,165,33,.2)0%,transparent 65%);"></div>
+  <div class="page-hero-inner">
+    <p class="section-pip label-mono fade-in" style="color:var(--gold);margin-bottom:.75rem;">The blanks</p>
+    <h1 class="display-heading fade-in" style="font-size:clamp(3rem,7vw,6rem);color:var(--paper);margin:0 0 1.25rem;">Garments<br/>for every job</h1>
+    <p class="fade-in" style="color:rgba(238,243,255,.7);font-size:1.125rem;max-width:560px;margin:0;line-height:1.7;">We stock a range that runs from lightweight everyday tees to premium heavyweight hoodies. The right blank makes as much difference as the right print method.</p>
+  </div>
+</section>
+
+<!-- GSM EXPLAINER -->
+<section class="section" style="background:var(--paper);">
+  <div class="section-inner">
+    <div class="two-col">
+      <div>
+        <p class="section-pip label-mono fade-in" style="color:var(--red);margin-bottom:.75rem;">Understanding GSM</p>
+        <h2 class="display-heading fade-in" style="font-size:clamp(2rem,4vw,3.5rem);margin:0 0 1.25rem;">What GSM means for you</h2>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 1rem;">GSM stands for grams per square metre — it's the weight of the fabric. It directly determines how the garment feels in your hands and on your body.</p>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 2rem;">A low GSM (140–180g) is light, breathable, and drapes loosely — ideal for summer events, sports, and everyday tees. A high GSM (300–380g) is substantial, structured, and warm — the kind of hoodie you keep for years.</p>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0;">Not sure which weight suits your brief? Tell us the end use and we'll recommend the right blank.</p>
+      </div>
+      <!-- GSM scale visual -->
+      <div class="fade-in">
+        <div style="background:#fff;border:1px solid var(--mute);border-radius:12px;padding:2rem;box-shadow:0 2px 8px rgba(20,17,15,.06);">
+          <p class="label-mono" style="color:#888;font-size:.7rem;margin:0 0 1.5rem;">GSM weight scale</p>
+          <div style="display:flex;flex-direction:column;gap:.875rem;">
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.375rem;">
+                <span style="font-weight:600;font-size:.9375rem;">140–180 GSM</span>
+                <span class="label-mono" style="font-size:.65rem;color:var(--blue);">LIGHTWEIGHT</span>
+              </div>
+              <div style="height:6px;background:var(--mute);border-radius:3px;overflow:hidden;"><div style="width:30%;height:100%;background:var(--blue);border-radius:3px;"></div></div>
+              <p style="margin:.4rem 0 0;font-size:.8125rem;color:#777;">Breathable, soft drape. Summer tees, race events, giveaways.</p>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.375rem;">
+                <span style="font-weight:600;font-size:.9375rem;">180–240 GSM</span>
+                <span class="label-mono" style="font-size:.65rem;color:#22C55E;">MID-WEIGHT</span>
+              </div>
+              <div style="height:6px;background:var(--mute);border-radius:3px;overflow:hidden;"><div style="width:55%;height:100%;background:#22C55E;border-radius:3px;"></div></div>
+              <p style="margin:.4rem 0 0;font-size:.8125rem;color:#777;">Versatile everyday weight. The go-to for branded team tees.</p>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.375rem;">
+                <span style="font-weight:600;font-size:.9375rem;">260–320 GSM</span>
+                <span class="label-mono" style="font-size:.65rem;color:var(--gold);">HEAVY</span>
+              </div>
+              <div style="height:6px;background:var(--mute);border-radius:3px;overflow:hidden;"><div style="width:72%;height:100%;background:var(--gold);border-radius:3px;"></div></div>
+              <p style="margin:.4rem 0 0;font-size:.8125rem;color:#777;">Structured, warm, quality feel. Sweatshirts and mid hoodies.</p>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.375rem;">
+                <span style="font-weight:600;font-size:.9375rem;">320–380 GSM</span>
+                <span class="label-mono" style="font-size:.65rem;color:var(--red);">PREMIUM</span>
+              </div>
+              <div style="height:6px;background:var(--mute);border-radius:3px;overflow:hidden;"><div style="width:92%;height:100%;background:var(--red);border-radius:3px;"></div></div>
+              <p style="margin:.4rem 0 0;font-size:.8125rem;color:#777;">Heavyweight premium hoodies. Substantial drape, long lifespan.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GARMENT GRID -->
+<section class="section" style="background:var(--mute);padding-top:0;">
+  <div class="section-inner">
+    <p class="section-pip label-mono fade-in" style="color:var(--red);margin-bottom:.75rem;padding-top:5rem;">The range</p>
+    <h2 class="display-heading fade-in" style="font-size:clamp(2rem,4vw,3.5rem);margin:0 0 2.5rem;">What we stock</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;">
+
+      <div class="card fade-in">
+        <div style="height:200px;position:relative;overflow:hidden;">
+          <img src="https://images.pexels.com/photos/5709665/pexels-photo-5709665.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Pile of plain folded t-shirts in a range of colours" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(7,8,13,.6)0%,transparent 55%);pointer-events:none;"></div>
+          <div style="position:absolute;bottom:10px;left:12px;display:flex;gap:3px;align-items:center;">
+            <span style="width:13px;height:13px;border-radius:50%;background:#FBFAF7;box-shadow:0 0 0 1.5px rgba(255,255,255,.5);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#14110F;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#E63329;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#1B6CF0;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#D9A521;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#A855F7;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#EC4899;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+          </div>
+          <span style="position:absolute;bottom:10px;right:12px;font-family:'JetBrains Mono',monospace;font-size:.6rem;background:rgba(7,8,13,.65);color:rgba(238,243,255,.9);padding:.2rem .5rem;border-radius:2px;letter-spacing:.04em;">12+ COLOURS</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
+            <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;margin:0;">T-shirts</h3>
+            <span class="label-mono" style="font-size:.65rem;color:var(--blue);">140–220 GSM</span>
+          </div>
+          <p style="margin:0;color:#555;font-size:.9375rem;line-height:1.65;">Crew neck and V-neck. Multiple weights for every season. Works with DTF, DTG, and sublimation.</p>
+        </div>
+      </div>
+
+      <div class="card fade-in">
+        <div style="height:200px;position:relative;overflow:hidden;">
+          <img src="https://images.pexels.com/photos/7679455/pexels-photo-7679455.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Pile of plain hoodies in a variety of colours" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(7,8,13,.6)0%,transparent 55%);pointer-events:none;"></div>
+          <div style="position:absolute;bottom:10px;left:12px;display:flex;gap:3px;align-items:center;">
+            <span style="width:13px;height:13px;border-radius:50%;background:#14110F;box-shadow:0 0 0 1.5px rgba(255,255,255,.5);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#6b7280;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#1e3a5f;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#E63329;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#166534;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#FBFAF7;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#8B2635;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#c4a882;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+          </div>
+          <span style="position:absolute;bottom:10px;right:12px;font-family:'JetBrains Mono',monospace;font-size:.6rem;background:rgba(7,8,13,.65);color:rgba(238,243,255,.9);padding:.2rem .5rem;border-radius:2px;letter-spacing:.04em;">8+ COLOURS</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
+            <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;margin:0;">Hoodies</h3>
+            <span class="label-mono" style="font-size:.65rem;color:var(--red);">280–380 GSM</span>
+          </div>
+          <p style="margin:0;color:#555;font-size:.9375rem;line-height:1.65;">Pullover and zip-up. Premium heavyweight and standard weights available. DTF or embroidery recommended.</p>
+        </div>
+      </div>
+
+      <div class="card fade-in">
+        <div style="height:200px;position:relative;overflow:hidden;">
+          <img src="https://images.pexels.com/photos/1619652/pexels-photo-1619652.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Collection of plain caps in a variety of colours" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(7,8,13,.6)0%,transparent 55%);pointer-events:none;"></div>
+          <div style="position:absolute;bottom:10px;left:12px;display:flex;gap:3px;align-items:center;">
+            <span style="width:13px;height:13px;border-radius:50%;background:#14110F;box-shadow:0 0 0 1.5px rgba(255,255,255,.5);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#1e3a5f;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#FBFAF7;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#E63329;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#6b7280;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#a0955a;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#1B6CF0;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+          </div>
+          <span style="position:absolute;bottom:10px;right:12px;font-family:'JetBrains Mono',monospace;font-size:.6rem;background:rgba(7,8,13,.65);color:rgba(238,243,255,.9);padding:.2rem .5rem;border-radius:2px;letter-spacing:.04em;">7+ COLOURS</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
+            <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;margin:0;">Caps</h3>
+            <span class="label-mono" style="font-size:.65rem;color:var(--gold);">STRUCTURED</span>
+          </div>
+          <p style="margin:0;color:#555;font-size:.9375rem;line-height:1.65;">Snapback, dad cap, and fitted styles. Front panel embroidery is the classic; DTF transfers also available.</p>
+        </div>
+      </div>
+
+      <div class="card fade-in">
+        <div style="height:200px;position:relative;overflow:hidden;">
+          <img src="https://images.pexels.com/photos/4066293/pexels-photo-4066293.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Pile of plain crewneck sweatshirts in various colours" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(7,8,13,.6)0%,transparent 55%);pointer-events:none;"></div>
+          <div style="position:absolute;bottom:10px;left:12px;display:flex;gap:3px;align-items:center;">
+            <span style="width:13px;height:13px;border-radius:50%;background:#9ca3af;box-shadow:0 0 0 1.5px rgba(255,255,255,.5);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#14110F;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#1e3a5f;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#8B2635;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#166534;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#f5f0e8;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+          </div>
+          <span style="position:absolute;bottom:10px;right:12px;font-family:'JetBrains Mono',monospace;font-size:.6rem;background:rgba(7,8,13,.65);color:rgba(238,243,255,.9);padding:.2rem .5rem;border-radius:2px;letter-spacing:.04em;">6+ COLOURS</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
+            <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;margin:0;">Sweatshirts</h3>
+            <span class="label-mono" style="font-size:.65rem;color:var(--blue);">260–320 GSM</span>
+          </div>
+          <p style="margin:0;color:#555;font-size:.9375rem;line-height:1.65;">Classic crewneck sweatshirts. Mid-weight and heavyweight options. Good for embroidery and DTF.</p>
+        </div>
+      </div>
+
+      <div class="card fade-in">
+        <div style="height:200px;position:relative;overflow:hidden;">
+          <img src="https://images.pexels.com/photos/6786857/pexels-photo-6786857.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Plain polo shirts in a range of corporate colours" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(7,8,13,.6)0%,transparent 55%);pointer-events:none;"></div>
+          <div style="position:absolute;bottom:10px;left:12px;display:flex;gap:3px;align-items:center;">
+            <span style="width:13px;height:13px;border-radius:50%;background:#FBFAF7;box-shadow:0 0 0 1.5px rgba(255,255,255,.5);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#1e3a5f;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#14110F;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#1B6CF0;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#E63329;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#6b7280;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+          </div>
+          <span style="position:absolute;bottom:10px;right:12px;font-family:'JetBrains Mono',monospace;font-size:.6rem;background:rgba(7,8,13,.65);color:rgba(238,243,255,.9);padding:.2rem .5rem;border-radius:2px;letter-spacing:.04em;">6+ COLOURS</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
+            <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;margin:0;">Polo shirts</h3>
+            <span class="label-mono" style="font-size:.65rem;color:#22C55E;">CORPORATE</span>
+          </div>
+          <p style="margin:0;color:#555;font-size:.9375rem;line-height:1.65;">Piqué and performance polo shirts. Popular for corporate uniforms and sports clubs. Works best with embroidery and DTF.</p>
+        </div>
+      </div>
+
+      <div class="card fade-in">
+        <div style="height:200px;position:relative;overflow:hidden;">
+          <img src="https://images.pexels.com/photos/1204462/pexels-photo-1204462.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tote bags and accessories in a variety of styles" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(7,8,13,.6)0%,transparent 55%);pointer-events:none;"></div>
+          <div style="position:absolute;bottom:10px;left:12px;display:flex;gap:3px;align-items:center;">
+            <span style="width:13px;height:13px;border-radius:50%;background:#f5f0e8;box-shadow:0 0 0 1.5px rgba(255,255,255,.5);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#14110F;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#1e3a5f;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#E63329;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+            <span style="width:13px;height:13px;border-radius:50%;background:#166534;box-shadow:0 0 0 1.5px rgba(255,255,255,.3);display:inline-block;flex-shrink:0;"></span>
+          </div>
+          <span style="position:absolute;bottom:10px;right:12px;font-family:'JetBrains Mono',monospace;font-size:.6rem;background:rgba(7,8,13,.65);color:rgba(238,243,255,.9);padding:.2rem .5rem;border-radius:2px;letter-spacing:.04em;">TOTES · DRAWS · MORE</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
+            <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;margin:0;">Bags & more</h3>
+            <span class="label-mono" style="font-size:.65rem;color:#A855F7;">ASK US</span>
+          </div>
+          <p style="margin:0;color:#555;font-size:.9375rem;line-height:1.65;">Tote bags, drawstring bags, and accessories. If you need it printed, ask — we'll find the right blank and method.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding:4rem 1.5rem;background:var(--red);">
+  <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem;">
+    <div>
+      <h2 class="display-heading" style="font-size:clamp(2rem,4vw,3rem);color:#fff;margin:0 0 .5rem;">Not sure which blank?</h2>
+      <p style="margin:0;color:rgba(255,255,255,.8);font-size:1.0625rem;">Tell us what it's for — we'll pick the right fabric.</p>
+    </div>
+    <a href="contact.html" class="btn-outline" style="border-color:#fff;color:#fff;" onmouseover="this.style.background='#fff';this.style.color='var(--red)'" onmouseout="this.style.background='transparent';this.style.color='#fff'">Get advice →</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Prints<span>Galore</span></div>
+      <p style="margin:.5rem 0 0;color:rgba(238,243,255,.4);font-size:.8125rem;">Quality garments, true-to-life colour, fast turnaround.</p>
+    </div>
+    <div class="footer-links">
+      <a href="services.html">Services</a><a href="garments.html">Garments</a><a href="preview.html">Design preview</a><a href="reviews.html">Reviews</a><a href="our-work.html">Our Work</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+    <p style="margin:0;color:rgba(238,243,255,.25);font-size:.75rem;">© 2026 Prints Galore.</p>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prints Galore — Custom Print & Garment Decoration</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{ink:'#07080D',paper:'#EEF3FF','pg-red':'#0050FF','pg-blue':'#18D0FF',gold:'#F5B800',mute:'#C8D3EE'},fontFamily:{display:['Barlow Condensed','sans-serif'],body:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}}</script>
+  <style>
+    /* Preview tool controls */
+    .prod-btn        { padding:.625rem .25rem;border:2px solid var(--mute);background:transparent;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;font-size:.8125rem;font-weight:600;color:#888;transition:border-color .15s,background .15s,color .15s;width:100%; }
+    .prod-btn.active { border-color:var(--red);background:rgba(0,80,255,.07);color:var(--red); }
+    .colour-swatch        { width:32px;height:32px;border-radius:50%;border:2px solid var(--mute);cursor:pointer;transition:transform .15s ease,border-color .15s; }
+    .colour-swatch:hover  { transform:scale(1.15); }
+    .colour-swatch.active { border-color:var(--red);border-width:3px; }
+    .pos-btn        { height:36px;border:2px solid var(--mute);border-radius:4px;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#aaa;font-size:.7rem;transition:all .15s; }
+    .pos-btn.active { border-color:var(--red);background:rgba(0,80,255,.07);color:var(--red); }
+    .pos-btn:hover  { border-color:var(--ink);color:var(--ink); }
+    input[type=range] { accent-color:var(--red); }
+    .form-input { width:100%;padding:.75rem 1rem;border:2px solid var(--mute);border-radius:6px;font-family:'Inter',sans-serif;font-size:.9375rem;color:var(--ink);background:#fff;outline:none;transition:border-color .15s ease; }
+    .form-input:focus { border-color:var(--red); }
+    @keyframes phone-float {
+      0%,100% { transform:translateY(0px) rotate(2deg); }
+      50%      { transform:translateY(-12px) rotate(2deg); }
+    }
+    .work-slide { display:none; }
+    .work-slide.active { display:block; }
+    .work-dot { width:8px;height:8px;border-radius:50%;background:rgba(238,243,255,.25);border:none;cursor:pointer;padding:0;transition:background .2s,transform .2s; }
+    .work-dot.active { background:var(--blue);transform:scale(1.3); }
+    #work-prev:hover, #work-next:hover { background:var(--blue) !important; }
+    #work-prev:hover svg, #work-next:hover svg { stroke:#fff; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Prints<span>Galore</span></a>
+    <div class="nav-links">
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="garments.html" class="nav-link">Garments</a>
+      <a href="preview.html"  class="nav-link">Design Preview</a>
+      <a href="reviews.html"  class="nav-link">Reviews</a>
+      <a href="our-work.html" class="nav-link">Our Work</a>
+      <a href="about.html"    class="nav-link">About</a>
+      <a href="contact.html"  class="btn-primary" style="padding:.5rem 1.25rem;font-size:.875rem;">Get a quote</a>
+    </div>
+    <button id="hamburger" class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="services.html">Services</a>
+    <a href="garments.html">Garments</a>
+    <a href="preview.html">Design Preview</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="our-work.html">Our Work</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="btn-primary" style="margin-top:1rem;justify-content:center;">Get a quote</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<section style="min-height:100vh;display:flex;align-items:center;background:var(--ink);position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;pointer-events:none;">
+
+    <!-- Hero background: fitness shoot (left) -->
+    <div style="position:absolute;left:0;top:0;bottom:0;width:38%;overflow:hidden;">
+      <img src="images/hero-fitness.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover;object-position:center top;opacity:.7;filter:saturate(1.1);display:block;">
+      <!-- fade right edge into dark bg -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(7,8,13,.1) 0%,rgba(7,8,13,1) 92%);"></div>
+      <!-- fade top + bottom -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(7,8,13,.6) 0%,transparent 18%,transparent 82%,rgba(7,8,13,.6) 100%);"></div>
+    </div>
+
+    <!-- Hero background: tracksuit (right) -->
+    <div style="position:absolute;right:0;top:0;bottom:0;width:32%;overflow:hidden;">
+      <img src="images/hero-tracksuit.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover;object-position:center top;opacity:.7;filter:saturate(1.1);display:block;">
+      <!-- fade left edge into dark bg -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to left,rgba(7,8,13,.1) 0%,rgba(7,8,13,1) 92%);"></div>
+      <!-- fade top + bottom -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(7,8,13,.6) 0%,transparent 18%,transparent 82%,rgba(7,8,13,.6) 100%);"></div>
+    </div>
+
+    <!-- original glow blobs (kept on top of images) -->
+    <div style="position:absolute;top:-10%;right:-5%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,80,255,.35)0%,transparent 70%);"></div>
+    <div style="position:absolute;bottom:-15%;left:-5%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(27,108,240,.25)0%,transparent 70%);"></div>
+    <div style="position:absolute;top:40%;left:30%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(217,165,33,.1)0%,transparent 70%);"></div>
+  </div>
+  <div style="max-width:1280px;margin:0 auto;padding:5rem 1.5rem;position:relative;z-index:2;width:100%;">
+    <div class="two-col">
+      <div>
+        <div class="ink-strip fade-in" style="max-width:200px;margin-bottom:2rem;">
+          <span style="background:#E63329"></span><span style="background:#1B6CF0"></span><span style="background:#D9A521"></span><span style="background:#22C55E"></span><span style="background:#A855F7"></span><span style="background:#F97316"></span><span style="background:#06B6D4"></span><span style="background:#EC4899"></span><span style="background:#FBFAF7;opacity:.5"></span>
+        </div>
+        <p class="label-mono fade-in" style="color:rgba(238,243,255,.5);margin-bottom:1rem;">The UK's best for custom print & decoration</p>
+        <h1 class="display-heading shimmer-light fade-in" style="font-size:clamp(3.5rem,8vw,7rem);margin:0 0 1.5rem;">Whatever<br/><span>you want</span><br/>printed.</h1>
+        <p class="fade-in" style="color:rgba(238,243,255,.75);font-size:1.125rem;max-width:480px;margin-bottom:2.5rem;line-height:1.7;">On whatever you want it printed on — done properly and done quickly. 9-colour DTF and DTG printing for true, vivid results. Quality garments, fast turnaround.</p>
+        <div class="fade-in" style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="preview.html" class="btn-primary">Preview your design</a>
+          <a href="services.html" class="btn-outline btn-outline-light">See our services</a>
+        </div>
+      </div>
+
+      <!-- ── Instagram / iPhone mockup ── -->
+      <div class="fade-in" style="display:flex;justify-content:center;align-items:center;padding:1rem 0;">
+        <div style="position:relative;">
+
+          <!-- ambient glow -->
+          <div style="position:absolute;inset:-15%;background:radial-gradient(ellipse at 50% 50%,rgba(0,80,255,.28),transparent 70%);filter:blur(28px);pointer-events:none;"></div>
+
+          <!-- iPhone 15 Pro frame -->
+          <div style="width:252px;height:516px;border-radius:46px;background:linear-gradient(155deg,#424243 0%,#1c1c1e 50%,#2e2e30 100%);box-shadow:0 0 0 1px rgba(255,255,255,.13),0 0 0 2.5px #111,inset 0 0 0 1px rgba(255,255,255,.04),0 36px 90px rgba(0,0,0,.8);position:relative;animation:phone-float 6s ease-in-out infinite;">
+
+            <!-- Dynamic Island -->
+            <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:84px;height:26px;background:#080808;border-radius:20px;z-index:10;"></div>
+
+            <!-- Volume buttons (left) -->
+            <div style="position:absolute;left:-2.5px;top:108px;width:2.5px;height:26px;background:#3a3a3c;border-radius:2px 0 0 2px;"></div>
+            <div style="position:absolute;left:-2.5px;top:146px;width:2.5px;height:40px;background:#3a3a3c;border-radius:2px 0 0 2px;"></div>
+            <div style="position:absolute;left:-2.5px;top:198px;width:2.5px;height:40px;background:#3a3a3c;border-radius:2px 0 0 2px;"></div>
+            <!-- Power button (right) -->
+            <div style="position:absolute;right:-2.5px;top:146px;width:2.5px;height:58px;background:#3a3a3c;border-radius:0 2px 2px 0;"></div>
+
+            <!-- Screen -->
+            <div style="position:absolute;inset:5px;border-radius:41px;overflow:hidden;background:#000;">
+              <img src="images/ig-screenshot.jpg" alt="Prints Galore Instagram profile @printsgalore0121" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;">
+            </div>
+          </div>
+
+          <!-- @handle badge below phone -->
+          <div style="text-align:center;margin-top:14px;">
+            <a href="https://instagram.com/printsgalore0121" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;background:rgba(238,243,255,.08);border:1px solid rgba(238,243,255,.16);border-radius:100px;padding:.375rem 1rem;text-decoration:none;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#E1306C"/><circle cx="12" cy="12" r="4.5" stroke="#E1306C"/><circle cx="17.3" cy="6.7" r="1.5" fill="#E1306C" stroke="none"/></svg>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:rgba(238,243,255,.8);letter-spacing:.04em;">@printsgalore0121</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ OUR WORK ═══════════════════════ -->
+<section id="our-work" style="padding:6rem 1.5rem;background:var(--ink);overflow:hidden;">
+  <div style="max-width:1280px;margin:0 auto;">
+
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <p class="section-pip label-mono fade-in" style="color:var(--blue);margin-bottom:.75rem;justify-content:center;">Portfolio</p>
+      <h2 class="display-heading shimmer-light fade-in" style="font-size:clamp(2.5rem,5vw,4rem);margin:0 0 1rem;">Real work.<br/>Real customers.</h2>
+      <p class="fade-in" style="max-width:520px;margin:0 auto;color:rgba(238,243,255,.65);font-size:1.0625rem;line-height:1.7;">Every piece you see here was delivered to a real customer. Custom designs, quality garments, bold expression.</p>
+    </div>
+
+    <!-- Slider track -->
+    <div style="position:relative;max-width:860px;margin:0 auto;" id="work-slider">
+      <div id="work-track" style="position:relative;overflow:hidden;border-radius:16px;background:#0d0e12;box-shadow:0 24px 80px rgba(0,0,0,.7);">
+
+        <div class="work-slide active" data-label="CapFit — Gym Wear Collection" style="position:relative;aspect-ratio:1/1;overflow:hidden;">
+          <img src="images/work-capfit.jpg" alt="CapFit gym wear — hoodies, sweatshirt and cap with custom print" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.75rem;background:linear-gradient(to top,rgba(7,8,13,.85) 0%,transparent 100%);">
+            <p style="margin:0;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(238,243,255,.5);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem;">Customer work</p>
+            <p style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;color:var(--paper);text-transform:uppercase;letter-spacing:.02em;">CapFit — Gym Wear Collection</p>
+          </div>
+        </div>
+
+        <div class="work-slide" data-label="Hungry's Cafe — Branded Hoodies" style="position:relative;aspect-ratio:1/1;overflow:hidden;">
+          <img src="images/work-hungrys.jpg" alt="Hungry's Cafe branded hoodies front and back" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.75rem;background:linear-gradient(to top,rgba(7,8,13,.85) 0%,transparent 100%);">
+            <p style="margin:0;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(238,243,255,.5);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem;">Customer work</p>
+            <p style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;color:var(--paper);text-transform:uppercase;letter-spacing:.02em;">Hungry's Cafe — Branded Hoodies</p>
+          </div>
+        </div>
+
+        <div class="work-slide" data-label="The Lord &amp; The Baron — Event Merch" style="position:relative;aspect-ratio:1/1;overflow:hidden;">
+          <img src="images/work-lord-baron.jpg" alt="The Lord and The Baron event merchandise — tees, hoodies and caps" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.75rem;background:linear-gradient(to top,rgba(7,8,13,.85) 0%,transparent 100%);">
+            <p style="margin:0;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(238,243,255,.5);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem;">Customer work</p>
+            <p style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;color:var(--paper);text-transform:uppercase;letter-spacing:.02em;">The Lord &amp; The Baron — Event Merch</p>
+          </div>
+        </div>
+
+        <div class="work-slide" data-label="Created By Courtney — Custom Tee" style="position:relative;aspect-ratio:1/1;overflow:hidden;">
+          <img src="images/work-courtney.jpg" alt="Created by Courtney custom t-shirt with floral print" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.75rem;background:linear-gradient(to top,rgba(7,8,13,.85) 0%,transparent 100%);">
+            <p style="margin:0;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(238,243,255,.5);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem;">Customer work</p>
+            <p style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;color:var(--paper);text-transform:uppercase;letter-spacing:.02em;">Created By Courtney — Custom Tee</p>
+          </div>
+        </div>
+
+        <div class="work-slide" data-label="Tonality Fitness Attire" style="position:relative;aspect-ratio:1/1;overflow:hidden;">
+          <img src="images/work-tonality.jpg" alt="Tonality fitness attire — t-shirts, joggers and tote bags" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.75rem;background:linear-gradient(to top,rgba(7,8,13,.85) 0%,transparent 100%);">
+            <p style="margin:0;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(238,243,255,.5);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem;">Customer work</p>
+            <p style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;color:var(--paper);text-transform:uppercase;letter-spacing:.02em;">Tonality Fitness Attire</p>
+          </div>
+        </div>
+
+        <div class="work-slide" data-label="Buns &amp; Blessings — Staff Uniform" style="position:relative;aspect-ratio:1/1;overflow:hidden;">
+          <img src="images/work-buns.jpg" alt="Buns and Blessings branded hoodies and apron in black and yellow" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.75rem;background:linear-gradient(to top,rgba(7,8,13,.85) 0%,transparent 100%);">
+            <p style="margin:0;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(238,243,255,.5);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem;">Customer work</p>
+            <p style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;color:var(--paper);text-transform:uppercase;letter-spacing:.02em;">Buns &amp; Blessings — Staff Uniform</p>
+          </div>
+        </div>
+
+        <div class="work-slide" data-label="Custom Football England T-Shirts" style="position:relative;aspect-ratio:1/1;overflow:hidden;">
+          <img src="images/work-jerseys.jpg" alt="Custom Football England t-shirts with names and numbers" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.75rem;background:linear-gradient(to top,rgba(7,8,13,.85) 0%,transparent 100%);">
+            <p style="margin:0;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(238,243,255,.5);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem;">Customer work</p>
+            <p style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;color:var(--paper);text-transform:uppercase;letter-spacing:.02em;">Custom Football England T-Shirts</p>
+          </div>
+        </div>
+
+        <div class="work-slide" data-label="Stocklandgreen Cafe — Full Uniform" style="position:relative;aspect-ratio:1/1;overflow:hidden;">
+          <img src="images/work-stockland.jpg" alt="Stocklandgreen Cafe full uniform — polo, hoodie, cap, beanie and apron" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.75rem;background:linear-gradient(to top,rgba(7,8,13,.85) 0%,transparent 100%);">
+            <p style="margin:0;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(238,243,255,.5);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem;">Customer work</p>
+            <p style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;color:var(--paper);text-transform:uppercase;letter-spacing:.02em;">Stocklandgreen Cafe — Full Uniform</p>
+          </div>
+        </div>
+
+      </div><!-- /work-track -->
+
+      <!-- Prev / Next arrows -->
+      <button id="work-prev" aria-label="Previous" onclick="workSlider.go(-1)" style="position:absolute;left:-22px;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--paper);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.4);z-index:10;transition:background .15s;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button id="work-next" aria-label="Next" onclick="workSlider.go(1)" style="position:absolute;right:-22px;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--paper);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.4);z-index:10;transition:background .15s;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <!-- Dots -->
+      <div id="work-dots" style="display:flex;justify-content:center;gap:.5rem;margin-top:1.5rem;"></div>
+
+    </div><!-- /work-slider -->
+
+  </div>
+</section>
+
+<script>
+const workSlider = (() => {
+  const slides = Array.from(document.querySelectorAll('.work-slide'));
+  const dotsEl = document.getElementById('work-dots');
+  let current = 0, timer;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'work-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dotsEl.children[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dotsEl.children[current].classList.add('active');
+    resetTimer();
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(current + 1), 4500);
+  }
+
+  const track = document.getElementById('work-track');
+  track.addEventListener('mouseenter', () => clearInterval(timer));
+  track.addEventListener('mouseleave', resetTimer);
+
+  slides[0].classList.add('active');
+  resetTimer();
+
+  return { go: (dir) => goTo(current + dir) };
+})();
+</script>
+
+<!-- ═══════════════════════ VALUE PROPS ═══════════════════════ -->
+<section style="background:linear-gradient(135deg,#fff8f0 0%,#fdf0ff 100%);padding:5rem 1.5rem;">
+  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem;">
+    <div class="fade-in" style="padding:2rem;background:#fff;border-radius:8px;border:1px solid var(--mute);box-shadow:0 1px 4px rgba(20,17,15,.05);">
+      <div style="width:40px;height:40px;background:rgba(0,80,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;margin:0 0 .5rem;">Fast turnaround</h3>
+      <p style="margin:0;color:#555;font-size:.9375rem;line-height:1.65;">We move quickly without cutting corners. Your order ships when you need it.</p>
+    </div>
+    <div class="fade-in" style="padding:2rem;background:#fff;border-radius:8px;border:1px solid var(--mute);box-shadow:0 1px 4px rgba(20,17,15,.05);">
+      <div style="width:40px;height:40px;background:rgba(27,108,240,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3" fill="var(--blue)"/></svg></div>
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;margin:0 0 .5rem;">True-to-life colour</h3>
+      <p style="margin:0;color:#555;font-size:.9375rem;line-height:1.65;">9-colour printing technology delivers vivid, accurate results — what you design is what you get.</p>
+    </div>
+    <div class="fade-in" style="padding:2rem;background:#fff;border-radius:8px;border:1px solid var(--mute);box-shadow:0 1px 4px rgba(20,17,15,.05);">
+      <div style="width:40px;height:40px;background:rgba(217,165,33,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;margin:0 0 .5rem;">Quality materials</h3>
+      <p style="margin:0;color:#555;font-size:.9375rem;line-height:1.65;">From lightweight summer tees to heavy-GSM hoodies — we stock the blank that suits your brief.</p>
+    </div>
+    <div class="fade-in" style="padding:2rem;background:#fff;border-radius:8px;border:1px solid var(--mute);box-shadow:0 1px 4px rgba(20,17,15,.05);">
+      <div style="width:40px;height:40px;background:rgba(20,17,15,.06);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/></svg></div>
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;margin:0 0 .5rem;">Your vision, realised</h3>
+      <p style="margin:0;color:#555;font-size:.9375rem;line-height:1.65;">Bring your design — or we'll help you build one. Custom is what we do.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SERVICES ═══════════════════════ -->
+<section id="services" style="padding:6rem 1.5rem;background:linear-gradient(135deg,#f0f8ff 0%,#fff0f8 100%);">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div style="margin-bottom:3.5rem;">
+      <p class="section-pip label-mono fade-in" style="color:var(--red);margin-bottom:.75rem;">What we do</p>
+      <h2 class="display-heading shimmer-dark fade-in" style="font-size:clamp(2.5rem,5vw,4rem);margin:0 0 1rem;">Decoration<br/>methods</h2>
+      <p class="fade-in" style="max-width:560px;color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 1.5rem;">Every method produces a different result. We'll tell you which one is right for your garment, your design, and your budget.</p>
+      <a href="services.html" class="fade-in" style="color:var(--red);font-weight:600;font-size:.9375rem;text-decoration:none;">Full services page →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.875rem;">
+
+      <div class="card fade-in">
+        <div style="height:140px;position:relative;overflow:hidden;">
+          <img src="images/dtf.jpg" alt="DTF heat-press transfer being applied to a t-shirt" style="width:100%;height:100%;object-fit:cover;" />
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(20,17,15,.45)0%,transparent 50%);"></div>
+          <div style="position:absolute;top:1rem;left:1rem;"><span class="label-mono" style="background:var(--red);color:#fff;padding:.25rem .625rem;border-radius:2px;font-size:.65rem;">9-COLOUR</span></div>
+        </div>
+        <div style="padding:1.5rem;">
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;margin:0 0 .375rem;">DTF</h3>
+          <p style="margin:0 0 .75rem;color:#555;font-size:.8125rem;line-height:1.55;">Vivid 9-colour transfer pressed onto any fabric type.</p>
+          <div class="ink-strip" style="max-width:120px;"><span style="background:#E63329"></span><span style="background:#1B6CF0"></span><span style="background:#D9A521"></span><span style="background:#22C55E"></span><span style="background:#A855F7"></span><span style="background:#F97316"></span><span style="background:#06B6D4"></span><span style="background:#EC4899"></span><span style="background:#FBFAF7;border:1px solid #E7E3DC"></span></div>
+        </div>
+      </div>
+
+      <div class="card fade-in">
+        <div style="height:140px;position:relative;overflow:hidden;">
+          <img src="images/dtg.jpg" alt="DTG inkjet printer printing directly onto a navy t-shirt" style="width:100%;height:100%;object-fit:cover;" />
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(20,17,15,.45)0%,transparent 50%);"></div>
+          <div style="position:absolute;top:1rem;left:1rem;"><span class="label-mono" style="background:var(--blue);color:#fff;padding:.25rem .625rem;border-radius:2px;font-size:.65rem;">9-COLOUR</span></div>
+        </div>
+        <div style="padding:1.5rem;">
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;margin:0 0 .375rem;">DTG</h3>
+          <p style="margin:0;color:#555;font-size:.8125rem;line-height:1.55;">Ink direct onto the garment for photographic detail.</p>
+        </div>
+      </div>
+
+      <div class="card fade-in">
+        <div style="height:140px;position:relative;overflow:hidden;">
+          <img src="images/embroidery.jpg" alt="Commercial embroidery machine head stitching thread into fabric" style="width:100%;height:100%;object-fit:cover;" />
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(20,17,15,.45)0%,transparent 50%);"></div>
+          <div style="position:absolute;top:1rem;left:1rem;"><span class="label-mono" style="background:var(--gold);color:var(--ink);padding:.25rem .625rem;border-radius:2px;font-size:.65rem;">PREMIUM</span></div>
+        </div>
+        <div style="padding:1.5rem;">
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;margin:0 0 .375rem;">Embroidery</h3>
+          <p style="margin:0;color:#555;font-size:.8125rem;line-height:1.55;">Premium thread finish. Outlasts any print method.</p>
+        </div>
+      </div>
+
+      <div class="card fade-in">
+        <div style="height:140px;position:relative;overflow:hidden;">
+          <img src="images/silicon.jpg" alt="3D silicon print raised off a dark hoodie fabric" style="width:100%;height:100%;object-fit:cover;object-position:center;" />
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(20,17,15,.45)0%,transparent 50%);"></div>
+          <div style="position:absolute;top:1rem;left:1rem;"><span class="label-mono" style="background:#FF6B35;color:#fff;padding:.25rem .625rem;border-radius:2px;font-size:.65rem;">3D RAISED</span></div>
+        </div>
+        <div style="padding:1.5rem;">
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;margin:0 0 .375rem;">Silicon Print</h3>
+          <p style="margin:0;color:#555;font-size:.8125rem;line-height:1.55;">Raised 3D texture applied to any garment. Bold, tactile finish.</p>
+        </div>
+      </div>
+
+      <div class="card fade-in">
+        <div style="height:140px;position:relative;overflow:hidden;">
+          <img src="images/custom.jpg" alt="Designer sketching custom artwork ready for print production" style="width:100%;height:100%;object-fit:cover;" />
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(20,17,15,.45)0%,transparent 50%);"></div>
+          <div style="position:absolute;top:1rem;left:1rem;"><span class="label-mono" style="background:#A855F7;color:#fff;padding:.25rem .625rem;border-radius:2px;font-size:.65rem;">BRING YOUR VISION</span></div>
+        </div>
+        <div style="padding:1.5rem;">
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;margin:0 0 .375rem;">Custom Designs</h3>
+          <p style="margin:0;color:#555;font-size:.8125rem;line-height:1.55;">Sketch, brief, or idea — we'll produce the file.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ GARMENTS ═══════════════════════ -->
+<section id="garments" style="padding:6rem 1.5rem;background:linear-gradient(135deg,#07080D 0%,#1a0533 60%,#07080D 100%);">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div class="two-col">
+      <div>
+        <p class="section-pip label-mono fade-in" style="color:var(--red);margin-bottom:.75rem;">The blanks</p>
+        <h2 class="display-heading shimmer-gradient fade-in" style="font-size:clamp(2.5rem,5vw,4rem);background:linear-gradient(135deg,#FF2D5B,#FFD60A,#00CFFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:0 0 1.5rem;">Garments<br/>for every job</h2>
+        <p class="fade-in" style="color:rgba(238,243,255,.7);font-size:1.0625rem;line-height:1.7;margin:0 0 2rem;">GSM is the weight of the fabric. A low GSM (140–160g) gives you a lightweight, breathable tee. A high GSM (320g+) gives you a premium, heavy hoodie that drapes well and lasts years. We stock both ends and everything in between.</p>
+        <div class="fade-in" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;">
+          <div style="background:rgba(238,243,255,.06);border:1px solid rgba(238,243,255,.1);border-radius:8px;padding:1.25rem;">
+            <p class="label-mono" style="color:var(--gold);margin:0 0 .25rem;font-size:.65rem;">140–180 GSM</p>
+            <p style="color:var(--paper);font-weight:600;margin:0 0 .25rem;font-size:.9375rem;">Lightweight tees</p>
+            <p style="color:rgba(238,243,255,.55);margin:0;font-size:.8125rem;line-height:1.5;">Breathable. Great for events, gifts, everyday wear.</p>
+          </div>
+          <div style="background:rgba(238,243,255,.06);border:1px solid rgba(238,243,255,.1);border-radius:8px;padding:1.25rem;">
+            <p class="label-mono" style="color:var(--red);margin:0 0 .25rem;font-size:.65rem;">280–380 GSM</p>
+            <p style="color:var(--paper);font-weight:600;margin:0 0 .25rem;font-size:.9375rem;">Heavyweight hoodies</p>
+            <p style="color:rgba(238,243,255,.55);margin:0;font-size:.8125rem;line-height:1.5;">Substantial feel, premium drape. Built to last.</p>
+          </div>
+        </div>
+        <a href="garments.html" class="btn-primary fade-in">Browse garment range →</a>
+      </div>
+      <div class="fade-in" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+  <div style="border-radius:12px;overflow:hidden;position:relative;box-shadow:0 8px 32px rgba(255,45,91,.25);">
+    <img src="images/cand_tee_5560329.jpg" alt="Colourful t-shirts" style="width:100%;height:160px;object-fit:cover;display:block;">
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(255,45,91,.75) 0%,transparent 55%);"></div>
+    <div style="position:absolute;bottom:0;left:0;right:0;padding:.75rem 1rem;">
+      <p style="color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;margin:0;letter-spacing:.03em;">T-Shirts</p>
+      <p style="color:rgba(255,255,255,.8);margin:0;font-size:.75rem;">Multiple weights &amp; cuts</p>
+    </div>
+  </div>
+  <div style="border-radius:12px;overflow:hidden;position:relative;box-shadow:0 8px 32px rgba(124,58,237,.25);">
+    <img src="images/cand_hoodie_6543890.jpg" alt="Colourful hoodies" style="width:100%;height:160px;object-fit:cover;display:block;">
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(124,58,237,.75) 0%,transparent 55%);"></div>
+    <div style="position:absolute;bottom:0;left:0;right:0;padding:.75rem 1rem;">
+      <p style="color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;margin:0;letter-spacing:.03em;">Hoodies</p>
+      <p style="color:rgba(255,255,255,.8);margin:0;font-size:.75rem;">Pullover &amp; zip-up</p>
+    </div>
+  </div>
+  <div style="border-radius:12px;overflow:hidden;position:relative;box-shadow:0 8px 32px rgba(0,207,255,.25);">
+    <img src="images/cand_cap_14628954.jpg" alt="Colourful caps" style="width:100%;height:160px;object-fit:cover;display:block;">
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,150,200,.75) 0%,transparent 55%);"></div>
+    <div style="position:absolute;bottom:0;left:0;right:0;padding:.75rem 1rem;">
+      <p style="color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;margin:0;letter-spacing:.03em;">Caps</p>
+      <p style="color:rgba(255,255,255,.8);margin:0;font-size:.75rem;">Snapback, dad cap &amp; more</p>
+    </div>
+  </div>
+  <div style="border-radius:12px;overflow:hidden;position:relative;box-shadow:0 8px 32px rgba(255,214,10,.25);">
+    <img src="images/cand_hoodie_8217416.jpg" alt="Sweatshirts, polos and bags" style="width:100%;height:160px;object-fit:cover;display:block;">
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(180,120,0,.75) 0%,transparent 55%);"></div>
+    <div style="position:absolute;bottom:0;left:0;right:0;padding:.75rem 1rem;">
+      <p style="color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;margin:0;letter-spacing:.03em;">&amp; More</p>
+      <p style="color:rgba(255,255,255,.8);margin:0;font-size:.75rem;">Sweatshirts, polos, bags</p>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DESIGN PREVIEW TOOL ═══════════════════════ -->
+<section id="preview" style="padding:6rem 1.5rem;background:var(--paper);">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div style="margin-bottom:3rem;text-align:center;">
+      <p class="section-pip label-mono fade-in" style="color:var(--red);margin-bottom:.75rem;justify-content:center;">Interactive</p>
+      <h2 class="display-heading shimmer-dark fade-in" style="font-size:clamp(2.5rem,5vw,4rem);margin:0 0 1rem;">Preview your design</h2>
+      <p class="fade-in" style="max-width:520px;margin:0 auto 1.5rem;color:#555;font-size:1.0625rem;line-height:1.7;">Upload your artwork, pick your product and colour, drag it into position. See exactly what you'll get before you order.</p>
+      <a href="preview.html" class="fade-in" style="color:var(--red);font-weight:600;font-size:.9375rem;text-decoration:none;">Open full preview tool →</a>
+    </div>
+
+    <div style="display:grid;grid-template-columns:320px 1fr;gap:3rem;align-items:start;" id="preview-grid">
+
+      <!-- Controls -->
+      <div style="background:#fff;border:1px solid var(--mute);border-radius:12px;padding:1.75rem;box-shadow:0 2px 8px rgba(20,17,15,.06);">
+        <div style="margin-bottom:1.5rem;">
+          <p class="label-mono" style="font-size:.7rem;color:#888;margin:0 0 .625rem;">Product</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;">
+            <button class="prod-btn active" data-product="tshirt" aria-pressed="true">T-shirt</button>
+            <button class="prod-btn" data-product="hoodie" aria-pressed="false">Hoodie</button>
+            <button class="prod-btn" data-product="cap" aria-pressed="false">Cap</button>
+          </div>
+        </div>
+        <div style="margin-bottom:1.5rem;">
+          <p class="label-mono" style="font-size:.7rem;color:#888;margin:0 0 .625rem;">Your artwork</p>
+          <div class="drop-zone" id="drop-zone" style="padding:1.5rem;text-align:center;" role="button" tabindex="0"
+               aria-label="Upload your design file"
+               onclick="document.getElementById('file-input').click()"
+               onkeydown="if(event.key==='Enter'||event.key===' ')document.getElementById('file-input').click()">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto .75rem;display:block;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <p style="margin:0 0 .2rem;font-weight:600;font-size:.9rem;color:var(--ink);" id="drop-label">Drop your file here</p>
+            <p style="margin:0;font-size:.8125rem;color:#aaa;">or click to browse</p>
+            <p style="margin:.4rem 0 0;font-size:.75rem;color:#bbb;">PNG with transparency works best</p>
+          </div>
+          <input type="file" id="file-input" accept="image/*" style="display:none;" aria-label="Upload design file" />
+        </div>
+        <div style="margin-bottom:1.5rem;">
+          <p class="label-mono" style="font-size:.7rem;color:#888;margin:0 0 .625rem;">Scale — <span id="scale-label">50%</span></p>
+          <input type="range" id="scale-slider" min="5" max="100" value="50" style="width:100%;cursor:pointer;" aria-label="Scale your design" />
+        </div>
+        <div style="margin-bottom:1.75rem;">
+          <p class="label-mono" style="font-size:.7rem;color:#888;margin:0 0 .625rem;">Snap to position</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.375rem;">
+            <button class="pos-btn" data-pos="top-left">↖</button>
+            <button class="pos-btn" data-pos="top-center">↑</button>
+            <button class="pos-btn" data-pos="top-right">↗</button>
+            <button class="pos-btn" data-pos="mid-left">←</button>
+            <button class="pos-btn active" data-pos="center">●</button>
+            <button class="pos-btn" data-pos="mid-right">→</button>
+            <button class="pos-btn" data-pos="bot-left">↙</button>
+            <button class="pos-btn" data-pos="bot-center">↓</button>
+            <button class="pos-btn" data-pos="bot-right">↘</button>
+          </div>
+        </div>
+        <a href="contact.html" class="btn-primary" style="width:100%;justify-content:center;text-decoration:none;">Request a quote →</a>
+        <p style="margin:.625rem 0 0;text-align:center;font-size:.8125rem;color:#aaa;">We'll reply within 1 business day</p>
+      </div>
+
+      <!-- Canvas -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:1.25rem;">
+        <canvas id="preview-canvas" width="600" height="700"
+          aria-label="Live preview of your design on the selected garment"
+          style="max-width:100%;border-radius:10px;box-shadow:0 8px 40px rgba(20,17,15,.12),0 2px 8px rgba(20,17,15,.08);cursor:default;"></canvas>
+        <p style="margin:0;font-size:.8125rem;color:#aaa;text-align:center;">Drag your design on the canvas to reposition it. <a href="preview.html" style="color:var(--red);text-decoration:none;font-weight:600;">Open full tool →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ PRINT COLLATERAL ═══════════════════════ -->
+<section id="collateral" style="padding:6rem 1.5rem;background:linear-gradient(135deg,#1a0533 0%,#0d1a3a 50%,#1a0533 100%);">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div style="margin-bottom:3.5rem;">
+      <p class="section-pip label-mono fade-in" style="color:#FF2D5B;margin-bottom:.75rem;">Not just garments</p>
+      <h2 class="display-heading shimmer-light fade-in" style="font-size:clamp(2.5rem,5vw,4rem);margin:0 0 1rem;">Print collateral</h2>
+      <p class="fade-in" style="max-width:480px;color:rgba(255,255,255,.7);font-size:1.0625rem;line-height:1.7;margin:0;">Same quality, different format. We print flyers, posters, and business cards with the same commitment to colour accuracy.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;">
+      <div class="fade-in" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;overflow:hidden;transition:transform .22s ease,box-shadow .22s ease;" onmouseenter="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 48px rgba(255,45,91,.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
+  <div style="height:180px;overflow:hidden;position:relative;">
+    <img src="images/cand_flyer_6114589.jpg" alt="Vibrant full-colour flyers" style="width:100%;height:100%;object-fit:cover;display:block;">
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(255,45,91,.6) 0%,transparent 60%);"></div>
+    <span style="position:absolute;top:1rem;left:1rem;font-family:'JetBrains Mono',monospace;font-size:.6rem;background:#FF2D5B;color:#fff;padding:.25rem .6rem;border-radius:2px;letter-spacing:.06em;text-transform:uppercase;">A5 · A4 · DL</span>
+  </div>
+  <div style="padding:1.5rem;">
+    <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.35rem;text-transform:uppercase;margin:0 0 .5rem;color:#fff;">Flyers</h3>
+    <p style="margin:0;color:rgba(255,255,255,.65);font-size:.9375rem;line-height:1.65;">Full colour, single or double-sided. Great for events, promotions, and menus.</p>
+  </div>
+</div>
+
+<div class="fade-in" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;overflow:hidden;transition:transform .22s ease,box-shadow .22s ease;" onmouseenter="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 48px rgba(0,207,255,.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
+  <div style="height:180px;overflow:hidden;position:relative;">
+    <img src="images/cand_flyer_7859074.jpg" alt="Large-format posters" style="width:100%;height:100%;object-fit:cover;display:block;">
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,150,200,.6) 0%,transparent 60%);"></div>
+    <span style="position:absolute;top:1rem;left:1rem;font-family:'JetBrains Mono',monospace;font-size:.6rem;background:#00CFFF;color:#07080D;padding:.25rem .6rem;border-radius:2px;letter-spacing:.06em;text-transform:uppercase;">A3 · A2 · A1</span>
+  </div>
+  <div style="padding:1.5rem;">
+    <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.35rem;text-transform:uppercase;margin:0 0 .5rem;color:#fff;">Posters</h3>
+    <p style="margin:0;color:rgba(255,255,255,.65);font-size:.9375rem;line-height:1.65;">Vivid large-format print on heavyweight stock. Events, venues, retail display.</p>
+  </div>
+</div>
+
+<div class="fade-in" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;overflow:hidden;transition:transform .22s ease,box-shadow .22s ease;" onmouseenter="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 48px rgba(255,214,10,.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
+  <div style="height:180px;overflow:hidden;position:relative;">
+    <img src="images/cand_bizcard_9878733.jpg" alt="Premium business cards" style="width:100%;height:100%;object-fit:cover;display:block;">
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(160,100,0,.6) 0%,transparent 60%);"></div>
+    <span style="position:absolute;top:1rem;left:1rem;font-family:'JetBrains Mono',monospace;font-size:.6rem;background:#FFD60A;color:#07080D;padding:.25rem .6rem;border-radius:2px;letter-spacing:.06em;text-transform:uppercase;">MATT · GLOSS</span>
+  </div>
+  <div style="padding:1.5rem;">
+    <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.35rem;text-transform:uppercase;margin:0 0 .5rem;color:#fff;">Business Cards</h3>
+    <p style="margin:0;color:rgba(255,255,255,.65);font-size:.9375rem;line-height:1.65;">Standard or custom sizes, matte or gloss laminate. The first impression that doesn't fade.</p>
+  </div>
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ BESPOKE ═══════════════════════ -->
+<section id="bespoke" style="padding:6rem 1.5rem;background:var(--ink);position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 80% 50%,rgba(217,165,33,.15),transparent 60%);"></div>
+  <div style="max-width:1280px;margin:0 auto;position:relative;z-index:2;">
+    <div style="max-width:720px;">
+      <p class="section-pip label-mono fade-in" style="color:var(--gold);margin-bottom:.75rem;">Premium service</p>
+      <h2 class="display-heading shimmer-light fade-in" style="font-size:clamp(2.5rem,5vw,4rem);margin:0 0 1.5rem;">Bespoke &amp;<br/>made-to-order</h2>
+      <p class="fade-in" style="color:rgba(238,243,255,.75);font-size:1.125rem;line-height:1.7;margin:0 0 1.5rem;">For serious projects that need a garment built from scratch — not just decorated. We have overseas manufacturing links to produce custom-constructed garments to your exact specification.</p>
+      <p class="fade-in" style="color:rgba(238,243,255,.75);font-size:1.125rem;line-height:1.7;margin:0 0 2.5rem;">Private label brands, capsule collections, custom uniforms — if a stock blank won't do, this is the service.</p>
+      <div class="fade-in" style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="contact.html" class="btn-primary">Discuss a bespoke project →</a>
+        <a href="bespoke.html" style="color:rgba(238,243,255,.6);font-weight:600;font-size:.9375rem;text-decoration:none;display:flex;align-items:center;">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ ABOUT ═══════════════════════ -->
+<section id="about" style="padding:6rem 1.5rem;background:var(--paper);">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div class="two-col">
+      <div class="fade-in" style="background:var(--ink);border-radius:12px;padding:3rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:-30px;right:-30px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(0,80,255,.25),transparent 70%);pointer-events:none;"></div>
+        <p class="label-mono" style="color:var(--red);margin:0 0 1rem;font-size:.7rem;">Our position</p>
+        <blockquote class="display-heading shimmer-light" style="font-size:2.25rem;margin:0 0 2rem;line-height:1.1;">The UK's best for custom print &amp; decoration</blockquote>
+        <div class="ink-strip" style="max-width:180px;"><span style="background:#E63329"></span><span style="background:#1B6CF0"></span><span style="background:#D9A521"></span><span style="background:#22C55E"></span><span style="background:#A855F7"></span><span style="background:#F97316"></span><span style="background:#06B6D4"></span><span style="background:#EC4899"></span><span style="background:#FBFAF7;opacity:.4"></span></div>
+      </div>
+      <div>
+        <p class="section-pip label-mono fade-in" style="color:var(--red);margin-bottom:.75rem;">About us</p>
+        <h2 class="display-heading shimmer-dark fade-in" style="font-size:clamp(2rem,4vw,3.25rem);margin:0 0 1.5rem;">Built around<br/>what you need</h2>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 1rem;">We don't push one method. We start with what you want — the finish, the fabric, the feel — and work backwards to the right process. That's how we get to true-to-life colour and lasting quality, every time.</p>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 2rem;">Whether you're ordering one hoodie or five hundred tees, you get the same attention. No minimum-order attitude — just a quality attitude.</p>
+        <div class="fade-in" style="display:flex;gap:2.5rem;flex-wrap:wrap;margin-bottom:2rem;">
+          <div><p class="display-heading" style="font-size:2.5rem;color:var(--red);margin:0;">9</p><p class="label-mono" style="margin:.25rem 0 0;font-size:.7rem;color:#888;">COLOUR PRINTING</p></div>
+          <div><p class="display-heading" style="font-size:2.5rem;color:var(--blue);margin:0;">UK</p><p class="label-mono" style="margin:.25rem 0 0;font-size:.7rem;color:#888;">BASED & OPERATED</p></div>
+          <div><p class="display-heading" style="font-size:2.5rem;color:var(--gold);margin:0;">5+</p><p class="label-mono" style="margin:.25rem 0 0;font-size:.7rem;color:#888;">DECORATION METHODS</p></div>
+        </div>
+        <a href="about.html" class="fade-in" style="color:var(--red);font-weight:600;font-size:.9375rem;text-decoration:none;">Our full story →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CONTACT / QUOTE ═══════════════════════ -->
+<section id="contact" style="padding:6rem 1.5rem;background:var(--paper);">
+  <div style="max-width:720px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <p class="section-pip label-mono fade-in" style="color:var(--red);margin-bottom:.75rem;justify-content:center;">Fast response</p>
+      <h2 class="display-heading shimmer-dark fade-in" style="font-size:clamp(2.5rem,5vw,4rem);margin:0 0 1rem;">Get a quote</h2>
+      <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0;">Tell us what you need. We'll come back with a price and timeline within 1 business day.</p>
+    </div>
+    <form id="quote-form" style="background:#fff;border:1px solid var(--mute);border-radius:12px;padding:2.5rem;box-shadow:0 4px 16px rgba(20,17,15,.06);" onsubmit="handleFormSubmit(event)">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;">
+        <div>
+          <label for="name" style="display:block;font-weight:600;font-size:.875rem;margin-bottom:.375rem;">Your name</label>
+          <input class="form-input" type="text" id="name" name="name" required placeholder="Jane Smith" />
+        </div>
+        <div>
+          <label for="email" style="display:block;font-weight:600;font-size:.875rem;margin-bottom:.375rem;">Email address</label>
+          <input class="form-input" type="email" id="email" name="email" required placeholder="jane@example.com" />
+        </div>
+      </div>
+      <div style="margin-bottom:1.25rem;">
+        <label for="service" style="display:block;font-weight:600;font-size:.875rem;margin-bottom:.375rem;">Service</label>
+        <select class="form-input" id="service" name="service" style="appearance:none;cursor:pointer;">
+          <option value="">Select a service…</option>
+          <option>DTF — Direct-to-Film</option>
+          <option>DTG — Direct-to-Garment</option>
+          <option>Embroidery</option>
+          <option>Silicon Print</option>
+          <option>Print collateral (flyers / posters / cards)</option>
+          <option>Bespoke manufacturing</option>
+          <option>Custom design help</option>
+          <option>Not sure — need advice</option>
+        </select>
+      </div>
+      <div style="margin-bottom:1.25rem;">
+        <label for="quantity" style="display:block;font-weight:600;font-size:.875rem;margin-bottom:.375rem;">Approximate quantity</label>
+        <input class="form-input" type="text" id="quantity" name="quantity" placeholder="e.g. 50 hoodies, 200 flyers" />
+      </div>
+      <div style="margin-bottom:1.75rem;">
+        <label for="brief" style="display:block;font-weight:600;font-size:.875rem;margin-bottom:.375rem;">Tell us about your project</label>
+        <textarea class="form-input" id="brief" name="brief" rows="4" style="resize:vertical;" placeholder="Garment type, colours, design details, deadline…"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">Send quote request →</button>
+      <div id="form-feedback" style="display:none;margin-top:1rem;padding:1rem;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.3);border-radius:6px;text-align:center;">
+        <p style="margin:0;color:#16a34a;font-weight:600;">Thanks — we'll be in touch within 1 business day.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CONTACT INFO ═══════════════════════ -->
+<section style="padding:5rem 1.5rem;background:linear-gradient(135deg,#FF2D5B 0%,#7C3AED 40%,#00CFFF 100%);position:relative;overflow:hidden;">
+  <!-- decorative blobs -->
+  <div style="position:absolute;top:-80px;right:-80px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.08);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,214,10,.12);pointer-events:none;"></div>
+  <div style="position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;"></div>
+
+  <div style="max-width:900px;margin:0 auto;position:relative;z-index:2;text-align:center;">
+    <p class="label-mono fade-in" style="color:rgba(255,255,255,.75);margin:0 0 .75rem;letter-spacing:.14em;">GET IN TOUCH</p>
+    <h2 class="display-heading shimmer-light fade-in" style="font-size:clamp(2.75rem,6vw,4.5rem);margin:0 0 .75rem;">Let's talk prints</h2>
+    <p class="fade-in" style="color:rgba(255,255,255,.85);font-size:1.0625rem;margin:0 0 3rem;max-width:520px;margin-left:auto;margin-right:auto;">Drop us a message on any channel — we're quick to respond and love talking about new projects.</p>
+
+    <div class="fade-in" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;max-width:780px;margin:0 auto 2.5rem;">
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/printsgalore0121" target="_blank" rel="noopener noreferrer"
+         style="background:rgba(255,255,255,.15);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.25);border-radius:16px;padding:2rem 1.25rem;text-decoration:none;color:#fff;display:flex;flex-direction:column;align-items:center;gap:.875rem;transition:transform .22s cubic-bezier(.34,1.56,.64,1),background .2s ease,box-shadow .2s ease;"
+         onmouseenter="this.style.transform='translateY(-8px)';this.style.background='rgba(255,255,255,.25)';this.style.boxShadow='0 20px 60px rgba(0,0,0,.25)'"
+         onmouseleave="this.style.transform='';this.style.background='rgba(255,255,255,.15)';this.style.boxShadow=''">
+        <div style="width:60px;height:60px;border-radius:16px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(220,39,67,.5);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="#fff" stroke="none"/>
+          </svg>
+        </div>
+        <div>
+          <p style="margin:0 0 .2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;letter-spacing:.02em;">Instagram</p>
+          <p style="margin:0;font-size:.9rem;color:rgba(255,255,255,.8);font-family:'JetBrains Mono',monospace;">@printsgalore0121</p>
+        </div>
+        <span style="font-size:.75rem;color:rgba(255,255,255,.6);letter-spacing:.06em;text-transform:uppercase;font-family:'JetBrains Mono',monospace;">Follow us →</span>
+      </a>
+
+      <!-- Email -->
+      <a href="mailto:Printsgalore0121@outlook.com"
+         style="background:rgba(255,255,255,.15);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.25);border-radius:16px;padding:2rem 1.25rem;text-decoration:none;color:#fff;display:flex;flex-direction:column;align-items:center;gap:.875rem;transition:transform .22s cubic-bezier(.34,1.56,.64,1),background .2s ease,box-shadow .2s ease;"
+         onmouseenter="this.style.transform='translateY(-8px)';this.style.background='rgba(255,255,255,.25)';this.style.boxShadow='0 20px 60px rgba(0,0,0,.25)'"
+         onmouseleave="this.style.transform='';this.style.background='rgba(255,255,255,.15)';this.style.boxShadow=''">
+        <div style="width:60px;height:60px;border-radius:16px;background:linear-gradient(135deg,#FFD60A,#FF6B35);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(255,107,53,.5);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <div>
+          <p style="margin:0 0 .2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;letter-spacing:.02em;">Email</p>
+          <p style="margin:0;font-size:.8rem;color:rgba(255,255,255,.8);font-family:'JetBrains Mono',monospace;word-break:break-all;">Printsgalore0121<br/>@outlook.com</p>
+        </div>
+        <span style="font-size:.75rem;color:rgba(255,255,255,.6);letter-spacing:.06em;text-transform:uppercase;font-family:'JetBrains Mono',monospace;">Send email →</span>
+      </a>
+
+      <!-- Phone -->
+      <a href="tel:07895012369"
+         style="background:rgba(255,255,255,.15);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.25);border-radius:16px;padding:2rem 1.25rem;text-decoration:none;color:#fff;display:flex;flex-direction:column;align-items:center;gap:.875rem;transition:transform .22s cubic-bezier(.34,1.56,.64,1),background .2s ease,box-shadow .2s ease;"
+         onmouseenter="this.style.transform='translateY(-8px)';this.style.background='rgba(255,255,255,.25)';this.style.boxShadow='0 20px 60px rgba(0,0,0,.25)'"
+         onmouseleave="this.style.transform='';this.style.background='rgba(255,255,255,.15)';this.style.boxShadow=''">
+        <div style="width:60px;height:60px;border-radius:16px;background:linear-gradient(135deg,#00CFFF,#7C3AED);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(124,58,237,.5);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.14 6.14l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/>
+          </svg>
+        </div>
+        <div>
+          <p style="margin:0 0 .2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;letter-spacing:.02em;">Phone</p>
+          <p style="margin:0;font-size:.9rem;color:rgba(255,255,255,.8);font-family:'JetBrains Mono',monospace;">07895 012 369</p>
+        </div>
+        <span style="font-size:.75rem;color:rgba(255,255,255,.6);letter-spacing:.06em;text-transform:uppercase;font-family:'JetBrains Mono',monospace;">Call us →</span>
+      </a>
+
+    </div>
+
+    <p class="fade-in" style="color:rgba(255,255,255,.6);font-size:.875rem;margin:0;">We typically reply within a few hours during business hours.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Prints<span>Galore</span></div>
+      <p style="margin:.5rem 0 0;color:rgba(238,243,255,.4);font-size:.8125rem;">Quality garments, true-to-life colour, fast turnaround.</p>
+    </div>
+    <div class="footer-links">
+      <a href="services.html">Services</a>
+      <a href="garments.html">Garments</a>
+      <a href="preview.html">Design preview</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="our-work.html">Our Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <p style="margin:0;color:rgba(238,243,255,.25);font-size:.75rem;">© 2026 Prints Galore. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// ── Preview tool on home page ──────────────────────────────────────────────
+const canvas = document.getElementById('preview-canvas');
+
+const state = {
+  product: 'tshirt', colour: '#FBFAF7', designImg: null,
+  scale: 0.5, position: 'center', positionLocked: false,
+  dragging: false, dragOffsetX: 0, dragOffsetY: 0,
+  x: 0, y: 0, w: 0, h: 0,
+};
+
+function render() {
+  drawGarment(canvas, state.product, state.colour);
+  drawDesign(canvas, state.product, state.designImg, state);
+}
+window._onGarmentImageLoad = function() { render(); };
+render();
+
+document.querySelectorAll('.prod-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.prod-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+    btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+    state.product = btn.dataset.product; state.positionLocked = false; render();
+  });
+});
+
+
+document.getElementById('scale-slider').addEventListener('input', e => {
+  state.scale = e.target.value / 100;
+  document.getElementById('scale-label').textContent = e.target.value + '%';
+  render();
+});
+
+document.querySelectorAll('.pos-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.pos-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active'); state.position = btn.dataset.pos; state.positionLocked = false; render();
+  });
+});
+
+document.getElementById('file-input').addEventListener('change', e => {
+  const f = e.target.files[0]; if (f) loadFile(f);
+});
+const dz = document.getElementById('drop-zone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e => {
+  e.preventDefault(); dz.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0]; if (f && f.type.startsWith('image/')) loadFile(f);
+});
+
+function loadFile(file) {
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => { state.designImg = img; state.positionLocked = false; document.getElementById('drop-label').textContent = file.name; render(); };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function canvasCoords(e) {
+  const r = canvas.getBoundingClientRect();
+  return { x: (e.clientX - r.left) * (canvas.width / r.width), y: (e.clientY - r.top) * (canvas.height / r.height) };
+}
+canvas.addEventListener('mousedown', e => {
+  const { x, y } = canvasCoords(e);
+  if (!state.designImg || x < state.x || x > state.x + state.w || y < state.y || y > state.y + state.h) return;
+  state.dragging = true; state.positionLocked = true;
+  state.dragOffsetX = x - state.x; state.dragOffsetY = y - state.y;
+  canvas.style.cursor = 'grabbing';
+});
+window.addEventListener('mousemove', e => {
+  if (!state.dragging) return;
+  const { x, y } = canvasCoords(e);
+  const pa = getPrintAreaPx(canvas, state.product);
+  state.x = Math.max(pa.x, Math.min(pa.x + pa.w - state.w, x - state.dragOffsetX));
+  state.y = Math.max(pa.y, Math.min(pa.y + pa.h - state.h, y - state.dragOffsetY));
+  render();
+});
+window.addEventListener('mouseup', () => { state.dragging = false; canvas.style.cursor = 'default'; });
+
+canvas.addEventListener('touchstart', e => {
+  const t = e.touches[0], r = canvas.getBoundingClientRect();
+  const x = (t.clientX - r.left) * (canvas.width / r.width), y = (t.clientY - r.top) * (canvas.height / r.height);
+  if (!state.designImg || x < state.x || x > state.x + state.w || y < state.y || y > state.y + state.h) return;
+  state.dragging = true; state.positionLocked = true;
+  state.dragOffsetX = x - state.x; state.dragOffsetY = y - state.y; e.preventDefault();
+}, { passive: false });
+canvas.addEventListener('touchmove', e => {
+  if (!state.dragging) return; e.preventDefault();
+  const t = e.touches[0], r = canvas.getBoundingClientRect();
+  const x = (t.clientX - r.left) * (canvas.width / r.width), y = (t.clientY - r.top) * (canvas.height / r.height);
+  const pa = getPrintAreaPx(canvas, state.product);
+  state.x = Math.max(pa.x, Math.min(pa.x + pa.w - state.w, x - state.dragOffsetX));
+  state.y = Math.max(pa.y, Math.min(pa.y + pa.h - state.h, y - state.dragOffsetY));
+  render();
+}, { passive: false });
+canvas.addEventListener('touchend', () => { state.dragging = false; });
+
+// ── Quote form ─────────────────────────────────────────────────────────────
+function handleFormSubmit(e) {
+  e.preventDefault();
+  document.getElementById('form-feedback').style.display = 'block';
+  e.target.reset();
+}
+
+// ── Responsive preview grid ────────────────────────────────────────────────
+const s = document.createElement('style');
+s.textContent = `@media(max-width:768px){#preview-grid{grid-template-columns:1fr !important;}}`;
+document.head.appendChild(s);
+</script>
+</body>
+</html>

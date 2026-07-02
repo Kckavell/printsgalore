@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Reviews — Prints Galore</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{ink:'#07080D',paper:'#EEF3FF','pg-red':'#0050FF','pg-blue':'#18D0FF',gold:'#F5B800',mute:'#C8D3EE'},fontFamily:{display:['Barlow Condensed','sans-serif'],body:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}}</script>
+  <style>
+    .star { color: #F5B800; font-size: 1rem; letter-spacing: .05em; }
+    .review-card {
+      background: #fff;
+      border: 1px solid var(--mute);
+      border-radius: 10px;
+      padding: 1.75rem;
+      box-shadow: 0 2px 8px rgba(20,17,15,.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease;
+    }
+    .review-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(20,17,15,.10);
+    }
+    .avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 1.125rem; color: #fff;
+      flex-shrink: 0;
+    }
+    .trust-bar {
+      display: flex; align-items: center; gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .trust-stat { text-align: center; }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Prints<span>Galore</span></a>
+    <div class="nav-links">
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="garments.html" class="nav-link">Garments</a>
+      <a href="preview.html" class="nav-link">Design Preview</a>
+      <a href="reviews.html" class="nav-link" aria-current="page">Reviews</a>
+      <a href="our-work.html" class="nav-link">Our Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="btn-primary" style="padding:.5rem 1.25rem;font-size:.875rem;">Get a quote</a>
+    </div>
+    <button id="hamburger" class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="services.html">Services</a>
+    <a href="garments.html">Garments</a>
+    <a href="preview.html">Design Preview</a>
+    <a href="reviews.html" aria-current="page">Reviews</a>
+    <a href="our-work.html">Our Work</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="btn-primary" style="margin-top:1rem;justify-content:center;">Get a quote</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 70% 50%,rgba(217,165,33,.22)0%,transparent 65%);"></div>
+  <div class="page-hero-inner">
+    <p class="section-pip label-mono fade-in" style="color:var(--gold);margin-bottom:.75rem;">What our customers say</p>
+    <h1 class="display-heading fade-in" style="font-size:clamp(3rem,7vw,6rem);color:var(--paper);margin:0 0 1.25rem;">Customer<br/>reviews</h1>
+    <p class="fade-in" style="color:rgba(238,243,255,.7);font-size:1.125rem;max-width:540px;margin:0 0 2rem;line-height:1.7;">Hundreds of orders. Sports clubs, startups, charities, event teams, and solo creators. Here's what they said.</p>
+    <div class="trust-bar fade-in">
+      <div class="trust-stat">
+        <p class="display-heading" style="font-size:3rem;color:var(--gold);margin:0;">4.9</p>
+        <p class="label-mono" style="color:rgba(238,243,255,.5);font-size:.65rem;margin:.25rem 0 0;">AVERAGE RATING</p>
+      </div>
+      <div class="trust-stat">
+        <p class="display-heading" style="font-size:3rem;color:var(--paper);margin:0;">340+</p>
+        <p class="label-mono" style="color:rgba(238,243,255,.5);font-size:.65rem;margin:.25rem 0 0;">ORDERS COMPLETED</p>
+      </div>
+      <div class="trust-stat">
+        <p class="display-heading" style="font-size:3rem;color:var(--paper);margin:0;">96%</p>
+        <p class="label-mono" style="color:rgba(238,243,255,.5);font-size:.65rem;margin:.25rem 0 0;">WOULD REORDER</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED REVIEWS -->
+<section style="padding:5rem 1.5rem;background:var(--paper);">
+  <div style="max-width:1280px;margin:0 auto;">
+    <p class="section-pip label-mono fade-in" style="color:var(--red);margin-bottom:3rem;">Featured feedback</p>
+
+    <!-- Two large featured cards -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem;" id="featured-grid">
+
+      <div class="review-card fade-in" style="background:var(--ink);border-color:rgba(238,243,255,.08);">
+        <div class="star">★★★★★</div>
+        <p style="color:var(--paper);font-size:1.125rem;line-height:1.7;margin:0;font-style:italic;">"We ordered 80 hoodies for our charity 5K and the quality knocked everyone out. The colour match on our logo was perfect — we'd been burnt by cheap printers before but Prints Galore nailed it first time. Already planning our next run."</p>
+        <div style="display:flex;align-items:center;gap:.875rem;margin-top:.5rem;">
+          <div class="avatar" style="background:var(--red);">SR</div>
+          <div>
+            <p style="margin:0;font-weight:600;color:var(--paper);font-size:.9375rem;">Sophie R.</p>
+            <p style="margin:.125rem 0 0;color:rgba(238,243,255,.45);font-size:.8125rem;">Events coordinator — Run for Hope charity</p>
+          </div>
+          <span class="label-mono" style="margin-left:auto;color:rgba(238,243,255,.35);font-size:.6rem;">80 × HOODIES · DTF</span>
+        </div>
+      </div>
+
+      <div class="review-card fade-in" style="background:var(--red);border-color:rgba(255,255,255,.12);">
+        <div style="color:#fff;font-size:1rem;letter-spacing:.05em;">★★★★★</div>
+        <p style="color:rgba(255,255,255,.95);font-size:1.125rem;line-height:1.7;margin:0;font-style:italic;">"Genuinely the best turnaround we've had from any printer. 120 polo shirts embroidered, delivered in under a week. Our corporate client was blown away and asked who did them. We gave them the card."</p>
+        <div style="display:flex;align-items:center;gap:.875rem;margin-top:.5rem;">
+          <div class="avatar" style="background:rgba(255,255,255,.2);">MT</div>
+          <div>
+            <p style="margin:0;font-weight:600;color:#fff;font-size:.9375rem;">Marcus T.</p>
+            <p style="margin:.125rem 0 0;color:rgba(255,255,255,.55);font-size:.8125rem;">Director — MT Corporate Gifting</p>
+          </div>
+          <span class="label-mono" style="margin-left:auto;color:rgba(255,255,255,.4);font-size:.6rem;">120 × POLO · EMBROIDERY</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid of smaller reviews -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;" id="reviews-grid">
+
+      <div class="review-card fade-in">
+        <div class="star">★★★★★</div>
+        <p style="color:#444;font-size:.9375rem;line-height:1.7;margin:0;font-style:italic;">"Ordered 30 custom tees for our football club. The DTG printing is crisp even at small sizes — names and numbers read perfectly. Two seasons in and they haven't faded a bit."</p>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-top:.5rem;">
+          <div class="avatar" style="background:#1B6CF0;">JO</div>
+          <div>
+            <p style="margin:0;font-weight:600;color:var(--ink);font-size:.875rem;">James O.</p>
+            <p style="margin:.1rem 0 0;color:#888;font-size:.78rem;">Kit manager — Southfield FC</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="star">★★★★★</div>
+        <p style="color:#444;font-size:.9375rem;line-height:1.7;margin:0;font-style:italic;">"I had a hand-drawn logo I wanted embroidered on caps for my salon staff. They cleaned up the artwork, gave me a proof same day, and the caps arrived stitched beautifully. Felt very premium."</p>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-top:.5rem;">
+          <div class="avatar" style="background:var(--gold);">KM</div>
+          <div>
+            <p style="margin:0;font-weight:600;color:var(--ink);font-size:.875rem;">Kezia M.</p>
+            <p style="margin:.1rem 0 0;color:#888;font-size:.78rem;">Owner — Kezia & Co. Hair Studio</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="star">★★★★★</div>
+        <p style="color:#444;font-size:.9375rem;line-height:1.7;margin:0;font-style:italic;">"Sublimation sports kits for our basketball team. Edge-to-edge colour, all-over print, brilliant finish. The competition literally asked where we got them on court. Ordering again for away kit."</p>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-top:.5rem;">
+          <div class="avatar" style="background:#22C55E;">TA</div>
+          <div>
+            <p style="margin:0;font-weight:600;color:var(--ink);font-size:.875rem;">Tyrese A.</p>
+            <p style="margin:.1rem 0 0;color:#888;font-size:.78rem;">Captain — Northgate Ballers</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="star">★★★★★</div>
+        <p style="color:#444;font-size:.9375rem;line-height:1.7;margin:0;font-style:italic;">"Ordered 200 branded tote bags and 150 tees for a brand activation. Huge order, tight deadline, zero issues. Communication was brilliant — always knew where the order was."</p>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-top:.5rem;">
+          <div class="avatar" style="background:#A855F7;">PL</div>
+          <div>
+            <p style="margin:0;font-weight:600;color:var(--ink);font-size:.875rem;">Priya L.</p>
+            <p style="margin:.1rem 0 0;color:#888;font-size:.78rem;">Brand manager — Volo Agency</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="star">★★★★★</div>
+        <p style="color:#444;font-size:.9375rem;line-height:1.7;margin:0;font-style:italic;">"I'm a small streetwear designer testing a first run of 25 pieces. They treated my order with the same care as if I'd ordered 500. The quality is exactly what I needed to approach stockists."</p>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-top:.5rem;">
+          <div class="avatar" style="background:#F97316;">DW</div>
+          <div>
+            <p style="margin:0;font-weight:600;color:var(--ink);font-size:.875rem;">Dylan W.</p>
+            <p style="margin:.1rem 0 0;color:#888;font-size:.78rem;">Designer — WREN Studios</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="star">★★★★★</div>
+        <p style="color:#444;font-size:.9375rem;line-height:1.7;margin:0;font-style:italic;">"Three orders in now — staff workwear, branded caps, and promo tees for a trade show. Every single time: on time, great quality, no fuss. I won't go anywhere else."</p>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-top:.5rem;">
+          <div class="avatar" style="background:#06B6D4;">NF</div>
+          <div>
+            <p style="margin:0;font-weight:600;color:var(--ink);font-size:.875rem;">Nadine F.</p>
+            <p style="margin:.1rem 0 0;color:#888;font-size:.78rem;">Operations lead — CleanTech Supply</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="star">★★★★★</div>
+        <p style="color:#444;font-size:.9375rem;line-height:1.7;margin:0;font-style:italic;">"Our school needed PE kits printed with individual names in one week. They did it — 60 tops, all correct, all delivered. Teachers and parents were genuinely impressed."</p>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-top:.5rem;">
+          <div class="avatar" style="background:#E63329;">CB</div>
+          <div>
+            <p style="margin:0;font-weight:600;color:var(--ink);font-size:.875rem;">Claire B.</p>
+            <p style="margin:.1rem 0 0;color:#888;font-size:.78rem;">PE teacher — Ashwood Academy</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="star">★★★★★</div>
+        <p style="color:#444;font-size:.9375rem;line-height:1.7;margin:0;font-style:italic;">"I had a complex multicolour graphic and wasn't sure DTF would handle it. They showed me a colour proof, explained the ink layering, and the finished product was stunning. Far beyond my expectations."</p>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-top:.5rem;">
+          <div class="avatar" style="background:#1B6CF0;">RG</div>
+          <div>
+            <p style="margin:0;font-weight:600;color:var(--ink);font-size:.875rem;">Ryan G.</p>
+            <p style="margin:.1rem 0 0;color:#888;font-size:.78rem;">Illustrator — freelance</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="star">★★★★★</div>
+        <p style="color:#444;font-size:.9375rem;line-height:1.7;margin:0;font-style:italic;">"Bespoke hoodies for our university society. We had a tiny budget and they helped us pick the best blank for the price without sacrificing the print quality. Result was professional as anything."</p>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-top:.5rem;">
+          <div class="avatar" style="background:var(--gold);">AM</div>
+          <div>
+            <p style="margin:0;font-weight:600;color:var(--ink);font-size:.875rem;">Amara M.</p>
+            <p style="margin:.1rem 0 0;color:#888;font-size:.78rem;">Society president — Uni of Leeds</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="star">★★★★★</div>
+        <p style="color:#444;font-size:.9375rem;line-height:1.7;margin:0;font-style:italic;">"Rushed order of 40 branded polos for a client presentation. Ordered Thursday afternoon, delivered Saturday morning. Never thought it was possible. Saved the meeting."</p>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-top:.5rem;">
+          <div class="avatar" style="background:#A855F7;">HS</div>
+          <div>
+            <p style="margin:0;font-weight:600;color:var(--ink);font-size:.875rem;">Hassan S.</p>
+            <p style="margin:.1rem 0 0;color:#888;font-size:.78rem;">MD — Sinclair Consulting</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="star">★★★★★</div>
+        <p style="color:#444;font-size:.9375rem;line-height:1.7;margin:0;font-style:italic;">"Used them for merchandise at our music festival — 300 tees, two colourways, front and back print. Not a single complaint from customers. Sold out by midday on day one. That says it all."</p>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-top:.5rem;">
+          <div class="avatar" style="background:#EC4899;">ZH</div>
+          <div>
+            <p style="margin:0;font-weight:600;color:var(--ink);font-size:.875rem;">Zara H.</p>
+            <p style="margin:.1rem 0 0;color:#888;font-size:.78rem;">Co-founder — Soundfield Festival</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="star">★★★★★</div>
+        <p style="color:#444;font-size:.9375rem;line-height:1.7;margin:0;font-style:italic;">"My gym needed branded vests for our coaches. Great fabric, the heat press transfer has held up through serious daily washing. Six months in and they still look new. Perfect for our use case."</p>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-top:.5rem;">
+          <div class="avatar" style="background:#22C55E;">LB</div>
+          <div>
+            <p style="margin:0;font-weight:600;color:var(--ink);font-size:.875rem;">Liam B.</p>
+            <p style="margin:.1rem 0 0;color:#888;font-size:.78rem;">Head coach — Peak Performance Gym</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOUR-STAR SECTION (adds credibility/realism) -->
+<section style="padding:1rem 1.5rem 5rem;background:var(--paper);">
+  <div style="max-width:1280px;margin:0 auto;">
+    <p class="label-mono" style="color:#aaa;font-size:.68rem;margin-bottom:2rem;">Other recent feedback</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;">
+
+      <div class="review-card fade-in" style="padding:1.25rem;">
+        <div class="star" style="font-size:.875rem;">★★★★<span style="color:#ccc;">★</span></div>
+        <p style="color:#555;font-size:.875rem;line-height:1.65;margin:0;font-style:italic;">"Great quality print, sizing was exactly as described. Delivery was a day later than expected but they kept me updated. Would still use again."</p>
+        <p style="margin:.75rem 0 0;font-weight:600;color:#333;font-size:.8125rem;">Ben K. <span style="font-weight:400;color:#999;">— Tee order × 20</span></p>
+      </div>
+
+      <div class="review-card fade-in" style="padding:1.25rem;">
+        <div class="star" style="font-size:.875rem;">★★★★★</div>
+        <p style="color:#555;font-size:.875rem;line-height:1.65;margin:0;font-style:italic;">"Really happy. Wanted Gildan Heavy but they recommended a better blank at same price. Good advice."</p>
+        <p style="margin:.75rem 0 0;font-weight:600;color:#333;font-size:.8125rem;">Freya T. <span style="font-weight:400;color:#999;">— Hoodie order × 12</span></p>
+      </div>
+
+      <div class="review-card fade-in" style="padding:1.25rem;">
+        <div class="star" style="font-size:.875rem;">★★★★★</div>
+        <p style="color:#555;font-size:.875rem;line-height:1.65;margin:0;font-style:italic;">"Printed all our café staff aprons and shirts. Spot on. We're ordering kitchen caps next."</p>
+        <p style="margin:.75rem 0 0;font-weight:600;color:#333;font-size:.8125rem;">Rosa C. <span style="font-weight:400;color:#999;">— Mixed order × 35</span></p>
+      </div>
+
+      <div class="review-card fade-in" style="padding:1.25rem;">
+        <div class="star" style="font-size:.875rem;">★★★★<span style="color:#ccc;">★</span></div>
+        <p style="color:#555;font-size:.875rem;line-height:1.65;margin:0;font-style:italic;">"Solid embroidery work. Took a couple of days longer on a busy week but the result was excellent. Communication was good throughout."</p>
+        <p style="margin:.75rem 0 0;font-weight:600;color:#333;font-size:.8125rem;">Ian W. <span style="font-weight:400;color:#999;">— Cap embroidery × 48</span></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding:4rem 1.5rem;background:var(--ink);">
+  <div style="max-width:820px;margin:0 auto;text-align:center;">
+    <p class="label-mono" style="color:var(--gold);font-size:.7rem;margin-bottom:1rem;">Join hundreds of happy customers</p>
+    <h2 class="display-heading" style="font-size:clamp(2.25rem,5vw,4rem);color:var(--paper);margin:0 0 1rem;">Ready to place your order?</h2>
+    <p style="color:rgba(238,243,255,.65);font-size:1.0625rem;line-height:1.7;margin:0 0 2rem;">Tell us what you need. We'll come back with a quote within one business day.</p>
+    <a href="contact.html" class="btn-primary" style="font-size:1.0625rem;padding:.9rem 2.25rem;">Get a quote →</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Prints<span>Galore</span></div>
+      <p style="margin:.5rem 0 0;color:rgba(238,243,255,.4);font-size:.8125rem;">Quality garments, true-to-life colour, fast turnaround.</p>
+    </div>
+    <div class="footer-links">
+      <a href="services.html">Services</a>
+      <a href="garments.html">Garments</a>
+      <a href="preview.html">Design preview</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="our-work.html">Our Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <p style="margin:0;color:rgba(238,243,255,.25);font-size:.75rem;">© 2026 Prints Galore.</p>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+  const s = document.createElement('style');
+  s.textContent = `@media(max-width:900px){#featured-grid{grid-template-columns:1fr !important;} #reviews-grid{grid-template-columns:1fr 1fr !important;}} @media(max-width:600px){#reviews-grid{grid-template-columns:1fr !important;}}`;
+  document.head.appendChild(s);
+</script>
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Work — Prints Galore</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{ink:'#07080D',paper:'#EEF3FF','pg-red':'#0050FF','pg-blue':'#18D0FF',gold:'#F5B800',mute:'#C8D3EE'},fontFamily:{display:['Barlow Condensed','sans-serif'],body:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}}}</script>
+  <style>
+    .work-card {
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3;
+      background: var(--mute);
+      cursor: pointer;
+      transition: transform 0.24s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.24s ease;
+    }
+    .work-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 18px 48px rgba(0,80,255,.18), 0 4px 12px rgba(7,8,13,.12); }
+    .work-card img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+    }
+    .work-card .overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(7,8,13,.82) 0%, rgba(7,8,13,.12) 55%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.22s ease;
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 1.25rem;
+    }
+    .work-card:hover .overlay { opacity: 1; }
+    .work-card .tag {
+      position: absolute; top: .875rem; left: .875rem;
+      font-family: 'JetBrains Mono', monospace; font-size: .6rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: .25rem .625rem; border-radius: 2px; color: #fff;
+      z-index: 2;
+    }
+    .filter-btn {
+      padding: .5rem 1.25rem;
+      border: 2px solid var(--mute);
+      border-radius: 20px;
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      font-size: .875rem;
+      font-weight: 600;
+      color: #666;
+      cursor: pointer;
+      transition: all .18s ease;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      border-color: var(--red);
+      background: var(--red);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Prints<span>Galore</span></a>
+    <div class="nav-links">
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="garments.html" class="nav-link">Garments</a>
+      <a href="preview.html" class="nav-link">Design Preview</a>
+      <a href="reviews.html" class="nav-link">Reviews</a>
+      <a href="our-work.html" class="nav-link" aria-current="page">Our Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="btn-primary" style="padding:.5rem 1.25rem;font-size:.875rem;">Get a quote</a>
+    </div>
+    <button id="hamburger" class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="services.html">Services</a>
+    <a href="garments.html">Garments</a>
+    <a href="preview.html">Design Preview</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="our-work.html" aria-current="page">Our Work</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="btn-primary" style="margin-top:1rem;justify-content:center;">Get a quote</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 60% 40%,rgba(0,80,255,.32)0%,transparent 65%);"></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 20% 80%,rgba(24,208,255,.12)0%,transparent 55%);"></div>
+  <div class="page-hero-inner">
+    <p class="section-pip label-mono fade-in" style="color:var(--blue);margin-bottom:.75rem;">340+ projects shipped</p>
+    <h1 class="display-heading fade-in" style="font-size:clamp(3rem,7vw,6rem);color:var(--paper);margin:0 0 1.25rem;">Our<br/>work</h1>
+    <p class="fade-in" style="color:rgba(238,243,255,.68);font-size:1.125rem;max-width:540px;margin:0 0 2.5rem;line-height:1.7;">Sports clubs, streetwear brands, charities, corporate teams, festivals, schools. Every project below was produced and shipped by us.</p>
+    <div style="display:flex;gap:2.5rem;flex-wrap:wrap;" class="fade-in">
+      <div>
+        <p class="display-heading" style="font-size:2.75rem;color:var(--red);margin:0;line-height:1;">340+</p>
+        <p class="label-mono" style="color:rgba(238,243,255,.45);font-size:.65rem;margin:.25rem 0 0;">ORDERS</p>
+      </div>
+      <div>
+        <p class="display-heading" style="font-size:2.75rem;color:var(--blue);margin:0;line-height:1;">5</p>
+        <p class="label-mono" style="color:rgba(238,243,255,.45);font-size:.65rem;margin:.25rem 0 0;">METHODS</p>
+      </div>
+      <div>
+        <p class="display-heading" style="font-size:2.75rem;color:var(--paper);margin:0;line-height:1;">9</p>
+        <p class="label-mono" style="color:rgba(238,243,255,.45);font-size:.65rem;margin:.25rem 0 0;">COLOURS</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div style="background:#fff;border-bottom:1px solid var(--mute);padding:1rem 1.5rem;position:sticky;top:64px;z-index:50;">
+  <div style="max-width:1280px;margin:0 auto;display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;">
+    <span class="label-mono" style="color:#999;font-size:.68rem;margin-right:.5rem;">FILTER:</span>
+    <button class="filter-btn active" onclick="filterWork(this,'all')">All projects</button>
+    <button class="filter-btn" onclick="filterWork(this,'dtf')">DTF</button>
+    <button class="filter-btn" onclick="filterWork(this,'dtg')">DTG</button>
+    <button class="filter-btn" onclick="filterWork(this,'embroidery')">Embroidery</button>
+    <button class="filter-btn" onclick="filterWork(this,'sublimation')">Sublimation</button>
+    <button class="filter-btn" onclick="filterWork(this,'mixed')">Mixed</button>
+    <button class="filter-btn" onclick="filterWork(this,'print')">Print Collateral</button>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section style="padding:4rem 1.5rem 6rem;background:var(--paper);">
+  <div style="max-width:1280px;margin:0 auto;">
+
+    <!-- Sports & Fitness -->
+    <div style="margin-bottom:4rem;" data-section="sports">
+      <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.75rem;">
+        <p class="display-heading" style="font-size:2rem;margin:0;">Sports &amp; fitness</p>
+        <div style="height:2px;flex:1;background:var(--mute);"></div>
+        <span class="label-mono" style="color:#aaa;font-size:.68rem;">11 projects</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;" id="sports-grid">
+
+        <div class="work-card fade-in" data-cat="dtf">
+          <img src="images/cand_hoodie_6311560.jpg" alt="Branded team hoodie" loading="lazy">
+          <div class="tag" style="background:var(--red);">DTF</div>
+          <div class="overlay">
+            <p style="color:var(--blue);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">DTF · 80 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Southfield FC — home kit hoodies</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="sublimation">
+          <img src="images/cand_sport_27642308.jpg" alt="All-over sublimation football kits" loading="lazy">
+          <div class="tag" style="background:#22C55E;">SUBLIMATION</div>
+          <div class="overlay">
+            <p style="color:#22C55E;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">Sublimation · 32 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Northgate Ballers — full all-over basketball kit</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="dtg">
+          <img src="images/cand_sport_36677218.jpg" alt="Branded football kit with sponsor and number" loading="lazy" style="object-position:center top;">
+          <div class="tag" style="background:var(--blue);">DTG</div>
+          <div class="overlay">
+            <p style="color:var(--blue);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">DTG · 45 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Ashwood Academy — PE kits with individual names</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="dtf">
+          <img src="images/cand_sport_36342247.jpg" alt="Custom branded sports jersey back print" loading="lazy" style="object-position:center top;">
+          <div class="tag" style="background:var(--red);">DTF</div>
+          <div class="overlay">
+            <p style="color:var(--red);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">DTF · 60 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Peak Performance Gym — coach vests</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="sublimation">
+          <img src="images/cand_sport_28893177.jpg" alt="Branded sports team kit on pitch" loading="lazy" style="object-position:center top;">
+          <div class="tag" style="background:#22C55E;">SUBLIMATION</div>
+          <div class="overlay">
+            <p style="color:#22C55E;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">Sublimation · 24 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Eagle Run Club — all-over race vests</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="embroidery">
+          <img src="images/cand_cap_16117426.jpg" alt="Embroidered logo detail on cap" loading="lazy">
+          <div class="tag" style="background:var(--gold);color:var(--ink);">EMBROIDERY</div>
+          <div class="overlay">
+            <p style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">Embroidery · 55 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">City Rowing Club — blazer chest badge</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Brands & Streetwear -->
+    <div style="margin-bottom:4rem;" data-section="brands">
+      <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.75rem;">
+        <p class="display-heading" style="font-size:2rem;margin:0;">Brands &amp; streetwear</p>
+        <div style="height:2px;flex:1;background:var(--mute);"></div>
+        <span class="label-mono" style="color:#aaa;font-size:.68rem;">9 projects</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;" id="brands-grid">
+
+        <div class="work-card fade-in" data-cat="dtf">
+          <img src="images/cand_tee_26797746.jpg" alt="Black oversized graphic tees streetwear" loading="lazy">
+          <div class="tag" style="background:var(--red);">DTF</div>
+          <div class="overlay">
+            <p style="color:var(--red);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">DTF · 25 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">WREN Studios — debut streetwear collection</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="dtg">
+          <img src="images/cand_tee_1311588.jpg" alt="Photo-quality back print graphic tee" loading="lazy" style="object-position:center top;">
+          <div class="tag" style="background:var(--blue);">DTG</div>
+          <div class="overlay">
+            <p style="color:var(--blue);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">DTG · 50 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Arctic Drop — photo-quality graphic tees</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="dtf">
+          <img src="images/cand_hoodie_2373900.jpg" alt="Black DTF printed graphic hoodie" loading="lazy" style="object-position:center top;">
+          <div class="tag" style="background:var(--red);">DTF</div>
+          <div class="overlay">
+            <p style="color:var(--red);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">DTF · 75 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">NightFreq — rave crew hoodies</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="embroidery">
+          <img src="images/cand_cap_18998399.jpg" alt="Range of embroidered custom dad caps" loading="lazy">
+          <div class="tag" style="background:var(--gold);color:var(--ink);">EMBROIDERY</div>
+          <div class="overlay">
+            <p style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">Embroidery · 30 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Roam Supply Co — embroidered dad caps</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="mixed">
+          <img src="images/cand_tee_27428300.jpg" alt="Graphic tee with front chest print" loading="lazy" style="object-position:center top;">
+          <div class="tag" style="background:#A855F7;">MIXED</div>
+          <div class="overlay">
+            <p style="color:#A855F7;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">DTF + Embroidery · 40 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Vault Collective — chest print + sleeve embroidery</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Events & Campaigns -->
+    <div style="margin-bottom:4rem;" data-section="events">
+      <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.75rem;">
+        <p class="display-heading" style="font-size:2rem;margin:0;">Events &amp; campaigns</p>
+        <div style="height:2px;flex:1;background:var(--mute);"></div>
+        <span class="label-mono" style="color:#aaa;font-size:.68rem;">8 projects</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;" id="events-grid">
+
+        <div class="work-card fade-in" data-cat="dtf">
+          <img src="images/cand_hoodie_18404159.jpg" alt="Multiple colourful branded hoodies" loading="lazy">
+          <div class="tag" style="background:var(--red);">DTF</div>
+          <div class="overlay">
+            <p style="color:var(--red);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">DTF · 300 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Soundfield Festival — merch drop, two colourways</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="dtf">
+          <img src="images/cand_hoodie_8217416.jpg" alt="White custom DTF printed hoodie" loading="lazy" style="object-position:center top;">
+          <div class="tag" style="background:var(--red);">DTF</div>
+          <div class="overlay">
+            <p style="color:var(--red);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">DTF · 80 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Run for Hope — charity 5K hoodies</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="dtg">
+          <img src="images/cand_tee_5560329.jpg" alt="Casual branded graphic tees" loading="lazy">
+          <div class="tag" style="background:var(--blue);">DTG</div>
+          <div class="overlay">
+            <p style="color:var(--blue);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">DTG · 120 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Volo Agency — brand activation tees</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="dtf">
+          <img src="images/cand_sport_33640285.jpg" alt="Custom branded staff uniform on location" loading="lazy">
+          <div class="tag" style="background:var(--red);">DTF</div>
+          <div class="overlay">
+            <p style="color:var(--red);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">DTF · 65 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Bloom Gin — hospitality staff uniforms</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Corporate & Workwear -->
+    <div style="margin-bottom:4rem;" data-section="corporate">
+      <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.75rem;">
+        <p class="display-heading" style="font-size:2rem;margin:0;">Corporate &amp; workwear</p>
+        <div style="height:2px;flex:1;background:var(--mute);"></div>
+        <span class="label-mono" style="color:#aaa;font-size:.68rem;">10 projects</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;" id="corporate-grid">
+
+        <div class="work-card fade-in" data-cat="embroidery">
+          <img src="images/cand_hoodie_6311560.jpg" alt="Dark embroidered corporate branded garment" loading="lazy">
+          <div class="tag" style="background:var(--gold);color:var(--ink);">EMBROIDERY</div>
+          <div class="overlay">
+            <p style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">Embroidery · 120 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">MT Corporate Gifting — polo shirts</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="mixed">
+          <img src="images/cand_sport_28893177.jpg" alt="Branded staff workwear kit" loading="lazy" style="object-position:center top;">
+          <div class="tag" style="background:#A855F7;">MIXED</div>
+          <div class="overlay">
+            <p style="color:#A855F7;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">DTF + Emb · 35 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">CleanTech Supply — staff workwear bundle</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="embroidery">
+          <img src="images/cand_cap_14628954.jpg" alt="Custom embroidered staff cap held up" loading="lazy">
+          <div class="tag" style="background:var(--gold);color:var(--ink);">EMBROIDERY</div>
+          <div class="overlay">
+            <p style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">Embroidery · 48 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Kezia &amp; Co. Hair Studio — salon staff caps</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="dtf">
+          <img src="images/cand_hoodie_8217416.jpg" alt="Clean white branded presentation hoodie" loading="lazy" style="object-position:center top;">
+          <div class="tag" style="background:var(--red);">DTF</div>
+          <div class="overlay">
+            <p style="color:var(--red);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">DTF · 40 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Sinclair Consulting — client presentation polos</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Print Collateral -->
+    <div style="margin-bottom:4rem;" data-section="print">
+      <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.75rem;">
+        <p class="display-heading" style="font-size:2rem;margin:0;">Print collateral</p>
+        <div style="height:2px;flex:1;background:var(--mute);"></div>
+        <span class="label-mono" style="color:#aaa;font-size:.68rem;">7 projects</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;" id="print-grid">
+
+        <div class="work-card fade-in" data-cat="print">
+          <img src="images/cand_bizcard_9878733.jpg" alt="Premium business cards on marble" loading="lazy">
+          <div class="tag" style="background:var(--gold);color:var(--ink);">PRINT</div>
+          <div class="overlay">
+            <p style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">Print · 1000 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Elara Aesthetics — premium business cards</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="print">
+          <img src="images/cand_bizcard_5706020.jpg" alt="Stacked business cards two-tone background" loading="lazy">
+          <div class="tag" style="background:var(--gold);color:var(--ink);">PRINT</div>
+          <div class="overlay">
+            <p style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">Print · 500 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Quantum Labs — business cards &amp; stationery</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="print">
+          <img src="images/cand_flyer_6565754.jpg" alt="Branded tri-fold brochure being handed over" loading="lazy">
+          <div class="tag" style="background:var(--gold);color:var(--ink);">PRINT</div>
+          <div class="overlay">
+            <p style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">Print · 2000 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Summit Events — event flyers &amp; brochures</p>
+          </div>
+        </div>
+
+        <div class="work-card fade-in" data-cat="print">
+          <img src="images/cand_flyer_7648305.jpg" alt="Printed event programme booklet" loading="lazy">
+          <div class="tag" style="background:var(--gold);color:var(--ink);">PRINT</div>
+          <div class="overlay">
+            <p style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .375rem;">Print · 300 units</p>
+            <p style="color:#fff;font-weight:700;font-size:.9375rem;margin:0;">Olive &amp; Co. Restaurant — menus &amp; event programmes</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section style="padding:4rem 1.5rem;background:var(--ink);">
+  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:center;gap:3rem;flex-wrap:wrap;" id="cta-grid">
+    <div>
+      <p class="label-mono" style="color:var(--blue);font-size:.7rem;margin:0 0 .875rem;">Start your project</p>
+      <h2 class="display-heading" style="font-size:clamp(2.25rem,5vw,4rem);color:var(--paper);margin:0 0 .875rem;">Want your work on this page?</h2>
+      <p style="color:rgba(238,243,255,.6);font-size:1.0625rem;line-height:1.7;margin:0;">Send us your brief. We'll quote fast, produce right, and ship it.</p>
+    </div>
+    <a href="contact.html" class="btn-primary" style="font-size:1.0625rem;padding:.9rem 2.25rem;white-space:nowrap;">Get a quote →</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Prints<span>Galore</span></div>
+      <p style="margin:.5rem 0 0;color:rgba(238,243,255,.4);font-size:.8125rem;">Quality garments, true-to-life colour, fast turnaround.</p>
+    </div>
+    <div class="footer-links">
+      <a href="services.html">Services</a>
+      <a href="garments.html">Garments</a>
+      <a href="preview.html">Design preview</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="our-work.html">Our Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <p style="margin:0;color:rgba(238,243,255,.25);font-size:.75rem;">© 2026 Prints Galore.</p>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+  function filterWork(btn, cat) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('[data-cat]').forEach(card => {
+      card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+    });
+    document.querySelectorAll('[data-section]').forEach(section => {
+      if (cat === 'all') { section.style.display = ''; return; }
+      const hasMatch = [...section.querySelectorAll('[data-cat]')].some(c => c.dataset.cat === cat);
+      section.style.display = hasMatch ? '' : 'none';
+    });
+  }
+
+  const s = document.createElement('style');
+  s.textContent = `@media(max-width:1024px){[id$="-grid"]{grid-template-columns:repeat(3,1fr)!important;}}@media(max-width:700px){[id$="-grid"]{grid-template-columns:repeat(2,1fr)!important;}}@media(max-width:480px){[id$="-grid"]{grid-template-columns:1fr!important;}}#cta-grid{display:flex!important;flex-wrap:wrap!important;}`;
+  document.head.appendChild(s);
+</script>
+</body>
+</html>

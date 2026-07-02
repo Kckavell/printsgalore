@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Decoration Services — Prints Galore</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{ink:'#07080D',paper:'#EEF3FF','pg-red':'#0050FF','pg-blue':'#18D0FF',gold:'#F5B800',mute:'#C8D3EE'},fontFamily:{display:['Barlow Condensed','sans-serif'],body:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}}</script>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Prints<span>Galore</span></a>
+    <div class="nav-links">
+      <a href="services.html" class="nav-link" aria-current="page">Services</a>
+      <a href="garments.html" class="nav-link">Garments</a>
+      <a href="preview.html" class="nav-link">Design Preview</a>
+      <a href="reviews.html" class="nav-link">Reviews</a>
+      <a href="our-work.html" class="nav-link">Our Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="btn-primary" style="padding:.5rem 1.25rem;font-size:.875rem;">Get a quote</a>
+    </div>
+    <button id="hamburger" class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="services.html" aria-current="page">Services</a>
+    <a href="garments.html">Garments</a>
+    <a href="preview.html">Design Preview</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="our-work.html">Our Work</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="btn-primary" style="margin-top:1rem;justify-content:center;">Get a quote</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 80% 50%,rgba(0,80,255,.35)0%,transparent 65%);"></div>
+  <div class="page-hero-inner">
+    <p class="section-pip label-mono fade-in" style="color:var(--red);margin-bottom:.75rem;">Five methods</p>
+    <h1 class="display-heading fade-in" style="font-size:clamp(3rem,7vw,6rem);color:var(--paper);margin:0 0 1.25rem;">Decoration<br/>services</h1>
+    <p class="fade-in" style="color:rgba(238,243,255,.7);font-size:1.125rem;max-width:560px;margin:0 0 2rem;line-height:1.7;">We don't push one method. Every process produces a different result — we'll tell you which one is right for your garment, your design, and your order size.</p>
+    <div class="ink-strip fade-in" style="max-width:200px;">
+      <span style="background:#E63329"></span><span style="background:#1B6CF0"></span><span style="background:#D9A521"></span><span style="background:#22C55E"></span><span style="background:#A855F7"></span><span style="background:#F97316"></span><span style="background:#06B6D4"></span><span style="background:#EC4899"></span><span style="background:#FBFAF7;opacity:.5"></span>
+    </div>
+  </div>
+</section>
+
+<!-- DTF -->
+<section class="section" style="background:var(--paper);">
+  <div class="section-inner">
+    <div class="two-col">
+      <div>
+        <span class="label-mono fade-in" style="background:var(--red);color:#fff;padding:.3rem .75rem;border-radius:2px;font-size:.65rem;display:inline-block;margin-bottom:1.25rem;">9-COLOUR</span>
+        <h2 class="display-heading fade-in" style="font-size:clamp(2rem,4vw,3.5rem);margin:0 0 1rem;">DTF<br/>Direct-to-Film</h2>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 1rem;">A vivid, durable transfer printed in up to 9 colours on film, then heat-pressed onto your garment. DTF works on virtually any fabric type — cotton, polyester, blends, nylon — and produces a bright, flexible print that holds up wash after wash.</p>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 2rem;">Best for: bold graphics, multi-colour designs, small to medium runs, and prints on dark garments.</p>
+        <div class="ink-strip fade-in" style="max-width:160px;margin-bottom:2rem;">
+          <span style="background:#E63329"></span><span style="background:#1B6CF0"></span><span style="background:#D9A521"></span><span style="background:#22C55E"></span><span style="background:#A855F7"></span><span style="background:#F97316"></span><span style="background:#06B6D4"></span><span style="background:#EC4899"></span><span style="background:#FBFAF7;border:1px solid #E7E3DC"></span>
+        </div>
+        <a href="contact.html" class="btn-primary fade-in">Get a DTF quote →</a>
+      </div>
+      <div class="fade-in">
+        <div style="border-radius:12px;overflow:hidden;position:relative;height:340px;box-shadow:0 8px 30px rgba(20,17,15,.18);">
+          <img src="images/dtf.jpg" alt="DTF heat-press transfer being applied to a t-shirt" style="width:100%;height:100%;object-fit:cover;" />
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(20,17,15,.55)0%,transparent 45%);"></div>
+          <div style="position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;">
+            <div style="display:flex;gap:.375rem;">
+              <div style="flex:1;height:8px;border-radius:4px;background:#E63329;"></div>
+              <div style="flex:1;height:8px;border-radius:4px;background:#1B6CF0;"></div>
+              <div style="flex:1;height:8px;border-radius:4px;background:#D9A521;"></div>
+              <div style="flex:1;height:8px;border-radius:4px;background:#22C55E;"></div>
+              <div style="flex:1;height:8px;border-radius:4px;background:#A855F7;"></div>
+              <div style="flex:1;height:8px;border-radius:4px;background:#F97316;"></div>
+              <div style="flex:1;height:8px;border-radius:4px;background:#06B6D4;"></div>
+              <div style="flex:1;height:8px;border-radius:4px;background:#EC4899;"></div>
+              <div style="flex:1;height:8px;border-radius:4px;background:#FBFAF7;opacity:.5;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="height:1px;background:var(--mute);max-width:1280px;margin:0 auto;"></div>
+
+<!-- DTG -->
+<section class="section" style="background:var(--paper);">
+  <div class="section-inner">
+    <div class="two-col" style="direction:rtl;">
+      <div style="direction:ltr;">
+        <span class="label-mono fade-in" style="background:var(--blue);color:#fff;padding:.3rem .75rem;border-radius:2px;font-size:.65rem;display:inline-block;margin-bottom:1.25rem;">9-COLOUR</span>
+        <h2 class="display-heading fade-in" style="font-size:clamp(2rem,4vw,3.5rem);margin:0 0 1rem;">DTG<br/>Direct-to-Garment</h2>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 1rem;">Ink printed directly onto the garment using a specialist inkjet printer. DTG handles photographic detail, smooth gradients, and complex multi-colour artwork that other methods struggle with.</p>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 2rem;">Best for: photo-quality prints, intricate designs, and one-off or short-run orders on 100% cotton.</p>
+        <a href="contact.html" class="btn-primary fade-in">Get a DTG quote →</a>
+      </div>
+      <div class="fade-in" style="direction:ltr;">
+        <div style="border-radius:12px;overflow:hidden;position:relative;height:340px;box-shadow:0 8px 30px rgba(20,17,15,.18);">
+          <img src="images/dtg.jpg" alt="DTG inkjet printer printing directly onto a navy t-shirt" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="height:1px;background:var(--mute);max-width:1280px;margin:0 auto;"></div>
+
+<!-- EMBROIDERY -->
+<section class="section" style="background:var(--paper);">
+  <div class="section-inner">
+    <div class="two-col">
+      <div>
+        <span class="label-mono fade-in" style="background:var(--gold);color:var(--ink);padding:.3rem .75rem;border-radius:2px;font-size:.65rem;display:inline-block;margin-bottom:1.25rem;">PREMIUM</span>
+        <h2 class="display-heading fade-in" style="font-size:clamp(2rem,4vw,3.5rem);margin:0 0 1rem;">Embroidery</h2>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 1rem;">Thread stitched directly into the fabric using a CNC embroidery machine. The result is a raised, textured decoration that adds real weight and quality to a garment — you can feel the craft.</p>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 2rem;">Best for: logos, branding marks, chest badges, and caps. Outlasts any printed method and signals premium quality at a glance.</p>
+        <a href="contact.html" class="btn-primary fade-in">Get an embroidery quote →</a>
+      </div>
+      <div class="fade-in">
+        <div style="border-radius:12px;overflow:hidden;position:relative;height:340px;box-shadow:0 8px 30px rgba(20,17,15,.18);">
+          <img src="images/embroidery.jpg" alt="Commercial embroidery machine head stitching thread into fabric" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="height:1px;background:var(--mute);max-width:1280px;margin:0 auto;"></div>
+
+<!-- SUBLIMATION -->
+<section class="section" style="background:var(--paper);">
+  <div class="section-inner">
+    <div class="two-col" style="direction:rtl;">
+      <div style="direction:ltr;">
+        <span class="label-mono fade-in" style="background:#22C55E;color:#fff;padding:.3rem .75rem;border-radius:2px;font-size:.65rem;display:inline-block;margin-bottom:1.25rem;">ALL-OVER</span>
+        <h2 class="display-heading fade-in" style="font-size:clamp(2rem,4vw,3.5rem);margin:0 0 1rem;">Sublimation</h2>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 1rem;">Colour dye transferred into the polyester fibres of the fabric under heat, becoming part of the garment itself. This means no cracking, no peeling, and a vivid all-over finish that covers the garment edge to edge.</p>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 2rem;">Best for: sports kits, performance wear, and all-over graphic garments on white or light polyester fabrics.</p>
+        <a href="contact.html" class="btn-primary fade-in">Get a sublimation quote →</a>
+      </div>
+      <div class="fade-in" style="direction:ltr;">
+        <div style="border-radius:12px;overflow:hidden;position:relative;height:340px;box-shadow:0 8px 30px rgba(20,17,15,.18);">
+          <img src="images/sublimation.jpg" alt="Vivid all-over sublimation colour dyed into polyester fabric" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="height:1px;background:var(--mute);max-width:1280px;margin:0 auto;"></div>
+
+<!-- CUSTOM DESIGN -->
+<section class="section" style="background:var(--paper);">
+  <div class="section-inner">
+    <div class="two-col">
+      <div>
+        <span class="label-mono fade-in" style="background:#A855F7;color:#fff;padding:.3rem .75rem;border-radius:2px;font-size:.65rem;display:inline-block;margin-bottom:1.25rem;">BRING YOUR VISION</span>
+        <h2 class="display-heading fade-in" style="font-size:clamp(2rem,4vw,3.5rem);margin:0 0 1rem;">Custom<br/>designs</h2>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 1rem;">Have a concept but not a print-ready file? We can work from a sketch, a reference image, or even a text description. We'll turn it into something printable — and make sure it looks right at the size and method you need.</p>
+        <p class="fade-in" style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 2rem;">This service pairs with any of our decoration methods. You supply the vision; we supply the rest.</p>
+        <a href="contact.html" class="btn-primary fade-in">Tell us your idea →</a>
+      </div>
+      <div class="fade-in">
+        <div style="border-radius:12px;overflow:hidden;position:relative;height:340px;box-shadow:0 8px 30px rgba(20,17,15,.18);">
+          <img src="images/custom.jpg" alt="Designer sketching custom artwork ready for print production" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOT SURE CTA -->
+<section style="padding:4rem 1.5rem;background:var(--mute);">
+  <div style="max-width:720px;margin:0 auto;text-align:center;">
+    <h2 class="display-heading" style="font-size:clamp(2rem,4vw,3rem);margin:0 0 1rem;">Not sure which method?</h2>
+    <p style="color:#555;font-size:1.0625rem;line-height:1.7;margin:0 0 2rem;">Tell us about your project — the garment, the design, the quantity. We'll recommend the right method and give you a quote.</p>
+    <a href="contact.html" class="btn-primary">Get advice + a quote →</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Prints<span>Galore</span></div>
+      <p style="margin:.5rem 0 0;color:rgba(238,243,255,.4);font-size:.8125rem;">Quality garments, true-to-life colour, fast turnaround.</p>
+    </div>
+    <div class="footer-links">
+      <a href="services.html">Services</a>
+      <a href="garments.html">Garments</a>
+      <a href="preview.html">Design preview</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="our-work.html">Our Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <p style="margin:0;color:rgba(238,243,255,.25);font-size:.75rem;">© 2026 Prints Galore.</p>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>
