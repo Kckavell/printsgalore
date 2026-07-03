@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -30,6 +30,19 @@
     .work-dot.active { background:var(--blue);transform:scale(1.3); }
     #work-prev:hover, #work-next:hover { background:var(--blue) !important; }
     #work-prev:hover svg, #work-next:hover svg { stroke:#fff; }
+    @keyframes pulse-dot {
+      0%,100% { transform:scale(1);opacity:1; }
+      50%      { transform:scale(1.4);opacity:.6; }
+    }
+    @keyframes typing-dot {
+      0%,60%,100% { transform:translateY(0);opacity:.35; }
+      30%          { transform:translateY(-5px);opacity:1; }
+    }
+    @keyframes chat-slide-up {
+      from { opacity:0;transform:translateY(16px); }
+      to   { opacity:1;transform:translateY(0); }
+    }
+    #chat-window.open { animation:chat-slide-up .25s ease forwards; }
   </style>
 </head>
 <body>
@@ -856,5 +869,292 @@ const s = document.createElement('style');
 s.textContent = `@media(max-width:768px){#preview-grid{grid-template-columns:1fr !important;}}`;
 document.head.appendChild(s);
 </script>
+
+<!-- ═══════════════════════ Q AI ASSISTANT ═══════════════════════ -->
+<style>
+@keyframes wave-bar{0%,100%{height:4px;opacity:.5}50%{height:22px;opacity:1}}
+</style>
+<div id="qai-wrap" style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;font-family:'Inter',sans-serif;">
+
+  <!-- Launcher chip showing avatar face -->
+  <div id="qai-launcher" onclick="qaiToggle()" role="button" tabindex="0"
+    style="cursor:pointer;background:linear-gradient(145deg,#180820,#0d0d22);border:2px solid rgba(255,45,91,.45);border-radius:56px;padding:.45rem .85rem .45rem .45rem;display:flex;align-items:center;gap:.6rem;box-shadow:0 8px 28px rgba(255,45,91,.38),0 3px 10px rgba(0,0,0,.55);transition:transform .2s,box-shadow .2s,border-color .2s;"
+    onmouseenter="this.style.transform='translateY(-3px)';this.style.boxShadow='0 14px 38px rgba(255,45,91,.48),0 4px 14px rgba(0,0,0,.55)';this.style.borderColor='rgba(255,45,91,.75)'"
+    onmouseleave="this.style.transform='';this.style.boxShadow='0 8px 28px rgba(255,45,91,.38),0 3px 10px rgba(0,0,0,.55)';this.style.borderColor='rgba(255,45,91,.45)'">
+    <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#FF2D5B,#7C3AED);padding:2.5px;flex-shrink:0;position:relative;">
+      <div style="width:100%;height:100%;border-radius:50%;overflow:hidden;">
+        <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+          <rect width="160" height="160" fill="#0f0a1e"/>
+          <path d="M0 160 L0 118 Q30 93 80 98 Q130 93 160 118 L160 160 Z" fill="#1a2535"/>
+          <path d="M67 98 L80 113 L93 98 L88 91 L80 104 L72 91 Z" fill="#263548"/>
+          <rect x="70" y="86" width="20" height="15" rx="4" fill="#c07828"/>
+          <ellipse cx="80" cy="63" rx="33" ry="36" fill="#d4954a"/>
+          <path d="M50 73 Q53 98 80 102 Q107 98 110 73" fill="#c07828"/>
+          <path d="M47 56 Q50 24 80 21 Q110 24 113 56 Q108 36 100 29 Q91 22 80 22 Q69 22 60 29 Q52 36 47 56 Z" fill="#0e0700"/>
+          <path d="M48 54 Q51 30 80 28 Q109 30 112 54 Q108 42 102 35 Q92 26 80 26 Q68 26 58 35 Q52 42 48 54 Z" fill="#1a0e00"/>
+          <path d="M49 59 Q47 66 48 75" stroke="#0e0700" stroke-width="5" fill="none" opacity=".85"/>
+          <path d="M111 59 Q113 66 112 75" stroke="#0e0700" stroke-width="5" fill="none" opacity=".85"/>
+          <ellipse cx="48" cy="68" rx="7" ry="9" fill="#c07828"/>
+          <ellipse cx="112" cy="68" rx="7" ry="9" fill="#c07828"/>
+          <ellipse cx="48" cy="68" rx="4.5" ry="6" fill="#a56018"/>
+          <ellipse cx="112" cy="68" rx="4.5" ry="6" fill="#a56018"/>
+          <ellipse cx="65" cy="63" rx="10" ry="8" fill="#f5f0e8"/>
+          <ellipse cx="95" cy="63" rx="10" ry="8" fill="#f5f0e8"/>
+          <circle cx="66" cy="64" r="6" fill="#2a1200"/><circle cx="96" cy="64" r="6" fill="#2a1200"/>
+          <circle cx="66" cy="64" r="3.5" fill="#040100"/><circle cx="96" cy="64" r="3.5" fill="#040100"/>
+          <circle cx="68" cy="61.5" r="1.6" fill="#fff" opacity=".95"/><circle cx="98" cy="61.5" r="1.6" fill="#fff" opacity=".95"/>
+          <path d="M55 59 Q65 54 75 59" stroke="#7a3c0a" stroke-width="2" fill="none" stroke-linecap="round" opacity=".65"/>
+          <path d="M85 59 Q95 54 105 59" stroke="#7a3c0a" stroke-width="2" fill="none" stroke-linecap="round" opacity=".65"/>
+          <path d="M54 52 Q65 47 76 51" stroke="#0e0700" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <path d="M84 51 Q95 47 106 52" stroke="#0e0700" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <path d="M68 94 Q80 98 92 94 Q86 90 80 90 Q74 90 68 94 Z" fill="#b84020" opacity=".7"/>
+          <path d="M67 95 Q80 101 93 95 Q86 100 80 100 Q74 100 67 95 Z" fill="#9a3010" opacity=".65"/>
+          <path d="M68 94 Q80 98 92 94" stroke="#7a2010" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/>
+          <ellipse cx="54" cy="76" rx="8" ry="5" fill="#d88040" opacity=".18"/>
+          <ellipse cx="106" cy="76" rx="8" ry="5" fill="#d88040" opacity=".18"/>
+        </svg>
+      </div>
+      <span style="position:absolute;bottom:1px;right:1px;width:12px;height:12px;background:#4ade80;border-radius:50%;border:2.5px solid #180820;animation:pulse-dot 2.5s ease-in-out infinite;"></span>
+    </div>
+    <div>
+      <p style="margin:0;color:#fff;font-weight:700;font-size:.82rem;line-height:1.25;">Ask Q</p>
+      <p style="margin:.1rem 0 0;color:rgba(255,255,255,.5);font-size:.67rem;">AI Print Expert</p>
+    </div>
+  </div>
+
+  <!-- Full panel -->
+  <div id="qai-panel" style="display:none;position:absolute;bottom:76px;right:0;width:360px;border-radius:22px;overflow:hidden;box-shadow:0 28px 72px rgba(0,0,0,.48);flex-direction:column;background:#fff;">
+
+    <!-- Dark header -->
+    <div style="background:linear-gradient(160deg,#200828 0%,#170820 45%,#0d1030 100%);padding:1.5rem 1.25rem 1.125rem;text-align:center;position:relative;">
+      <button onclick="qaiToggle()" style="position:absolute;top:.875rem;right:.875rem;background:rgba(255,255,255,.1);border:none;cursor:pointer;color:rgba(255,255,255,.65);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;" onmouseenter="this.style.background='rgba(255,255,255,.22)'" onmouseleave="this.style.background='rgba(255,255,255,.1)'" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <!-- Avatar with speaking ring -->
+      <div style="display:inline-block;position:relative;margin-bottom:.75rem;">
+        <div id="qai-ring" style="width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,#FF2D5B,#7C3AED);padding:3px;transition:box-shadow .3s;">
+          <div style="width:100%;height:100%;border-radius:50%;overflow:hidden;">
+            <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+              <rect width="160" height="160" fill="#0f0a1e"/>
+              <path d="M0 160 L0 118 Q30 93 80 98 Q130 93 160 118 L160 160 Z" fill="#1a2535"/>
+              <path d="M67 98 L80 113 L93 98 L88 91 L80 104 L72 91 Z" fill="#263548"/>
+              <rect x="70" y="86" width="20" height="15" rx="4" fill="#c07828"/>
+              <ellipse cx="80" cy="63" rx="33" ry="36" fill="#d4954a"/>
+              <path d="M50 73 Q53 98 80 102 Q107 98 110 73" fill="#c07828"/>
+              <path d="M47 56 Q50 24 80 21 Q110 24 113 56 Q108 36 100 29 Q91 22 80 22 Q69 22 60 29 Q52 36 47 56 Z" fill="#0e0700"/>
+              <path d="M48 54 Q51 30 80 28 Q109 30 112 54 Q108 42 102 35 Q92 26 80 26 Q68 26 58 35 Q52 42 48 54 Z" fill="#1a0e00"/>
+              <path d="M49 59 Q47 66 48 75" stroke="#0e0700" stroke-width="5" fill="none" opacity=".85"/>
+              <path d="M111 59 Q113 66 112 75" stroke="#0e0700" stroke-width="5" fill="none" opacity=".85"/>
+              <ellipse cx="48" cy="68" rx="7" ry="9" fill="#c07828"/>
+              <ellipse cx="112" cy="68" rx="7" ry="9" fill="#c07828"/>
+              <ellipse cx="48" cy="68" rx="4.5" ry="6" fill="#a56018"/>
+              <ellipse cx="112" cy="68" rx="4.5" ry="6" fill="#a56018"/>
+              <ellipse cx="65" cy="63" rx="10" ry="8" fill="#f5f0e8"/>
+              <ellipse cx="95" cy="63" rx="10" ry="8" fill="#f5f0e8"/>
+              <circle cx="66" cy="64" r="6" fill="#2a1200"/><circle cx="96" cy="64" r="6" fill="#2a1200"/>
+              <circle cx="66" cy="64" r="3.5" fill="#040100"/><circle cx="96" cy="64" r="3.5" fill="#040100"/>
+              <circle cx="68" cy="61.5" r="1.6" fill="#fff" opacity=".95"/><circle cx="98" cy="61.5" r="1.6" fill="#fff" opacity=".95"/>
+              <path d="M55 59 Q65 54 75 59" stroke="#7a3c0a" stroke-width="2" fill="none" stroke-linecap="round" opacity=".65"/>
+              <path d="M85 59 Q95 54 105 59" stroke="#7a3c0a" stroke-width="2" fill="none" stroke-linecap="round" opacity=".65"/>
+              <path d="M54 52 Q65 47 76 51" stroke="#0e0700" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+              <path d="M84 51 Q95 47 106 52" stroke="#0e0700" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+              <!-- animated mouth -->
+              <path d="M68 94 Q80 98 92 94 Q86 90 80 90 Q74 90 68 94 Z" fill="#b84020" opacity=".7"/>
+              <ellipse id="qai-av-mouth" cx="80" cy="96" rx="11" ry="0" fill="#0d0200"/>
+              <path d="M67 95 Q80 101 93 95 Q86 100 80 100 Q74 100 67 95 Z" fill="#9a3010" opacity=".65"/>
+              <path d="M68 94 Q80 98 92 94" stroke="#7a2010" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/>
+              <ellipse cx="54" cy="76" rx="8" ry="5" fill="#d88040" opacity=".18"/>
+              <ellipse cx="106" cy="76" rx="8" ry="5" fill="#d88040" opacity=".18"/>
+              <path d="M53 85 Q80 108 107 85 Q100 98 80 104 Q60 98 53 85 Z" fill="#3a1500" opacity=".12"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin:0 0 .2rem;font-weight:700;color:#fff;font-size:.9375rem;">Q — Print Expert</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:.35rem;margin-bottom:.5rem;">
+        <span id="qai-sdot" style="width:7px;height:7px;background:#4ade80;border-radius:50%;display:inline-block;"></span>
+        <span id="qai-stxt" style="font-size:.7rem;color:rgba(255,255,255,.6);">Online · Ask me anything</span>
+      </div>
+      <!-- Sound wave — visible when speaking -->
+      <div id="qai-wave" style="display:none;justify-content:center;align-items:flex-end;gap:3px;height:22px;">
+        <span style="width:4px;border-radius:2px;background:#FF2D5B;animation:wave-bar .75s ease-in-out infinite 0s;"></span>
+        <span style="width:4px;border-radius:2px;background:#FF6B35;animation:wave-bar .75s ease-in-out infinite .1s;"></span>
+        <span style="width:4px;border-radius:2px;background:#FFD60A;animation:wave-bar .75s ease-in-out infinite .2s;"></span>
+        <span style="width:4px;border-radius:2px;background:#00CFFF;animation:wave-bar .75s ease-in-out infinite .3s;"></span>
+        <span style="width:4px;border-radius:2px;background:#7C3AED;animation:wave-bar .75s ease-in-out infinite .4s;"></span>
+        <span style="width:4px;border-radius:2px;background:#FF2D5B;animation:wave-bar .75s ease-in-out infinite .5s;"></span>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div id="qai-msgs" style="height:255px;overflow-y:auto;padding:.875rem;display:flex;flex-direction:column;gap:.6rem;background:#f8f9fb;scroll-behavior:smooth;"></div>
+
+    <!-- Input only — no pre-shown questions -->
+    <div style="padding:.75rem 1rem;border-top:1px solid #ebebeb;display:flex;gap:.5rem;align-items:center;background:#fff;">
+      <input id="qai-input" type="text" placeholder="Type your question…"
+        style="flex:1;border:1.5px solid #e5e7eb;border-radius:100px;padding:.5rem .95rem;font-size:.8125rem;font-family:'Inter',sans-serif;outline:none;color:#07080D;background:#fff;transition:border-color .15s;"
+        onfocus="this.style.borderColor='#FF2D5B'" onblur="this.style.borderColor='#e5e7eb'"
+        onkeydown="if(event.key==='Enter')qaiSend()" />
+      <button onclick="qaiSend()" aria-label="Send"
+        style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#FF2D5B,#7C3AED);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 10px rgba(255,45,91,.4);transition:transform .15s;"
+        onmouseenter="this.style.transform='scale(1.1)'" onmouseleave="this.style.transform=''">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+var QA=[
+{k:['price','cost','how much','pricing','charge','fee','quote'],a:"Pricing depends on product, quantity and method. Custom tees start from around £15-£20 for a single piece, and the price per unit drops on larger runs. Send me your idea and quantity and I'll get you a proper quote — usually same day.\n\nEmail: Printsgalore0121@outlook.com"},
+{k:['minimum','min order','one piece','single','small order','just one'],a:"No strict minimums — we happily do single pieces! Unit cost is lower on bigger runs, but one is absolutely fine. Just get in touch and we'll sort it."},
+{k:['how long','turnaround','time','when','ready','days','quick','fast','rush','urgent','deadline'],a:"Standard turnaround is 5-7 working days from artwork approval. Rush orders can often be done in 2-3 days — just tell us your deadline and we'll do our best to hit it."},
+{k:['deliver','shipping','ship','post','collection','collect','pickup'],a:"We offer tracked UK delivery and local collection from our Birmingham base — whichever works for you. Just let us know your preference when ordering."},
+{k:['where','location','based','birmingham','address'],a:"We're based in Birmingham, UK. We serve customers nationwide with tracked delivery, and locals are welcome to collect in person."},
+{k:['dtf','direct to film'],a:"DTF — Direct to Film — is our most popular method. Your design is printed onto special film then heat-pressed onto the garment. Vivid, true-to-life colour on virtually any fabric, and seriously durable through the wash."},
+{k:['dtg','direct to garment'],a:"DTG prints straight onto the fabric using specialist inkjet tech. Best for high-detail artwork on cotton. It gives a soft, breathable finish that feels part of the fabric rather than sitting on top."},
+{k:['embroidery','embroider','stitch','stitched'],a:"Yes! Embroidery gives a premium, professional look — ideal for logos on polos, caps, jackets and workwear. Thread stitched directly into the fabric so it's incredibly durable and looks sharp for years."},
+{k:['silicon','silicone','3d','raised','puff'],a:"Silicon print creates a raised 3D texture on the garment — bold, tactile and seriously eye-catching. Brilliant for logos on hoodies. Gives that premium streetwear feel people love."},
+{k:['design','artwork','no design','sketch','idea','brief','help with'],a:"No design? No problem! We offer a custom design service. Share a sketch, a reference image, or just describe your idea and we'll bring it to life. Small design fee depending on complexity — just reach out and we'll chat."},
+{k:['file','format','send','png','pdf','vector','eps','resolution','dpi'],a:"Ideally a high-res PNG (300dpi+) or vector file (AI, EPS, PDF). Got a low-res file? Send it over anyway — we'll check if it's workable and let you know upfront before we print anything."},
+{k:['preview','proof','mockup','see before','sample','approval'],a:"Yes! Use our Design Preview tool on the website right now. For every paid order we also send a digital proof for your approval — nothing goes to print without your sign-off."},
+{k:['quality','good','last','wash','fade','durable'],a:"Quality is everything to us. We run a 9-colour DTF and DTG setup for true, vivid results. Check our portfolio on the website for real customer orders — that's the honest proof."},
+{k:['hoodie','hoodies','sweatshirt','zip up','pullover'],a:"Hoodies are one of our most popular products! Pullover and zip-up styles in a range of weights and colours. DTF, DTG, embroidery and silicon print all work brilliantly on them. Tell me your quantity and I'll sort a quote."},
+{k:['tshirt','t-shirt','tee','t shirt'],a:"T-shirts are our bread and butter — any design, any colour, from lightweight 140gsm to heavy premium 200gsm+ options. Any quantity. Use the Design Preview tool on the site to see your artwork live on a tee."},
+{k:['cap','hat','snapback','beanie','headwear'],a:"Yes! Embroidered caps, snapbacks, dad hats and beanies. Embroidery is the go-to for headwear — it looks sharp and lasts for years. Send your logo and I'll get you a price."},
+{k:['sportswear','sport','team','kit','football','jersey','training','gym','athletic','club','school'],a:"Team kits and sportswear are a speciality! Custom football shirts, training tops, gym wear — names, numbers, logos. Great for teams, gyms, clubs and schools. Tell me your squad size and we'll put a package together."},
+{k:['tracksuit','jogger','jogging','bottoms','matching set'],a:"Yes — full matching sets, tracksuits and joggers, custom decorated to match your branding. Perfect for teams, gyms and streetwear brands."},
+{k:['flyer','poster','business card','leaflet','banner','collateral'],a:"Beyond garments we print flyers, posters and business cards with the same commitment to colour accuracy. Matt or gloss finishes available. We can handle garments and print collateral in one order."},
+{k:['bespoke','manufacture','from scratch','private label','own brand'],a:"For serious projects we offer full bespoke manufacturing — garments built to your exact spec: cut, construction, fabric, everything. We have overseas manufacturing links. Ideal for brands launching a proper line."},
+{k:['bulk','large order','discount','wholesale','volume'],a:"The more you order, the lower the unit price — bulk discounts are significant on larger runs. Get in touch and I'll put together a tiered quote so you can see exactly where the price breaks are."},
+{k:['refund','return','wrong','mistake','error','problem','complaint'],a:"We stand behind every order. If there's a printing error or quality issue on our side, we'll reprint or refund — no fuss. We send a digital proof before production precisely to catch issues in advance."},
+{k:['order','how do i','get started','process','next step','how to','place'],a:"Simple — get in touch!\n\nInstagram: @printsgalore0121\nEmail: Printsgalore0121@outlook.com\nPhone: 07895 012 369\n\nTell us what you want, quantity, and share your artwork. We'll quote you and get started."},
+{k:['contact','reach','get in touch','speak','call','phone','number','email','instagram','dm'],a:"Three ways to reach us:\n\nInstagram: @printsgalore0121\nEmail: Printsgalore0121@outlook.com\nPhone: 07895 012 369\n\nInstagram DMs are usually the fastest!"},
+{k:['colour','color','colours','colors','what colours'],a:"We print onto garments available in a huge range of colours — black, white, navy, grey, red, green and more. If you have a specific colour in mind, just ask and we'll check availability."},
+{k:['wash','washing','care','machine wash','laundry'],a:"Our prints are wash-resistant and long-lasting. We recommend washing inside-out at 30-40 degrees and avoiding tumble drying where possible. DTF and DTG both hold up brilliantly over time."},
+{k:['best method','which method','recommend','not sure','unsure','advice'],a:"Depends on your design, fabric and budget. DTF is most versatile for full-colour designs. Embroidery is best for logos on polos or caps. Silicon is perfect for bold streetwear branding. Describe your project and I'll point you in the right direction."},
+{k:['polo','workwear','uniform','corporate'],a:"Yes — polo shirts and corporate workwear is something we do very well. Embroidery looks incredibly professional on polos. Perfect for teams, businesses and events."},
+{k:['open','hours','opening','available','times'],a:"We're available Monday to Saturday and respond quickly during the day. Instagram DMs and email are monitored throughout — you'll typically hear back within a couple of hours. Call if it's urgent."},
+{k:['hello','hi','hey','hiya','morning','afternoon'],a:"Hey! Great to hear from you. I'm Q, your Prints Galore AI assistant. Ask me anything about printing, products, pricing or how to get started — I'm here to help!"},
+{k:['thank','thanks','cheers','appreciate','brilliant'],a:"You're welcome! If you have more questions or you're ready to get a quote, just reach out:\n\nInstagram: @printsgalore0121\nEmail: Printsgalore0121@outlook.com\nPhone: 07895 012 369"},
+{k:['who are you','what are you','about you','your name'],a:"I'm Q — the AI print expert for Prints Galore, based in Birmingham. I'm here to answer your questions about custom printing, garment decoration, pricing and everything else. What can I help you with today?"}
+];
+
+var mouthEl,waveEl,sdot,stxt,ringEl,msgsEl,mTimer,mPhase=0;
+var mFrames=[0,3,5,7,6,4,2,1,4,6,5,3];
+
+function getVoice(){
+  if(!window.speechSynthesis)return null;
+  var v=window.speechSynthesis.getVoices(),pref=['daniel','david','mark','george','arthur','lee'],r=null;
+  for(var i=0;i<v.length;i++){var n=v[i].name.toLowerCase();if(v[i].lang.startsWith('en')&&pref.some(function(p){return n.indexOf(p)>-1})){r=v[i];break;}}
+  if(!r)for(var i=0;i<v.length;i++){if(v[i].lang==='en-GB'){r=v[i];break;}}
+  if(!r)for(var i=0;i<v.length;i++){if(v[i].lang.startsWith('en')){r=v[i];break;}}
+  return r;
+}
+
+function speak(text){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  var clean=text.replace(/[\u{1F000}-\u{1FFFF}]/gu,'').replace(/\n/g,'. ').trim();
+  var u=new SpeechSynthesisUtterance(clean);
+  var v=getVoice();if(v)u.voice=v;
+  u.lang='en-GB';u.rate=0.91;u.pitch=0.82;
+  u.onstart=function(){setSpeaking(true);};
+  u.onend=u.onerror=function(){setSpeaking(false);};
+  window.speechSynthesis.speak(u);
+}
+
+function setSpeaking(on){
+  if(waveEl)waveEl.style.display=on?'flex':'none';
+  if(sdot)sdot.style.background=on?'#FF2D5B':'#4ade80';
+  if(stxt)stxt.textContent=on?'Speaking...':'Online - Ask me anything';
+  if(ringEl)ringEl.style.boxShadow=on?'0 0 0 5px rgba(255,45,91,.35),0 0 0 12px rgba(255,45,91,.1)':'';
+  if(on){mPhase=0;mTimer=setInterval(function(){if(mouthEl)mouthEl.setAttribute('ry',mFrames[mPhase++%mFrames.length]);},110);}
+  else{clearInterval(mTimer);if(mouthEl)mouthEl.setAttribute('ry','0');}
+}
+
+function miniAvatar(){
+  return '<div style="width:28px;height:28px;border-radius:50%;overflow:hidden;flex-shrink:0;background:#0f0a1e;">'
+    +'<svg viewBox="0 0 160 160" style="width:100%;height:100%;"><rect width="160" height="160" fill="#0f0a1e"/>'
+    +'<ellipse cx="80" cy="63" rx="33" ry="36" fill="#d4954a"/>'
+    +'<path d="M47 56 Q50 24 80 21 Q110 24 113 56" fill="#0e0700"/>'
+    +'<ellipse cx="65" cy="63" rx="9" ry="7" fill="#f5f0e8"/><ellipse cx="95" cy="63" rx="9" ry="7" fill="#f5f0e8"/>'
+    +'<circle cx="66" cy="64" r="4" fill="#040100"/><circle cx="96" cy="64" r="4" fill="#040100"/>'
+    +'<circle cx="68" cy="62" r="1.4" fill="#fff"/><circle cx="98" cy="62" r="1.4" fill="#fff"/>'
+    +'<path d="M68 93 Q80 97 92 93" stroke="#7a2010" stroke-width="2" fill="none" stroke-linecap="round"/>'
+    +'</svg></div>';
+}
+
+function botMsg(text){
+  var row=document.createElement('div');
+  row.style.cssText='display:flex;gap:.5rem;align-items:flex-end;';
+  row.innerHTML=miniAvatar()
+    +'<div style="background:#fff;border:1px solid #e8e8e8;border-radius:16px 16px 16px 4px;padding:.65rem .95rem;max-width:83%;font-size:.8125rem;line-height:1.65;color:#07080D;white-space:pre-line;box-shadow:0 1px 4px rgba(0,0,0,.05);">'+text+'</div>';
+  msgsEl.appendChild(row);msgsEl.scrollTop=msgsEl.scrollHeight;
+}
+
+function userMsg(text){
+  var row=document.createElement('div');
+  row.style.cssText='display:flex;justify-content:flex-end;';
+  row.innerHTML='<div style="background:linear-gradient(135deg,#FF2D5B,#7C3AED);border-radius:16px 16px 4px 16px;padding:.65rem .95rem;max-width:83%;font-size:.8125rem;line-height:1.65;color:#fff;">'+text+'</div>';
+  msgsEl.appendChild(row);msgsEl.scrollTop=msgsEl.scrollHeight;
+}
+
+function showTyping(){
+  var el=document.createElement('div');el.id='qai-typing';
+  el.style.cssText='display:flex;gap:.5rem;align-items:flex-end;';
+  el.innerHTML=miniAvatar()
+    +'<div style="background:#fff;border:1px solid #e8e8e8;border-radius:16px 16px 16px 4px;padding:.65rem .95rem;box-shadow:0 1px 4px rgba(0,0,0,.05);">'
+    +'<span style="display:flex;gap:4px;align-items:center;">'
+    +'<span style="width:7px;height:7px;border-radius:50%;background:#ccc;display:block;animation:typing-dot 1.2s infinite 0s;"></span>'
+    +'<span style="width:7px;height:7px;border-radius:50%;background:#ccc;display:block;animation:typing-dot 1.2s infinite .2s;"></span>'
+    +'<span style="width:7px;height:7px;border-radius:50%;background:#ccc;display:block;animation:typing-dot 1.2s infinite .4s;"></span>'
+    +'</span></div>';
+  msgsEl.appendChild(el);msgsEl.scrollTop=msgsEl.scrollHeight;
+}
+
+function hideTyping(){var t=document.getElementById('qai-typing');if(t)t.remove();}
+
+function findAnswer(text){
+  var l=text.toLowerCase();
+  for(var i=0;i<QA.length;i++)for(var j=0;j<QA[i].k.length;j++)if(l.indexOf(QA[i].k[j])>-1)return QA[i].a;
+  return"Great question! I don't have a specific answer ready for that — but I'd love to help.\n\nInstagram: @printsgalore0121\nEmail: Printsgalore0121@outlook.com\nPhone: 07895 012 369\n\nWe'll get back to you quickly!";
+}
+
+window.qaiSend=function(){
+  var input=document.getElementById('qai-input'),msg=input.value.trim();
+  if(!msg)return;
+  userMsg(msg);input.value='';showTyping();
+  setTimeout(function(){
+    hideTyping();
+    var ans=findAnswer(msg);
+    botMsg(ans);
+    setTimeout(function(){speak(ans);},100);
+  },850+Math.random()*500);
+};
+
+window.qaiToggle=function(){
+  var panel=document.getElementById('qai-panel'),launcher=document.getElementById('qai-launcher');
+  var open=panel.style.display!=='none';
+  if(open){panel.style.display='none';launcher.style.display='flex';if(window.speechSynthesis)window.speechSynthesis.cancel();setSpeaking(false);}
+  else{panel.style.display='flex';panel.style.flexDirection='column';launcher.style.display='none';setTimeout(function(){document.getElementById('qai-input').focus();},100);}
+};
+
+document.addEventListener('DOMContentLoaded',function(){
+  msgsEl=document.getElementById('qai-msgs');
+  mouthEl=document.getElementById('qai-av-mouth');
+  waveEl=document.getElementById('qai-wave');
+  sdot=document.getElementById('qai-sdot');
+  stxt=document.getElementById('qai-stxt');
+  ringEl=document.getElementById('qai-ring');
+  if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.onvoiceschanged=function(){};}
+  setTimeout(function(){botMsg("Hey! I'm Q, your Prints Galore AI assistant. Ask me anything about pricing, products, delivery or how to get started — I'll answer and speak to you in English!");},300);
+});
+}());
+</script>
+
 </body>
 </html>
