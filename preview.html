@@ -101,7 +101,10 @@
         <div style="margin-bottom:1.5rem;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.625rem;">
             <p class="label-mono" style="font-size:.7rem;color:#888;margin:0;">Your designs</p>
-            <span id="layer-count" class="label-mono" style="font-size:.62rem;color:#bbb;">None added</span>
+            <div style="display:flex;align-items:center;gap:.5rem;">
+              <span id="layer-count" class="label-mono" style="font-size:.62rem;color:#bbb;">None added</span>
+              <button id="add-logo-btn" title="Add another image" onclick="document.getElementById('file-input').click()" style="display:none;width:24px;height:24px;border:2px solid var(--red);background:rgba(255,45,91,.07);border-radius:4px;cursor:pointer;color:var(--red);font-size:16px;font-weight:700;line-height:1;padding:0;align-items:center;justify-content:center;">+</button>
+            </div>
           </div>
           <!-- Layer list (populated by JS) -->
           <div id="layer-list" style="display:flex;flex-direction:column;gap:.375rem;margin-bottom:.625rem;"></div>
@@ -153,7 +156,7 @@
           aria-label="Live preview of your design on the selected garment"
           style="max-width:100%;border-radius:10px;box-shadow:0 8px 40px rgba(20,17,15,.13),0 2px 8px rgba(20,17,15,.08);"></canvas>
         <p style="margin:0;font-size:.8125rem;color:#aaa;text-align:center;">
-          Upload a design · Drag anywhere on the garment to position it · Add multiple logos below
+          Click anywhere on the garment to place your design there · Drag to fine-tune · hit <strong style="color:#888;">+</strong> to add more logos
         </p>
       </div>
 
@@ -289,10 +292,12 @@ function refreshUI() {
   }
 
   // Rebuild layer list
-  const list  = document.getElementById('layer-list');
-  const count = document.getElementById('layer-count');
-  const n     = state.layers.length;
+  const list    = document.getElementById('layer-list');
+  const count   = document.getElementById('layer-count');
+  const addBtn  = document.getElementById('add-logo-btn');
+  const n       = state.layers.length;
   count.textContent = n === 0 ? 'None added' : n === 1 ? '1 design' : n + ' designs';
+  if (addBtn) addBtn.style.display = n > 0 ? 'inline-flex' : 'none';
   list.innerHTML = '';
 
   state.layers.forEach((layer, i) => {
@@ -392,12 +397,15 @@ canvas.addEventListener('mousedown', e => {
     state.dragOffY  = y - state.layers[hit].y;
     canvas.classList.add('grabbing');
   } else if (state.activeLayer >= 0) {
-    // Clicked on empty canvas but a layer is selected — drag it from wherever clicked
+    // Clicked on empty canvas — snap design center to click point, then allow dragging
     const layer     = state.layers[state.activeLayer];
+    layer.x         = x - layer.w / 2;
+    layer.y         = y - layer.h / 2;
     state.dragging  = true;
     state.dragIndex = state.activeLayer;
-    state.dragOffX  = x - layer.x;
-    state.dragOffY  = y - layer.y;
+    state.dragOffX  = layer.w / 2;
+    state.dragOffY  = layer.h / 2;
+    render();
     canvas.classList.add('grabbing');
   }
 });
@@ -425,10 +433,13 @@ canvas.addEventListener('touchstart', e => {
     e.preventDefault();
   } else if (state.activeLayer >= 0) {
     const layer     = state.layers[state.activeLayer];
+    layer.x         = x - layer.w / 2;
+    layer.y         = y - layer.h / 2;
     state.dragging  = true;
     state.dragIndex = state.activeLayer;
-    state.dragOffX  = x - layer.x;
-    state.dragOffY  = y - layer.y;
+    state.dragOffX  = layer.w / 2;
+    state.dragOffY  = layer.h / 2;
+    render();
     e.preventDefault();
   }
 }, { passive: false });
