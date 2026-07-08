@@ -139,7 +139,7 @@
               <button class="pos-btn" data-pos="bot-center">↓</button>
               <button class="pos-btn" data-pos="bot-right">↘</button>
             </div>
-            <p style="margin:.5rem 0 0;font-size:.7rem;color:#bbb;">Or drag freely anywhere on the canvas.</p>
+            <p style="margin:.5rem 0 0;font-size:.7rem;color:#bbb;">Or just drag anywhere on the canvas.</p>
           </div>
         </div>
 
@@ -153,7 +153,7 @@
           aria-label="Live preview of your design on the selected garment"
           style="max-width:100%;border-radius:10px;box-shadow:0 8px 40px rgba(20,17,15,.13),0 2px 8px rgba(20,17,15,.08);"></canvas>
         <p style="margin:0;font-size:.8125rem;color:#aaa;text-align:center;">
-          Click a design to select it · Drag it anywhere on the garment · Add as many layers as you need
+          Upload a design · Drag anywhere on the garment to position it · Add multiple logos below
         </p>
       </div>
 
@@ -375,23 +375,30 @@ function hitTest(cx, cy) {
 canvas.addEventListener('mousemove', e => {
   if (state.dragging) return;
   const { x, y } = toCanvas(e);
-  canvas.style.cursor = hitTest(x, y) >= 0 ? 'grab' : 'default';
+  const hit = hitTest(x, y);
+  // Show grab over a specific layer, move cursor anywhere when a layer is active
+  canvas.style.cursor = hit >= 0 ? 'grab' : (state.activeLayer >= 0 ? 'move' : 'default');
 });
 
 canvas.addEventListener('mousedown', e => {
   const { x, y } = toCanvas(e);
   const hit       = hitTest(x, y);
   if (hit >= 0) {
+    // Clicked directly on a layer — select and drag it
     selectLayer(hit);
     state.dragging  = true;
     state.dragIndex = hit;
     state.dragOffX  = x - state.layers[hit].x;
     state.dragOffY  = y - state.layers[hit].y;
     canvas.classList.add('grabbing');
-  } else {
-    state.activeLayer = -1;
-    refreshUI();
-    render();
+  } else if (state.activeLayer >= 0) {
+    // Clicked on empty canvas but a layer is selected — drag it from wherever clicked
+    const layer     = state.layers[state.activeLayer];
+    state.dragging  = true;
+    state.dragIndex = state.activeLayer;
+    state.dragOffX  = x - layer.x;
+    state.dragOffY  = y - layer.y;
+    canvas.classList.add('grabbing');
   }
 });
 
@@ -409,13 +416,21 @@ window.addEventListener('mouseup', () => {
 canvas.addEventListener('touchstart', e => {
   const { x, y } = toCanvas(e, true);
   const hit       = hitTest(x, y);
-  if (hit < 0) return;
-  selectLayer(hit);
-  state.dragging  = true;
-  state.dragIndex = hit;
-  state.dragOffX  = x - state.layers[hit].x;
-  state.dragOffY  = y - state.layers[hit].y;
-  e.preventDefault();
+  if (hit >= 0) {
+    selectLayer(hit);
+    state.dragging  = true;
+    state.dragIndex = hit;
+    state.dragOffX  = x - state.layers[hit].x;
+    state.dragOffY  = y - state.layers[hit].y;
+    e.preventDefault();
+  } else if (state.activeLayer >= 0) {
+    const layer     = state.layers[state.activeLayer];
+    state.dragging  = true;
+    state.dragIndex = state.activeLayer;
+    state.dragOffX  = x - layer.x;
+    state.dragOffY  = y - layer.y;
+    e.preventDefault();
+  }
 }, { passive: false });
 
 canvas.addEventListener('touchmove', e => {
