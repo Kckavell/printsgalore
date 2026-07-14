@@ -205,18 +205,71 @@
 
 <script src="shared.js"></script>
 <script>
-  function handleSubmit(e) {
-    e.preventDefault();
-    document.getElementById('form-feedback').style.display = 'block';
-    e.target.reset();
-    e.target.querySelector('button[type=submit]').textContent = 'Sent ✓';
-    e.target.querySelector('button[type=submit]').style.background = '#16a34a';
+  // Responsive grid
+  const s = document.createElement('style');
+  s.textContent = '@media(max-width:900px){#contact-grid{grid-template-columns:1fr !important;}}';
+  document.head.appendChild(s);
+
+  // Pre-fill form if user is logged in
+  function waitClient(cb) {
+    if (window._pgClient) { cb(window._pgClient); return; }
+    let n = 0;
+    const t = setInterval(() => {
+      if (window._pgClient) { clearInterval(t); cb(window._pgClient); }
+      if (++n > 60) clearInterval(t);
+    }, 100);
   }
 
-  // Make grid responsive
-  const s = document.createElement('style');
-  s.textContent = `@media(max-width:900px){#contact-grid{grid-template-columns:1fr !important;}}`;
-  document.head.appendChild(s);
+  waitClient(async function(client) {
+    const { data: { session } } = await client.auth.getSession();
+    if (!session) return;
+
+    // Pre-fill name / email
+    const { data: profile } = await client.from('profiles').select('full_name,phone').eq('id', session.user.id).maybeSingle();
+    if (profile && profile.full_name) document.getElementById('name').value = profile.full_name;
+    if (profile && profile.phone)     document.getElementById('phone').value = profile.phone;
+    document.getElementById('email').value = session.user.email;
+
+    // If reorder param, note it in brief
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('reorder')) {
+      document.getElementById('brief').value = 'Reorder of order #' + params.get('reorder') + ' — ';
+      document.getElementById('brief').focus();
+    }
+  });
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const btn  = e.target.querySelector('button[type=submit]');
+    const feed = document.getElementById('form-feedback');
+
+    btn.textContent = 'Sending…';
+    btn.disabled    = true;
+
+    const data = {
+      name:     document.getElementById('name').value.trim(),
+      email:    document.getElementById('email').value.trim(),
+      phone:    document.getElementById('phone').value.trim() || null,
+      service:  document.getElementById('service').value || null,
+      quantity: document.getElementById('quantity').value.trim() || null,
+      deadline: document.getElementById('deadline').value.trim() || null,
+      brief:    document.getElementById('brief').value.trim() || null,
+    };
+
+    // Save to Supabase if configured
+    if (window._pgClient) {
+      try {
+        const { data: { session } } = await window._pgClient.auth.getSession();
+        if (session) data.user_id = session.user.id;
+        await window._pgClient.from('quotes').insert(data);
+      } catch (_) { /* silently continue even if Supabase isn't configured yet */ }
+    }
+
+    feed.style.display = 'block';
+    e.target.reset();
+    btn.textContent = 'Sent ✓';
+    btn.style.background = 'linear-gradient(135deg,#16a34a,#15803d)';
+  }
 </script>
 </body>
 </html>

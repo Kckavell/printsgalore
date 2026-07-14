@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — Prints Galore</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{ink:'#07080D',paper:'#FFF8F0','pg-red':'#FF2D5B','pg-blue':'#00CFFF',gold:'#FFD60A',mute:'#FFD6E0'},fontFamily:{display:['Barlow Condensed','sans-serif'],body:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}}}</script>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Prints<span>Galore</span></a>
+    <div class="nav-links">
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="garments.html" class="nav-link">Garments</a>
+      <a href="preview.html" class="nav-link">Design Preview</a>
+      <a href="reviews.html" class="nav-link">Reviews</a>
+      <a href="our-work.html" class="nav-link">Our Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="btn-primary" style="padding:.5rem 1.25rem;font-size:.875rem;">Get a quote</a>
+    </div>
+    <button id="hamburger" class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="services.html">Services</a>
+    <a href="garments.html">Garments</a>
+    <a href="preview.html">Design Preview</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="our-work.html">Our Work</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="btn-primary" style="margin-top:1rem;justify-content:center;">Get a quote</a>
+  </div>
+</nav>
+
+<section class="page-hero" style="padding-bottom:3rem;">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 60% 40%,rgba(255,45,91,.25)0%,transparent 60%);"></div>
+  <div class="page-hero-inner" style="text-align:center;">
+    <p class="section-pip label-mono" style="color:var(--red);margin:0 auto .75rem;justify-content:center;">Customer portal</p>
+    <h1 class="display-heading" style="font-size:clamp(2.5rem,6vw,5rem);color:var(--paper);margin:0 0 .75rem;">Welcome back</h1>
+    <p style="color:rgba(255,248,240,.6);font-size:1rem;margin:0;">Sign in to view your orders, reorder, and track deliveries.</p>
+  </div>
+</section>
+
+<section style="padding:3rem 1.5rem 6rem;background:var(--paper);">
+  <div style="max-width:440px;margin:0 auto;">
+    <div class="auth-card">
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email address</label>
+          <input class="form-input-g" type="email" id="login-email" autocomplete="email" required placeholder="you@example.com" />
+        </div>
+        <div class="form-group" style="margin-bottom:.5rem;">
+          <label class="form-label" for="login-password">Password</label>
+          <input class="form-input-g" type="password" id="login-password" autocomplete="current-password" required placeholder="••••••••" />
+        </div>
+        <div style="text-align:right;margin-bottom:1.25rem;">
+          <a href="reset-password.html" style="font-size:.8125rem;color:var(--red);text-decoration:none;font-weight:600;">Forgot password?</a>
+        </div>
+
+        <div id="login-error" class="form-error"></div>
+
+        <button type="submit" id="login-btn" class="btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:.875rem;">
+          Sign In
+        </button>
+      </form>
+
+      <p style="margin:1.5rem 0 0;text-align:center;font-size:.9rem;color:#666;">
+        Don't have an account?
+        <a href="register.html" style="color:var(--red);font-weight:600;text-decoration:none;">Create one free</a>
+      </p>
+
+    </div>
+
+    <p style="margin:1.5rem 0 0;text-align:center;font-size:.8125rem;color:#aaa;">
+      Need to ask something first?
+      <a href="contact.html" style="color:var(--ink);font-weight:600;text-decoration:none;">Get a quote →</a>
+    </p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Prints<span>Galore</span></div>
+      <p style="margin:.5rem 0 0;color:rgba(255,248,240,.4);font-size:.8125rem;">Quality garments, true-to-life colour, fast turnaround.</p>
+    </div>
+    <div class="footer-links">
+      <a href="services.html">Services</a><a href="garments.html">Garments</a><a href="preview.html">Design preview</a><a href="reviews.html">Reviews</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+    <p style="margin:0;color:rgba(255,248,240,.25);font-size:.75rem;">© 2026 Prints Galore.</p>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+function waitClient(cb) {
+  if (window._pgClient) { cb(window._pgClient); return; }
+  var n = 0;
+  var t = setInterval(function() {
+    if (window._pgClient) { clearInterval(t); cb(window._pgClient); }
+    if (++n > 60) clearInterval(t);
+  }, 100);
+}
+
+waitClient(function(client) {
+  // Already logged in — go straight to account
+  client.auth.getSession().then(function(r) {
+    if (r.data && r.data.session) window.location.href = 'account.html';
+  });
+
+  document.getElementById('login-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var email    = document.getElementById('login-email').value.trim();
+    var password = document.getElementById('login-password').value;
+    var errEl    = document.getElementById('login-error');
+    var btn      = document.getElementById('login-btn');
+
+    btn.innerHTML = '<span class="pg-spin"></span> Signing in…';
+    btn.disabled  = true;
+    errEl.classList.remove('show');
+
+    var result = await client.auth.signInWithPassword({ email, password });
+
+    if (result.error) {
+      errEl.textContent = result.error.message === 'Invalid login credentials'
+        ? 'Email or password is incorrect. Please try again.'
+        : result.error.message;
+      errEl.classList.add('show');
+      btn.innerHTML = 'Sign In';
+      btn.disabled  = false;
+    } else {
+      window.location.href = 'account.html';
+    }
+  });
+});
+</script>
+</body>
+</html>

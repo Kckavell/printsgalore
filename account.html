@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account — Prints Galore</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{ink:'#07080D',paper:'#FFF8F0','pg-red':'#FF2D5B','pg-blue':'#00CFFF',gold:'#FFD60A',mute:'#FFD6E0'},fontFamily:{display:['Barlow Condensed','sans-serif'],body:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}}}</script>
+  <style>
+    .stat-card { background:#fff; border:1px solid var(--mute); border-radius:10px; padding:1.5rem; }
+    .tab-panel { display:none; }
+    .tab-panel.active { display:block; }
+    @media(max-width:640px){.hide-mobile{display:none!important;}}
+  </style>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Prints<span>Galore</span></a>
+    <div class="nav-links">
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="garments.html" class="nav-link">Garments</a>
+      <a href="preview.html" class="nav-link">Design Preview</a>
+      <a href="reviews.html" class="nav-link">Reviews</a>
+      <a href="our-work.html" class="nav-link">Our Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="account.html" class="nav-link" aria-current="page" data-pg-auth="1">My Account</a>
+      <a href="contact.html" class="btn-primary" style="padding:.5rem 1.25rem;font-size:.875rem;">Get a quote</a>
+    </div>
+    <button id="hamburger" class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="services.html">Services</a>
+    <a href="garments.html">Garments</a>
+    <a href="preview.html">Design Preview</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="our-work.html">Our Work</a>
+    <a href="about.html">About</a>
+    <a href="account.html" data-pg-auth="1">My Account</a>
+    <a href="contact.html" class="btn-primary" style="margin-top:1rem;justify-content:center;">Get a quote</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero" style="padding-bottom:0;">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 70% 40%,rgba(255,45,91,.22)0%,transparent 60%);"></div>
+  <div class="page-hero-inner" style="padding-bottom:2rem;">
+    <p class="section-pip label-mono" style="color:var(--red);margin-bottom:.75rem;">Customer portal</p>
+    <h1 class="display-heading" id="acct-heading" style="font-size:clamp(2rem,5vw,4rem);color:var(--paper);margin:0 0 .5rem;">My Account</h1>
+    <p id="acct-email" style="color:rgba(255,248,240,.5);font-size:.9rem;margin:0;"></p>
+  </div>
+  <!-- Tab bar -->
+  <div style="background:rgba(7,8,13,.4);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.08);">
+    <div style="max-width:1200px;margin:0 auto;padding:0 1.5rem;display:flex;gap:0;overflow-x:auto;">
+      <button class="acct-tab active" data-tab="overview">Overview</button>
+      <button class="acct-tab" data-tab="orders">My Orders</button>
+      <button class="acct-tab" data-tab="quotes">My Quotes</button>
+      <button class="acct-tab" data-tab="profile">Profile</button>
+    </div>
+  </div>
+</section>
+
+<!-- LOADING STATE -->
+<div id="acct-loading" style="padding:5rem;text-align:center;">
+  <span class="pg-spin" style="width:32px;height:32px;border-width:3px;"></span>
+  <p style="margin:.75rem 0 0;color:#aaa;font-size:.9rem;">Loading your account…</p>
+</div>
+
+<!-- ACCOUNT CONTENT (hidden until loaded) -->
+<section id="acct-content" style="display:none;padding:3rem 1.5rem 5rem;background:var(--paper);">
+  <div style="max-width:1200px;margin:0 auto;">
+
+    <!-- ── OVERVIEW ── -->
+    <div id="tab-overview" class="tab-panel active">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin-bottom:2.5rem;">
+        <div class="stat-card">
+          <p class="label-mono" style="font-size:.68rem;color:#aaa;margin:0 0 .5rem;">Total orders</p>
+          <p id="stat-orders" class="display-heading" style="font-size:2.5rem;margin:0;color:var(--ink);">—</p>
+        </div>
+        <div class="stat-card">
+          <p class="label-mono" style="font-size:.68rem;color:#aaa;margin:0 0 .5rem;">Active quotes</p>
+          <p id="stat-quotes" class="display-heading" style="font-size:2.5rem;margin:0;color:var(--ink);">—</p>
+        </div>
+        <div class="stat-card">
+          <p class="label-mono" style="font-size:.68rem;color:#aaa;margin:0 0 .5rem;">Total spent</p>
+          <p id="stat-spent" class="display-heading" style="font-size:2.5rem;margin:0;color:var(--ink);">—</p>
+        </div>
+        <div class="stat-card" style="background:var(--ink);">
+          <p class="label-mono" style="font-size:.68rem;color:rgba(255,248,240,.5);margin:0 0 .5rem;">Need something?</p>
+          <a href="contact.html" class="btn-primary" style="display:inline-flex;margin-top:.25rem;text-decoration:none;font-size:.875rem;padding:.625rem 1.25rem;">Get a quote →</a>
+        </div>
+      </div>
+
+      <!-- Recent orders preview -->
+      <div style="background:#fff;border:1px solid var(--mute);border-radius:10px;padding:1.5rem 1.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;">
+          <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;margin:0;">Recent orders</h2>
+          <button class="acct-tab active" onclick="switchTab('orders')" style="font-size:.8125rem;border-bottom:none;padding:.25rem .5rem;color:var(--red);">View all →</button>
+        </div>
+        <div id="overview-orders"></div>
+      </div>
+    </div>
+
+    <!-- ── ORDERS ── -->
+    <div id="tab-orders" class="tab-panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem;">
+        <h2 class="display-heading" style="font-size:1.75rem;margin:0;">Order history</h2>
+        <a href="contact.html" class="btn-primary" style="text-decoration:none;font-size:.875rem;padding:.625rem 1.25rem;">Place new order →</a>
+      </div>
+      <div style="background:#fff;border:1px solid var(--mute);border-radius:10px;overflow:hidden;">
+        <div id="orders-table-wrap" style="overflow-x:auto;">
+          <table class="acct-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Details</th>
+                <th class="hide-mobile">Amount</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="orders-tbody">
+              <tr><td colspan="5" class="acct-empty"><span class="pg-spin"></span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── QUOTES ── -->
+    <div id="tab-quotes" class="tab-panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem;">
+        <h2 class="display-heading" style="font-size:1.75rem;margin:0;">Quote requests</h2>
+        <a href="contact.html" class="btn-primary" style="text-decoration:none;font-size:.875rem;padding:.625rem 1.25rem;">New quote →</a>
+      </div>
+      <div style="background:#fff;border:1px solid var(--mute);border-radius:10px;overflow:hidden;">
+        <div style="overflow-x:auto;">
+          <table class="acct-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Service</th>
+                <th class="hide-mobile">Quantity</th>
+                <th>Status</th>
+                <th class="hide-mobile">Amount</th>
+              </tr>
+            </thead>
+            <tbody id="quotes-tbody">
+              <tr><td colspan="5" class="acct-empty"><span class="pg-spin"></span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PROFILE ── -->
+    <div id="tab-profile" class="tab-panel">
+      <div style="max-width:640px;">
+        <h2 class="display-heading" style="font-size:1.75rem;margin:0 0 1.5rem;">Profile settings</h2>
+
+        <div class="auth-card" style="margin-bottom:1.5rem;">
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;margin:0 0 1.25rem;">Personal details</h3>
+          <form id="profile-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="p-name">Full name</label>
+              <input class="form-input-g" type="text" id="p-name" autocomplete="name" placeholder="Jane Smith" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="p-phone">Phone number</label>
+              <input class="form-input-g" type="tel" id="p-phone" autocomplete="tel" placeholder="+44 7700 900000" />
+            </div>
+            <div class="form-group" style="margin-bottom:1.5rem;">
+              <label class="form-label" for="p-company">Business / company</label>
+              <input class="form-input-g" type="text" id="p-company" autocomplete="organization" placeholder="e.g. Acme FC" />
+            </div>
+            <div id="profile-msg" class="form-success"></div>
+            <button type="submit" id="profile-btn" class="btn-primary" style="font-size:.9rem;padding:.625rem 1.5rem;">Save changes</button>
+          </form>
+        </div>
+
+        <div class="auth-card" style="margin-bottom:1.5rem;">
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;margin:0 0 1.25rem;">Delivery address</h3>
+          <form id="address-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="p-addr1">Address line 1</label>
+              <input class="form-input-g" type="text" id="p-addr1" autocomplete="address-line1" placeholder="123 High Street" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="p-addr2">Address line 2 <span style="font-weight:400;color:#aaa;">(optional)</span></label>
+              <input class="form-input-g" type="text" id="p-addr2" autocomplete="address-line2" placeholder="Flat 4" />
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+              <div class="form-group">
+                <label class="form-label" for="p-city">City / town</label>
+                <input class="form-input-g" type="text" id="p-city" autocomplete="address-level2" placeholder="Birmingham" />
+              </div>
+              <div class="form-group" style="margin-bottom:1.5rem;">
+                <label class="form-label" for="p-postcode">Postcode</label>
+                <input class="form-input-g" type="text" id="p-postcode" autocomplete="postal-code" placeholder="B1 1AA" />
+              </div>
+            </div>
+            <div id="address-msg" class="form-success"></div>
+            <button type="submit" id="address-btn" class="btn-primary" style="font-size:.9rem;padding:.625rem 1.5rem;">Save address</button>
+          </form>
+        </div>
+
+        <div class="auth-card" style="border-color:rgba(255,45,91,.3);">
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;margin:0 0 .75rem;">Account</h3>
+          <p style="color:#666;font-size:.9rem;margin:0 0 1.25rem;" id="p-acct-email"></p>
+          <button onclick="window.pgSignOut && window.pgSignOut()" class="btn-outline" style="font-size:.875rem;padding:.625rem 1.25rem;color:var(--red);border-color:rgba(255,45,91,.4);">Sign out</button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Prints<span>Galore</span></div>
+      <p style="margin:.5rem 0 0;color:rgba(255,248,240,.4);font-size:.8125rem;">Quality garments, true-to-life colour, fast turnaround.</p>
+    </div>
+    <div class="footer-links">
+      <a href="services.html">Services</a><a href="garments.html">Garments</a><a href="preview.html">Design preview</a><a href="reviews.html">Reviews</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+    <p style="margin:0;color:rgba(255,248,240,.25);font-size:.75rem;">© 2026 Prints Galore.</p>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// ── Tabs ─────────────────────────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.acct-tab').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.tab === name);
+  });
+  document.querySelectorAll('.tab-panel').forEach(function(p) {
+    p.classList.toggle('active', p.id === 'tab-' + name);
+  });
+}
+document.querySelectorAll('.acct-tab[data-tab]').forEach(function(btn) {
+  btn.addEventListener('click', function() { switchTab(btn.dataset.tab); });
+});
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function fmtDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+}
+function fmtMoney(n) { return n ? '£' + parseFloat(n).toFixed(2) : '—'; }
+function badge(status) {
+  var labels = { pending:'Pending', quoted:'Quoted', paid:'Paid', in_production:'In production', dispatched:'Dispatched', delivered:'Delivered', cancelled:'Cancelled' };
+  return '<span class="badge badge-' + (status||'pending') + '">' + (labels[status] || status || 'Pending') + '</span>';
+}
+
+function renderOrders(rows, tbodyId, reorder) {
+  var tbody = document.getElementById(tbodyId);
+  if (!rows || rows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" class="acct-empty">No orders yet — <a href="contact.html" style="color:var(--red);font-weight:600;">get a quote</a> to get started.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(function(o) {
+    var detail = o.notes || (o.quotes && o.quotes.service) || 'Custom print order';
+    var reorderBtn = reorder ? '<a href="contact.html?reorder=' + o.id + '" class="btn-outline" style="font-size:.75rem;padding:.3rem .75rem;white-space:nowrap;">Reorder</a>' : '';
+    return '<tr>' +
+      '<td style="white-space:nowrap;">' + fmtDate(o.created_at) + '</td>' +
+      '<td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + detail + '</td>' +
+      '<td class="hide-mobile">' + fmtMoney(o.amount_paid) + '</td>' +
+      '<td>' + badge(o.status) + '</td>' +
+      '<td>' + reorderBtn + '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+function renderQuotes(rows) {
+  var tbody = document.getElementById('quotes-tbody');
+  if (!rows || rows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" class="acct-empty">No quote requests yet — <a href="contact.html" style="color:var(--red);font-weight:600;">send one now</a>.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(function(q) {
+    return '<tr>' +
+      '<td style="white-space:nowrap;">' + fmtDate(q.created_at) + '</td>' +
+      '<td>' + (q.service || '—') + '</td>' +
+      '<td class="hide-mobile">' + (q.quantity || '—') + '</td>' +
+      '<td>' + badge(q.status) + '</td>' +
+      '<td class="hide-mobile">' + (q.quoted_amount ? fmtMoney(q.quoted_amount) : '—') + '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+// ── Overview orders ───────────────────────────────────────────────────────────
+function renderOverviewOrders(rows) {
+  var el = document.getElementById('overview-orders');
+  if (!rows || rows.length === 0) {
+    el.innerHTML = '<p style="color:#aaa;font-size:.9rem;margin:0;">No orders yet. <a href="contact.html" style="color:var(--red);font-weight:600;">Get your first quote →</a></p>';
+    return;
+  }
+  var recent = rows.slice(0, 3);
+  el.innerHTML = '<div style="overflow-x:auto;"><table class="acct-table"><thead><tr><th>Date</th><th>Details</th><th>Status</th><th>Amount</th></tr></thead><tbody>' +
+    recent.map(function(o) {
+      var detail = o.notes || (o.quotes && o.quotes.service) || 'Custom print order';
+      return '<tr><td>' + fmtDate(o.created_at) + '</td><td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + detail + '</td><td>' + badge(o.status) + '</td><td>' + fmtMoney(o.amount_paid) + '</td></tr>';
+    }).join('') +
+  '</tbody></table></div>';
+}
+
+// ── Load account data ─────────────────────────────────────────────────────────
+function waitClient(cb) {
+  if (window._pgClient) { cb(window._pgClient); return; }
+  var n = 0;
+  var t = setInterval(function() {
+    if (window._pgClient) { clearInterval(t); cb(window._pgClient); }
+    if (++n > 60) { clearInterval(t); window.location.href = 'login.html'; }
+  }, 100);
+}
+
+waitClient(async function(client) {
+  var sessionResult = await client.auth.getSession();
+  var session = sessionResult.data && sessionResult.data.session;
+
+  if (!session) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  var user = session.user;
+
+  // Show page
+  document.getElementById('acct-loading').style.display  = 'none';
+  document.getElementById('acct-content').style.display  = 'block';
+  document.getElementById('acct-email').textContent       = user.email;
+  document.getElementById('p-acct-email').textContent     = user.email;
+
+  // Load profile
+  var { data: profile } = await client.from('profiles').select('*').eq('id', user.id).maybeSingle();
+  if (profile) {
+    document.getElementById('acct-heading').textContent   = 'Hi, ' + (profile.full_name ? profile.full_name.split(' ')[0] : 'there') + '!';
+    document.getElementById('p-name').value               = profile.full_name    || '';
+    document.getElementById('p-phone').value              = profile.phone        || '';
+    document.getElementById('p-company').value            = profile.company      || '';
+    document.getElementById('p-addr1').value              = profile.address_line1 || '';
+    document.getElementById('p-addr2').value              = profile.address_line2 || '';
+    document.getElementById('p-city').value               = profile.city         || '';
+    document.getElementById('p-postcode').value           = profile.postcode     || '';
+  }
+
+  // Load orders
+  var { data: orders } = await client.from('orders').select('*, quotes(service)').eq('user_id', user.id).order('created_at', { ascending: false });
+  renderOrders(orders, 'orders-tbody', true);
+  renderOverviewOrders(orders);
+  document.getElementById('stat-orders').textContent = orders ? orders.length : 0;
+  var spent = orders ? orders.reduce(function(s, o) { return s + (parseFloat(o.amount_paid) || 0); }, 0) : 0;
+  document.getElementById('stat-spent').textContent = spent > 0 ? '£' + spent.toFixed(0) : '£0';
+
+  // Load quotes
+  var { data: quotes } = await client.from('quotes').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
+  renderQuotes(quotes);
+  var activeQ = quotes ? quotes.filter(function(q) { return q.status === 'pending' || q.status === 'quoted'; }).length : 0;
+  document.getElementById('stat-quotes').textContent = activeQ;
+
+  // ── Profile form ────────────────────────────────────────────────────────────
+  document.getElementById('profile-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('profile-btn');
+    var msg = document.getElementById('profile-msg');
+    btn.innerHTML = '<span class="pg-spin"></span>';
+    btn.disabled  = true;
+    msg.classList.remove('show');
+
+    var updates = {
+      id:        user.id,
+      full_name: document.getElementById('p-name').value.trim(),
+      phone:     document.getElementById('p-phone').value.trim() || null,
+      company:   document.getElementById('p-company').value.trim() || null,
+      updated_at: new Date().toISOString(),
+    };
+    var { error } = await client.from('profiles').upsert(updates);
+
+    if (error) {
+      msg.textContent = 'Error saving: ' + error.message;
+      msg.style.background = 'rgba(255,45,91,.07)';
+      msg.style.borderColor = 'rgba(255,45,91,.3)';
+      msg.style.color = '#c0143a';
+    } else {
+      msg.textContent = 'Profile saved!';
+      msg.style.cssText = '';
+    }
+    msg.classList.add('show');
+    btn.innerHTML = 'Save changes';
+    btn.disabled  = false;
+  });
+
+  // ── Address form ────────────────────────────────────────────────────────────
+  document.getElementById('address-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('address-btn');
+    var msg = document.getElementById('address-msg');
+    btn.innerHTML = '<span class="pg-spin"></span>';
+    btn.disabled  = true;
+    msg.classList.remove('show');
+
+    var updates = {
+      id:            user.id,
+      address_line1: document.getElementById('p-addr1').value.trim() || null,
+      address_line2: document.getElementById('p-addr2').value.trim() || null,
+      city:          document.getElementById('p-city').value.trim() || null,
+      postcode:      document.getElementById('p-postcode').value.trim() || null,
+      updated_at:    new Date().toISOString(),
+    };
+    var { error } = await client.from('profiles').upsert(updates);
+
+    if (error) {
+      msg.textContent = 'Error saving: ' + error.message;
+      msg.style.background = 'rgba(255,45,91,.07)';
+      msg.style.borderColor = 'rgba(255,45,91,.3)';
+      msg.style.color = '#c0143a';
+    } else {
+      msg.textContent = 'Address saved!';
+      msg.style.cssText = '';
+    }
+    msg.classList.add('show');
+    btn.innerHTML = 'Save address';
+    btn.disabled  = false;
+  });
+});
+</script>
+</body>
+</html>

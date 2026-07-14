@@ -300,6 +300,36 @@ nav.site-nav {
   animation: logo-shimmer 4s cubic-bezier(0.45,0,0.55,1) infinite;
 }
 
+/* ── Auth & Account pages ─────────────────────────────────────────────────── */
+.auth-card { background:#fff; border:1px solid var(--mute); border-radius:12px; padding:2.5rem; box-shadow:0 4px 24px rgba(20,17,15,.08); }
+.form-group { margin-bottom:1.25rem; }
+.form-label { display:block; font-weight:600; font-size:.875rem; margin-bottom:.375rem; color:var(--ink); }
+.form-input-g { width:100%; padding:.75rem 1rem; border:2px solid var(--mute); border-radius:6px; font-family:'Inter',sans-serif; font-size:.9375rem; color:var(--ink); background:#fff; outline:none; transition:border-color .15s ease; box-sizing:border-box; }
+.form-input-g:focus { border-color:var(--red); }
+.form-select-g { appearance:none; cursor:pointer; }
+.form-error  { display:none; margin-top:1rem; padding:.875rem 1rem; background:rgba(255,45,91,.07); border:1px solid rgba(255,45,91,.3); border-radius:6px; color:#c0143a; font-size:.875rem; font-weight:500; }
+.form-success{ display:none; margin-top:1rem; padding:.875rem 1rem; background:rgba(34,197,94,.08); border:1px solid rgba(34,197,94,.3); border-radius:6px; color:#16a34a; font-size:.875rem; font-weight:600; text-align:center; }
+.form-error.show,.form-success.show { display:block; }
+.badge { display:inline-flex; align-items:center; font-family:'JetBrains Mono',monospace; font-size:.67rem; font-weight:500; text-transform:uppercase; letter-spacing:.07em; padding:.2rem .6rem; border-radius:20px; }
+.badge-pending     { background:rgba(255,214,10,.2);  color:#9a7100; }
+.badge-quoted      { background:rgba(0,207,255,.18);  color:#005f80; }
+.badge-paid        { background:rgba(34,197,94,.18);  color:#15803d; }
+.badge-in_production{ background:rgba(255,107,53,.18); color:#b94000; }
+.badge-dispatched  { background:rgba(124,58,237,.18); color:#6d28d9; }
+.badge-delivered   { background:rgba(34,197,94,.22);  color:#14532d; }
+.badge-cancelled   { background:rgba(255,45,91,.12);  color:#be123c; }
+.acct-tab { padding:.6rem 1.25rem; border:none; background:transparent; font-family:'Inter',sans-serif; font-size:.875rem; font-weight:600; color:#888; cursor:pointer; border-bottom:3px solid transparent; transition:color .15s,border-color .15s; white-space:nowrap; }
+.acct-tab:hover { color:var(--ink); }
+.acct-tab.active { color:var(--red); border-bottom-color:var(--red); }
+.acct-table { width:100%; border-collapse:collapse; font-size:.875rem; }
+.acct-table th { text-align:left; padding:.6rem .75rem; font-size:.7rem; font-weight:600; color:#aaa; border-bottom:2px solid var(--mute); text-transform:uppercase; letter-spacing:.07em; }
+.acct-table td { padding:.75rem; border-bottom:1px solid var(--mute); color:var(--ink); vertical-align:middle; }
+.acct-table tr:last-child td { border-bottom:none; }
+.acct-table tr:hover td { background:rgba(255,45,91,.02); }
+.acct-empty { text-align:center; padding:3rem 1rem; color:#aaa; font-size:.9375rem; }
+.pg-spin { display:inline-block; width:20px; height:20px; border:2.5px solid var(--mute); border-top-color:var(--red); border-radius:50%; animation:_pgspin .7s linear infinite; }
+@keyframes _pgspin { to { transform:rotate(360deg); } }
+
 /* Drop zone */
 .drop-zone {
   border: 2.5px dashed var(--mute);

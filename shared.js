@@ -777,3 +777,69 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileNav();
   initScrollObserver();
 });
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Prints Galore · Supabase backend + auth nav
+// ═══════════════════════════════════════════════════════════════════════════
+// After setting up Supabase (supabase.com), replace the two placeholder
+// values below with your Project URL and anon key (both found at
+// supabase.com → your project → Settings → API).
+// These are safe to include here — Row Level Security protects your data.
+window.PG_CONFIG = {
+  supabaseUrl:     'YOUR_SUPABASE_URL',
+  supabaseAnonKey: 'YOUR_SUPABASE_ANON_KEY',
+};
+
+(function initPGBackend() {
+  var cfg = window.PG_CONFIG;
+  if (!cfg || !cfg.supabaseUrl || cfg.supabaseUrl === 'YOUR_SUPABASE_URL') return;
+
+  function loadSB(cb) {
+    var CDN = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+    var existing = document.querySelector('script[data-pg-sb]');
+    if (existing) {
+      if (window.supabase) { cb(); } else { existing.addEventListener('load', cb); }
+      return;
+    }
+    var s = document.createElement('script');
+    s.src = CDN;
+    s.setAttribute('data-pg-sb', '1');
+    s.onload = cb;
+    document.head.appendChild(s);
+  }
+
+  loadSB(function () {
+    var client = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+    window._pgClient = client;
+
+    function injectAuthNav(user) {
+      var containers = [
+        document.querySelector('.nav-links'),
+        document.getElementById('mobile-menu'),
+      ];
+      containers.forEach(function (c) {
+        if (!c) return;
+        c.querySelectorAll('[data-pg-auth]').forEach(function (el) { el.remove(); });
+        var btn = c.querySelector('.btn-primary');
+        var a = document.createElement('a');
+        a.setAttribute('data-pg-auth', '1');
+        a.className = 'nav-link';
+        if (user) { a.href = 'account.html'; a.textContent = 'My Account'; }
+        else       { a.href = 'login.html';   a.textContent = 'Sign In'; }
+        if (btn) c.insertBefore(a, btn); else c.appendChild(a);
+      });
+    }
+
+    client.auth.onAuthStateChange(function (_e, session) {
+      injectAuthNav(session ? session.user : null);
+    });
+    client.auth.getSession().then(function (r) {
+      injectAuthNav(r.data && r.data.session ? r.data.session.user : null);
+    });
+
+    window.pgSignOut = async function () {
+      await client.auth.signOut();
+      window.location.href = 'index.html';
+    };
+  });
+})();

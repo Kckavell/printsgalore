@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account — Prints Galore</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{ink:'#07080D',paper:'#FFF8F0','pg-red':'#FF2D5B','pg-blue':'#00CFFF',gold:'#FFD60A',mute:'#FFD6E0'},fontFamily:{display:['Barlow Condensed','sans-serif'],body:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}}}</script>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Prints<span>Galore</span></a>
+    <div class="nav-links">
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="garments.html" class="nav-link">Garments</a>
+      <a href="preview.html" class="nav-link">Design Preview</a>
+      <a href="reviews.html" class="nav-link">Reviews</a>
+      <a href="our-work.html" class="nav-link">Our Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="btn-primary" style="padding:.5rem 1.25rem;font-size:.875rem;">Get a quote</a>
+    </div>
+    <button id="hamburger" class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="services.html">Services</a>
+    <a href="garments.html">Garments</a>
+    <a href="preview.html">Design Preview</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="our-work.html">Our Work</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="btn-primary" style="margin-top:1rem;justify-content:center;">Get a quote</a>
+  </div>
+</nav>
+
+<section class="page-hero" style="padding-bottom:3rem;">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 40% 50%,rgba(0,207,255,.2)0%,transparent 60%);"></div>
+  <div class="page-hero-inner" style="text-align:center;">
+    <p class="section-pip label-mono" style="color:var(--blue);margin:0 auto .75rem;justify-content:center;">It's free</p>
+    <h1 class="display-heading" style="font-size:clamp(2.5rem,6vw,5rem);color:var(--paper);margin:0 0 .75rem;">Create an account</h1>
+    <p style="color:rgba(255,248,240,.6);font-size:1rem;margin:0;">Save your quote history, reorder in seconds, track every order.</p>
+  </div>
+</section>
+
+<section style="padding:3rem 1.5rem 6rem;background:var(--paper);">
+  <div style="max-width:500px;margin:0 auto;">
+    <div class="auth-card">
+
+      <form id="reg-form" novalidate>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="form-group">
+            <label class="form-label" for="reg-fname">First name</label>
+            <input class="form-input-g" type="text" id="reg-fname" autocomplete="given-name" required placeholder="Jane" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reg-lname">Last name</label>
+            <input class="form-input-g" type="text" id="reg-lname" autocomplete="family-name" required placeholder="Smith" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Email address</label>
+          <input class="form-input-g" type="email" id="reg-email" autocomplete="email" required placeholder="jane@example.com" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-phone">Phone number <span style="font-weight:400;color:#aaa;">(optional)</span></label>
+          <input class="form-input-g" type="tel" id="reg-phone" autocomplete="tel" placeholder="+44 7700 900000" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-company">Business / company <span style="font-weight:400;color:#aaa;">(optional)</span></label>
+          <input class="form-input-g" type="text" id="reg-company" autocomplete="organization" placeholder="e.g. Acme FC" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Password</label>
+          <input class="form-input-g" type="password" id="reg-password" autocomplete="new-password" required placeholder="At least 8 characters" minlength="8" />
+        </div>
+
+        <div class="form-group" style="margin-bottom:1.5rem;">
+          <label class="form-label" for="reg-confirm">Confirm password</label>
+          <input class="form-input-g" type="password" id="reg-confirm" autocomplete="new-password" required placeholder="••••••••" />
+        </div>
+
+        <div id="reg-error" class="form-error"></div>
+        <div id="reg-success" class="form-success">
+          Account created! Check your email to confirm, then <a href="login.html" style="color:#16a34a;font-weight:700;">sign in</a>.
+        </div>
+
+        <button type="submit" id="reg-btn" class="btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:.875rem;">
+          Create account
+        </button>
+      </form>
+
+      <p style="margin:1.5rem 0 0;text-align:center;font-size:.9rem;color:#666;">
+        Already have an account?
+        <a href="login.html" style="color:var(--red);font-weight:600;text-decoration:none;">Sign in</a>
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Prints<span>Galore</span></div>
+      <p style="margin:.5rem 0 0;color:rgba(255,248,240,.4);font-size:.8125rem;">Quality garments, true-to-life colour, fast turnaround.</p>
+    </div>
+    <div class="footer-links">
+      <a href="services.html">Services</a><a href="garments.html">Garments</a><a href="preview.html">Design preview</a><a href="reviews.html">Reviews</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+    <p style="margin:0;color:rgba(255,248,240,.25);font-size:.75rem;">© 2026 Prints Galore.</p>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+function waitClient(cb) {
+  if (window._pgClient) { cb(window._pgClient); return; }
+  var n = 0;
+  var t = setInterval(function() {
+    if (window._pgClient) { clearInterval(t); cb(window._pgClient); }
+    if (++n > 60) clearInterval(t);
+  }, 100);
+}
+
+waitClient(function(client) {
+  client.auth.getSession().then(function(r) {
+    if (r.data && r.data.session) window.location.href = 'account.html';
+  });
+
+  document.getElementById('reg-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var fname    = document.getElementById('reg-fname').value.trim();
+    var lname    = document.getElementById('reg-lname').value.trim();
+    var email    = document.getElementById('reg-email').value.trim();
+    var phone    = document.getElementById('reg-phone').value.trim();
+    var company  = document.getElementById('reg-company').value.trim();
+    var password = document.getElementById('reg-password').value;
+    var confirm  = document.getElementById('reg-confirm').value;
+    var errEl    = document.getElementById('reg-error');
+    var okEl     = document.getElementById('reg-success');
+    var btn      = document.getElementById('reg-btn');
+
+    errEl.classList.remove('show');
+    okEl.classList.remove('show');
+
+    if (password !== confirm) {
+      errEl.textContent = 'Passwords do not match.';
+      errEl.classList.add('show');
+      return;
+    }
+    if (password.length < 8) {
+      errEl.textContent = 'Password must be at least 8 characters.';
+      errEl.classList.add('show');
+      return;
+    }
+
+    btn.innerHTML = '<span class="pg-spin"></span> Creating account…';
+    btn.disabled  = true;
+
+    var fullName = (fname + ' ' + lname).trim();
+    var result   = await client.auth.signUp({
+      email,
+      password,
+      options: { data: { full_name: fullName, phone: phone || null, company: company || null } },
+    });
+
+    if (result.error) {
+      errEl.textContent = result.error.message;
+      errEl.classList.add('show');
+      btn.innerHTML = 'Create account';
+      btn.disabled  = false;
+    } else {
+      okEl.classList.add('show');
+      document.getElementById('reg-form').style.display = 'none';
+    }
+  });
+});
+</script>
+</body>
+</html>
